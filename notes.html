@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>دفترچه یادداشت من</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f6f4ef;--card:#fff;--tx:#1d2b2a;--mu:#6b7a78;--pr:#0f766e;--pr2:#e3f3f1;--bd:#e2ded4;--rd:#c2410c;--gd:#b45309}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141a19;--card:#1e2726;--tx:#e8efed;--mu:#97a8a5;--pr:#2dd4bf;--pr2:#1b3532;--bd:#2f3d3b;--rd:#fb923c;--gd:#fbbf24}}
+:root[data-theme="dark"]{--bg:#141a19;--card:#1e2726;--tx:#e8efed;--mu:#97a8a5;--pr:#2dd4bf;--pr2:#1b3532;--bd:#2f3d3b;--rd:#fb923c;--gd:#fbbf24}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:Vazirmatn,Tahoma,"Segoe UI",sans-serif;font-size:15px;line-height:1.7}
+#app{max-width:680px;margin:auto;padding:12px 12px 90px}
+h1{font-size:19px;margin:6px 0}h2{font-size:16px;margin:14px 0 6px}
+.top{display:flex;justify-content:space-between;align-items:center}
+.sub{color:var(--mu);font-size:13px}
+.tabs{display:flex;gap:6px;margin:10px 0;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding:6px 0;z-index:5}
+.tabs button{flex:1;padding:9px 4px;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:10px;font:inherit;font-size:14px}
+.tabs button.on{background:var(--pr);color:#fff;border-color:var(--pr)}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:10px 12px;margin:8px 0}
+.row{display:flex;gap:8px;align-items:flex-start}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:4px 0}
+.chip{white-space:nowrap;padding:5px 11px;border-radius:99px;border:1px solid var(--bd);background:var(--card);color:var(--tx);font:inherit;font-size:13px}
+.chip.on{background:var(--pr2);border-color:var(--pr);color:var(--pr)}
+input,select,textarea{width:100%;padding:9px;margin:4px 0;border:1px solid var(--bd);border-radius:9px;background:var(--bg);color:var(--tx);font:inherit}
+textarea{min-height:70px}
+.d3{display:grid;grid-template-columns:1.2fr 1.6fr 1fr;gap:6px}
+.btn{padding:10px 14px;border:0;border-radius:10px;background:var(--pr);color:#fff;font:inherit;cursor:pointer}
+.btn.g{background:var(--pr2);color:var(--pr)}.btn.s{padding:4px 9px;font-size:12px}
+.tag{font-size:11px;padding:1px 8px;border-radius:99px;background:var(--pr2);color:var(--pr)}
+.late{color:var(--rd)}.done .t{text-decoration:line-through;opacity:.55}
+.fab{position:fixed;bottom:calc(18px + env(safe-area-inset-bottom,0px));left:18px;width:56px;height:56px;border-radius:50%;font-size:28px;border:0;background:var(--pr);color:#fff;box-shadow:0 4px 14px #0004;z-index:9}
+#toast{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:10px;left:10px;max-width:640px;margin:auto;z-index:30}
+.tt{background:var(--gd);color:#fff;padding:10px 14px;border-radius:12px;margin-bottom:6px;display:flex;justify-content:space-between;gap:8px}
+#pa{display:none;position:fixed;inset:0;background:#fff;color:#111;z-index:50;overflow:auto;padding:16px}
+#pa.show{display:block}.pbar{display:flex;gap:8px;margin-bottom:12px}
+.rep{max-width:760px;margin:auto;font-size:14px}
+.rep h1{text-align:center;color:#0f766e;border-bottom:3px double #0f766e;padding-bottom:8px;font-size:21px}
+.rep table{width:100%;border-collapse:collapse;margin:8px 0}.rep th,.rep td{border:1px solid #999;padding:5px 7px;text-align:right;vertical-align:top;font-size:13px}
+.rep th{background:#e3f3f1}.stat{display:flex;gap:8px;margin:10px 0}.stat div{flex:1;border:1px solid #0f766e;border-radius:8px;padding:6px;text-align:center}
+.tiles{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.sig{display:flex;justify-content:space-between;margin-top:40px}
+@media print{#app,#toast,.pbar,.fab{display:none!important}#pa{position:static;padding:0;display:block!important}body{background:#fff}}
+</style>
+</head>
+<body>
+<div id="toast"></div>
+<div id="app"></div>
+<div id="pa"></div>
+<script>
+const CATS=['یادداشت روزانه','خرید','قول و قرار','قسط و بدهی','قرارداد','امور شغلی','نکته ضروری'];
+const MN=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+const REM=[['بدون یادآوری',-1],['در همان زمان',0],['۱۰ دقیقه قبل',10],['۱ ساعت قبل',60],['۱ روز قبل',1440],['۲ روز قبل',2880],['۳ روز قبل',4320]];
+const div=(a,b)=>~~(a/b);
+function g2j(gy,gm,gd){const m=[0,31,59,90,120,151,181,212,243,273,304,334];const g2=gm>2?gy+1:gy;let d=355666+365*gy+div(g2+3,4)-div(g2+99,100)+div(g2+399,400)+gd+m[gm-1];let jy=-1595+33*div(d,12053);d%=12053;jy+=4*div(d,1461);d%=1461;if(d>365){jy+=div(d-1,365);d=(d-1)%365}let jm,jd;if(d<186){jm=1+div(d,31);jd=1+d%31}else{jm=7+div(d-186,30);jd=1+(d-186)%30}return[jy,jm,jd]}
+function j2g(jy,jm,jd){jy+=1595;let d=-355668+365*jy+div(jy,33)*8+div(jy%33+3,4)+jd+(jm<7?(jm-1)*31:(jm-7)*30+186);let gy=400*div(d,146097);d%=146097;if(d>36524){gy+=100*div(--d,36524);d%=36524;if(d>=365)d++}gy+=4*div(d,1461);d%=1461;if(d>365){gy+=div(d-1,365);d=(d-1)%365}let gd=d+1;const s=[0,31,(gy%4==0&&gy%100!=0)||gy%400==0?29:28,31,30,31,30,31,31,30,31,30,31];let gm;for(gm=0;gm<13&&gd>s[gm];gm++)gd-=s[gm];return[gy,gm,gd]}
+const fa=s=>String(s).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const today=()=>iso(new Date());
+function jd(i){if(!i)return'';const[y,m,d]=i.split('-').map(Number);const j=g2j(y,m,d);return fa(j[2])+' '+MN[j[1]-1]+' '+fa(j[0])}
+function jparts(i){const[y,m,d]=(i||today()).split('-').map(Number);return g2j(y,m,d)}
+function dfield(id,i){const j=jparts(i),y0=g2j(...today().split('-').map(Number))[0];let o='';for(let y=y0-2;y<=y0+6;y++)o+=`<option value="${y}" ${y==j[0]?'selected':''}>${fa(y)}</option>`;let m=MN.map((n,k)=>`<option value="${k+1}" ${k+1==j[1]?'selected':''}>${n}</option>`).join('');let d='';for(let k=1;k<=31;k++)d+=`<option value="${k}" ${k==j[2]?'selected':''}>${fa(k)}</option>`;return`<div class="d3"><select id="${id}d">${d}</select><select id="${id}m">${m}</select><select id="${id}y">${o}</select></div>`}
+function gdate(id){const y=+document.getElementById(id+'y').value,m=+document.getElementById(id+'m').value,d=+document.getElementById(id+'d').value;const g=j2g(y,m,d);return g[0]+'-'+String(g[1]).padStart(2,'0')+'-'+String(g[2]).padStart(2,'0')}
+let S={items:[],meet:[],acts:[],prof:{name:'',group:''}};
+try{const r=localStorage.getItem('yadd1');if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
+function save(){try{localStorage.setItem('yadd1',JSON.stringify(S))}catch(e){}}
+let tab='home',flt='همه',q='',frm=null,sub='meet',rm=g2j(...today().split('-').map(Number));
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+const when=(date,time)=>new Date(date+'T'+(time||'09:00')+':00').getTime();
+function render(){
+const t=today();const A=document.getElementById('app');
+const j=jparts(t),wd=new Intl.DateTimeFormat('fa-IR',{weekday:'long'}).format(new Date());
+let h=`<div class="top"><div><h1>📒 دفترچه یادداشت من</h1><div class="sub">${wd} ${jd(t)}</div></div><button class="chip" onclick="theme()">🌓</button></div>
+<div class="tabs">${[['home','امروز'],['list','همه'],['khadem','خادمیاری']].map(x=>`<button class="${tab==x[0]?'on':''}" onclick="tab='${x[0]}';frm=null;render()">${x[1]}</button>`).join('')}</div>`;
+if(frm)h+=formHTML();
+if(tab=='home'){
+h+=`<div class="card"><div class="row"><input id="qa" placeholder="نوشتن سریع..."><select id="qc" style="width:auto">${CATS.map(c=>`<option>${c}</option>`).join('')}</select></div><button class="btn s" onclick="quick()">+ افزودن</button></div><div class="tiles">${CATS.map(c=>`<button class="chip" onclick="flt='${c}';tab='list';render()">${ICO[c]} ${c} <b>${fa(S.items.filter(i=>i.cat==c&&!i.done).length)}</b></button>`).join('')}</div>`;
+const od=S.items.filter(i=>!i.done&&i.date<t),td=S.items.filter(i=>!i.done&&i.date==t),up=S.items.filter(i=>!i.done&&i.date>t&&i.date<=iso(new Date(Date.now()+7*864e5)));
+const mt=S.meet.filter(m=>!m.done&&m.deadline&&m.deadline<=iso(new Date(Date.now()+7*864e5)));
+h+=sec('⏰ عقب‌افتاده',od,true)+sec('📅 امروز',td)+sec('🔜 ۷ روز آینده',up)+(mt.length?`<h2>🕌 مصوبات خادمیاری نزدیک</h2>`+mt.map(m=>`<div class="card">${esc(m.title)} <span class="tag">مهلت: ${jd(m.deadline)}</span></div>`).join(''):'');
+if(!od.length&&!td.length&&!up.length)h+='<div class="card sub">فعلاً کاری ثبت نشده. با دکمه + اولین یادداشت را بنویس.</div>';
+}
+if(tab=='list'){
+h+=`<input placeholder="🔍 جستجو..." value="${esc(q)}" oninput="q=this.value;render2()" id="q"><div class="chips">${['همه',...CATS].map(c=>`<button class="chip ${flt==c?'on':''}" onclick="flt='${c}';render()">${c}</button>`).join('')}</div>
+<div class="row" style="gap:6px;margin:6px 0"><button class="btn s" onclick="pdfList(0)">📄 PDF همه</button><button class="btn s g" onclick="pdfList(1)">📄 PDF انجام‌نشده‌ها</button><button class="btn s g" onclick="backup()">💾 پشتیبان / بازیابی</button></div>${totalHTML()}<div id="lst">${listHTML()}</div>`}
+if(tab=='khadem')h+=khadem();
+h+=`<button class="fab" onclick="frm={};tab=tab=='khadem'?'khadem':tab;render();window.scrollTo(0,0)">+</button>`;
+A.innerHTML=h;if(frm&&tab=='khadem'){}}
+function render2(){document.getElementById('lst').innerHTML=listHTML()}
+function filt(){return S.items.filter(i=>(flt=='همه'||i.cat==flt)&&(!q||(i.title+i.text).includes(q))).sort((a,b)=>(a.date+(a.time||'')).localeCompare(b.date+(b.time||'')))}
+function listHTML(){const l=filt();return l.length?l.map(item).join(''):'<div class="card sub">موردی نیست.</div>'}
+function sec(t,l,late){return l.length?`<h2>${t}</h2>`+l.map(i=>item(i,late)).join(''):''}
+function item(i,late){return`<div class="card ${i.done?'done':''}"><div class="row"><input type="checkbox" style="width:22px;margin-top:6px" ${i.done?'checked':''} onchange="tog('${i.id}')"><div style="flex:1"><div class="t"><b>${esc(i.title)}</b></div>${i.text?`<div class="sub" style="white-space:pre-wrap">${esc(i.text)}</div>`:''}<div style="margin-top:3px"><span class="tag">${i.cat}</span> <span class="sub ${late?'late':''}">${jd(i.date)}${i.time?' • '+fa(i.time):''}</span>${i.amount?` <span class="sub">• ${fa(Number(i.amount).toLocaleString('en'))} تومان</span>`:''}${i.rem>=0?' 🔔':''}</div></div><button class="chip" onclick="del('items','${i.id}')">🗑</button></div></div>`}
+function formHTML0(){
+if(tab=='khadem')return sub=='meet'?`<div class="card"><b>ثبت مصوبه جلسه</b>تاریخ جلسه${dfield('f1',today())}<input id="ft" placeholder="عنوان جلسه (مثلاً جلسه ماهانه آذر)"><textarea id="fx" placeholder="مصوبات (هر مصوبه در یک خط)"></textarea>مهلت اجرا / تاریخ پیگیری${dfield('f2',today())}<select id="fr">${REM.map(r=>`<option value="${r[1]}" ${r[1]==1440?'selected':''}>${r[0]}</option>`).join('')}</select><div class="row"><button class="btn" onclick="saveMeet()">ذخیره</button><button class="btn g" onclick="frm=null;render()">انصراف</button></div></div>`:
+`<div class="card"><b>ثبت فعالیت</b>تاریخ${dfield('f1',today())}<input id="ft" placeholder="عنوان فعالیت (مثلاً پذیرایی از زائرین)"><input id="fp" placeholder="مکان"><div class="d3" style="grid-template-columns:1fr 1fr"><input id="fn" type="number" placeholder="تعداد شرکت‌کننده"><input id="fh" type="number" step="0.5" placeholder="مدت (ساعت)"></div><textarea id="fx" placeholder="شرح فعالیت"></textarea><div class="row"><button class="btn" onclick="saveAct()">ذخیره</button><button class="btn g" onclick="frm=null;render()">انصراف</button></div></div>`;
+return`<div class="card"><b>یادداشت جدید</b><select id="fc">${CATS.map(c=>`<option ${flt==c?'selected':''}>${c}</option>`).join('')}</select><input id="ft" placeholder="عنوان"><textarea id="fx" placeholder="توضیحات"></textarea>تاریخ${dfield('f1',today())}<input id="ftm" type="time"><input id="fa" type="number" placeholder="مبلغ (تومان) - اختیاری"><select id="fr">${REM.map(r=>`<option value="${r[1]}">${r[0]}</option>`).join('')}</select><div class="row"><button class="btn" onclick="saveItem()">ذخیره</button><button class="btn g" onclick="frm=null;render()">انصراف</button></div></div>`}
+function saveItem(){const t=v('ft').trim();if(!t)return;S.items.push({id:uid(),cat:v('fc'),title:t,text:v('fx'),date:gdate('f1'),time:v('ftm'),amount:v('fa'),rem:+v('fr'),done:0,n:0});save();frm=null;perm();render()}
+function saveMeet(){const t=v('ft').trim();if(!t)return;S.meet.push({id:uid(),date:gdate('f1'),title:t,text:v('fx'),deadline:gdate('f2'),rem:+v('fr'),done:0,n:0});save();frm=null;perm();render()}
+function saveAct(){const t=v('ft').trim();if(!t)return;S.acts.push({id:uid(),date:gdate('f1'),title:t,place:v('fp'),count:+v('fn')||0,hours:+v('fh')||0,text:v('fx')});save();frm=null;render()}
+const v=id=>document.getElementById(id).value;
+function tog(id){const i=S.items.find(x=>x.id==id);i.done=i.done?0:1;save();render()}
+function del(k,id){if(!confirm('حذف شود؟'))return;S[k]=S[k].filter(x=>x.id!=id);save();render()}
+function theme(){const r=document.documentElement;const d=r.dataset.theme=='dark'||(!r.dataset.theme&&matchMedia('(prefers-color-scheme:dark)').matches);r.dataset.theme=d?'light':'dark'}
+function khadem(){
+let h=`<div class="card"><b>🕌 خادمیاری امام رضا (ع)</b><input id="pn" placeholder="نام خادمیار" value="${esc(S.prof.name)}" onchange="S.prof.name=this.value;save()"><input id="pg" placeholder="نام کانون / گروه" value="${esc(S.prof.group)}" onchange="S.prof.group=this.value;save()"></div>
+<div class="tabs" style="position:static">${[['meet','مصوبات جلسه'],['act','فعالیت‌ها'],['rep','گزارش']].map(x=>`<button class="${sub==x[0]?'on':''}" onclick="sub='${x[0]}';frm=null;render()">${x[1]}</button>`).join('')}</div>`;
+if(sub=='meet')h+=S.meet.length?[...S.meet].sort((a,b)=>b.date.localeCompare(a.date)).map(m=>`<div class="card ${m.done?'done':''}"><div class="row"><input type="checkbox" style="width:22px;margin-top:6px" ${m.done?'checked':''} onchange="tm('${m.id}')"><div style="flex:1"><div class="t"><b>${esc(m.title)}</b></div><div class="sub">جلسه: ${jd(m.date)} • مهلت: ${jd(m.deadline)}</div><div style="white-space:pre-wrap">${esc(m.text)}</div></div><button class="chip" onclick="del('meet','${m.id}')">🗑</button></div></div>`).join(''):'<div class="card sub">مصوبه‌ای ثبت نشده. با + اضافه کن.</div>';
+if(sub=='act')h+=S.acts.length?[...S.acts].sort((a,b)=>b.date.localeCompare(a.date)).map(a=>`<div class="card"><div class="row"><div style="flex:1"><b>${esc(a.title)}</b><div class="sub">${jd(a.date)} • ${esc(a.place)} • ${fa(a.count)} نفر • ${fa(a.hours)} ساعت</div><div>${esc(a.text)}</div></div><div style="display:flex;flex-direction:column;gap:4px"><button class="chip" onclick="actRep('${a.id}')">📝</button><button class="chip" onclick="del('acts','${a.id}')">🗑</button></div></div></div>`).join(''):'<div class="card sub">فعالیتی ثبت نشده.</div>';
+if(sub=='rep'){const y0=g2j(...today().split('-').map(Number))[0];h+=`<div class="card"><b>گزارش ماهانه برای ثبت در سامانه</b><div class="d3" style="grid-template-columns:1fr 1fr"><select id="rmm">${MN.map((n,k)=>`<option value="${k+1}" ${k+1==rm[1]?'selected':''}>${n}</option>`).join('')}</select><select id="rmy">${[y0-1,y0,y0+1].map(y=>`<option value="${y}" ${y==rm[0]?'selected':''}>${fa(y)}</option>`).join('')}</select></div><textarea id="rn" placeholder="توضیحات تکمیلی / نتیجه‌گیری (اختیاری)"></textarea><button class="btn" onclick="report()">ساخت گزارش و PDF</button></div>`}
+return h}
+function tm(id){const m=S.meet.find(x=>x.id==id);m.done=m.done?0:1;save();render()}
+function show(html){const p=document.getElementById('pa');p.innerHTML=`<div class="pbar"><button class="btn" onclick="window.print()">🖨 چاپ / ذخیره PDF</button><button class="btn g" onclick="document.getElementById('pa').classList.remove('show')">بستن</button></div><div class="rep">${html}</div>`;p.classList.add('show')}
+function inM(d,y,m){const j=jparts(d);return j[0]==y&&j[1]==m}
+function report(){const m=+v('rmm'),y=+v('rmy');rm=[y,m,1];const A=S.acts.filter(a=>inM(a.date,y,m)).sort((a,b)=>a.date.localeCompare(b.date)),M=S.meet.filter(x=>inM(x.date,y,m));
+const ppl=A.reduce((s,a)=>s+a.count,0),hr=A.reduce((s,a)=>s+a.hours,0);
+show(`<h1>گزارش عملکرد ماهانه خادمیاری<br>${MN[m-1]} ${fa(y)}</h1><p><b>خادمیار:</b> ${esc(S.prof.name)||'................'} &nbsp;&nbsp; <b>کانون/گروه:</b> ${esc(S.prof.group)||'................'}</p>
+<div class="stat"><div><b>${fa(A.length)}</b><br>تعداد فعالیت</div><div><b>${fa(ppl)}</b><br>مجموع شرکت‌کنندگان</div><div><b>${fa(hr)}</b><br>مجموع ساعت</div></div>
+<h3>فعالیت‌های انجام‌شده</h3>${A.length?`<table><tr><th>#</th><th>تاریخ</th><th>عنوان</th><th>مکان</th><th>نفرات</th><th>ساعت</th><th>شرح</th></tr>${A.map((a,i)=>`<tr><td>${fa(i+1)}</td><td>${jd(a.date)}</td><td>${esc(a.title)}</td><td>${esc(a.place)}</td><td>${fa(a.count)}</td><td>${fa(a.hours)}</td><td>${esc(a.text)}</td></tr>`).join('')}</table>`:'<p>فعالیتی در این ماه ثبت نشده.</p>'}
+<h3>مصوبات جلسه ماهانه</h3>${M.length?M.map(x=>`<p><b>${esc(x.title)}</b> (${jd(x.date)}) — مهلت پیگیری: ${jd(x.deadline)} — ${x.done?'✅ انجام شد':'⏳ در حال پیگیری'}</p><div style="white-space:pre-wrap">${esc(x.text)}</div>`).join(''):'<p>مصوبه‌ای ثبت نشده.</p>'}
+${v('rn')?`<h3>توضیحات تکمیلی</h3><p style="white-space:pre-wrap">${esc(v('rn'))}</p>`:''}
+<div class="sig"><div>امضای خادمیار</div><div>تأیید مسئول کانون</div></div>`)}
+function pdfList(p){let l=filt();if(p)l=l.filter(i=>!i.done);show(`<h1>فهرست یادداشت‌ها و تعهدات${flt!='همه'?' — '+flt:''}</h1><p class="sub">تاریخ تهیه: ${jd(today())}</p>${l.length?`<table><tr><th>#</th><th>دسته</th><th>عنوان</th><th>تاریخ</th><th>مبلغ</th><th>وضعیت</th></tr>${l.map((i,k)=>`<tr><td>${fa(k+1)}</td><td>${i.cat}</td><td><b>${esc(i.title)}</b><br>${esc(i.text)}</td><td>${jd(i.date)}${i.time?'<br>'+fa(i.time):''}</td><td>${i.amount?fa(Number(i.amount).toLocaleString('en')):''}</td><td>${i.done?'✅ انجام شد':'⏳'}</td></tr>`).join('')}</table>`:'<p>موردی نیست.</p>'}`)}
+function perm(){try{if('Notification' in window&&Notification.permission=='default')Notification.requestPermission()}catch(e){}}
+function alertMsg(msg){const t=document.getElementById('toast'),d=document.createElement('div');d.className='tt';d.innerHTML=`<span>🔔 ${esc(msg)}</span><button class="chip" onclick="this.parentNode.remove()">✓</button>`;t.appendChild(d);try{navigator.vibrate&&navigator.vibrate([200,100,200]);if('Notification' in window&&Notification.permission=='granted')new Notification('یادآوری',{body:msg})}catch(e){}}
+function check(){const n=Date.now();let ch=0;const go=(x,tm,txt)=>{if(x.done||x.rem<0||x.n)return;if(n>=tm-x.rem*60000){x.n=1;ch=1;alertMsg(txt)}};
+S.items.forEach(i=>go(i,when(i.date,i.time),i.title+' — '+jd(i.date)));S.meet.forEach(m=>go(m,when(m.deadline,'09:00'),'مصوبه: '+m.title+' — مهلت '+jd(m.deadline)));if(ch)save()}
+const ICO={'یادداشت روزانه':'📝','خرید':'🛒','قول و قرار':'🤝','قسط و بدهی':'💳','قرارداد':'📑','امور شغلی':'💼','نکته ضروری':'❗'};
+function pc(b,c){document.getElementById('fc').value=c;b.parentNode.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));b.classList.add('on')}
+function formHTML(){if(tab!='khadem')return itemForm();if(sub=='act')return actForm();return formHTML0()}
+function itemForm(){const e=frm||{},c=e.cat||(flt!='همه'?flt:CATS[0]);return`<div class="card"><b>${e.id?'ویرایش':'یادداشت جدید'}</b><input type="hidden" id="fc" value="${c}"><div class="chips" style="flex-wrap:wrap">${CATS.map(k=>`<button class="chip ${k==c?'on':''}" onclick="pc(this,'${k}')">${ICO[k]} ${k}</button>`).join('')}</div><input id="ft" placeholder="عنوان" value="${esc(e.title)}"><textarea id="fx" placeholder="توضیحات">${esc(e.text)}</textarea>تاریخ${dfield('f1',e.date||today())}<input id="ftm" type="time" value="${e.time||''}"><input id="fa" type="number" placeholder="مبلغ (تومان) - اختیاری" value="${e.amount||''}"><select id="fr">${REM.map(r=>`<option value="${r[1]}" ${r[1]==(e.rem??-1)?'selected':''}>🔔 ${r[0]}</option>`).join('')}</select><select id="fp">${[['بدون تکرار',''],['هر روز','d'],['هر هفته','w'],['هر ماه (قسط)','m']].map(r=>`<option value="${r[1]}" ${r[1]==(e.rp||'')?'selected':''}>🔁 ${r[0]}</option>`).join('')}</select><div class="row"><button class="btn" onclick="saveItem()">ذخیره</button><button class="btn g" onclick="frm=null;render()">انصراف</button></div></div>`}
+function saveItem(){const t=v('ft').trim();if(!t){alertMsg('عنوان را بنویس');return}const o={cat:v('fc'),title:t,text:v('fx'),date:gdate('f1'),time:v('ftm'),amount:v('fa'),rem:+v('fr'),rp:v('fp'),n:0,sn:0};if(frm&&frm.id)Object.assign(S.items.find(x=>x.id==frm.id),o);else S.items.push({id:uid(),done:0,star:0,...o});save();frm=null;perm();render()}
+function quick(){const t=v('qa').trim();if(!t)return;S.items.push({id:uid(),cat:v('qc'),title:t,text:'',date:today(),time:'',amount:'',rem:-1,rp:'',done:0,star:0,n:0,sn:0});save();render()}
+function edit(id){frm=S.items.find(x=>x.id==id);render();window.scrollTo(0,0)}
+function star(id){const i=S.items.find(x=>x.id==id);i.star=i.star?0:1;save();render()}
+function filt(){return S.items.filter(i=>(flt=='همه'||i.cat==flt)&&(!q||(i.title+i.text).includes(q))).sort((a,b)=>(b.star||0)-(a.star||0)||(a.date+(a.time||'')).localeCompare(b.date+(b.time||'')))}
+function item(i,late){return`<div class="card ${i.done?'done':''}"><div class="row"><input type="checkbox" style="width:22px;margin-top:6px" ${i.done?'checked':''} onchange="tog('${i.id}')"><div style="flex:1"><div class="t"><b>${i.star?'⭐ ':''}${esc(i.title)}</b></div>${i.text?`<div class="sub" style="white-space:pre-wrap">${esc(i.text)}</div>`:''}<div style="margin-top:3px"><span class="tag">${ICO[i.cat]||''} ${i.cat}</span> <span class="sub ${late?'late':''}">${jd(i.date)}${i.time?' • '+fa(i.time):''}</span>${i.amount?` <span class="sub">• ${fa(Number(i.amount).toLocaleString('en'))} تومان</span>`:''}${i.rem>=0?' 🔔':''}${i.rp?' 🔁':''}</div></div><div style="display:flex;flex-direction:column;gap:4px"><button class="chip" onclick="star('${i.id}')">${i.star?'⭐':'☆'}</button><button class="chip" onclick="edit('${i.id}')">✏️</button><button class="chip" onclick="del('items','${i.id}')">🗑</button></div></div></div>`}
+function nextD(d,rp){if(rp=='m'){const[y,m,dd]=d.split('-').map(Number);const j=g2j(y,m,dd);j[1]++;if(j[1]>12){j[1]=1;j[0]++}j[2]=Math.min(j[2],j[1]<=6?31:j[1]<12?30:29);const g=j2g(...j);return g[0]+'-'+String(g[1]).padStart(2,'0')+'-'+String(g[2]).padStart(2,'0')}return iso(new Date(new Date(d+'T12:00:00').getTime()+(rp=='w'?7:1)*864e5))}
+function tog(id){const i=S.items.find(x=>x.id==id);i.done=i.done?0:1;if(i.done&&i.rp&&!i.spawned){i.spawned=1;const nd=nextD(i.date,i.rp);S.items.push({...i,id:uid(),date:nd,done:0,n:0,sn:0,spawned:0});alertMsg('مورد بعدی ثبت شد: '+jd(nd))}save();render()}
+function totalHTML(){const s=filt().filter(i=>!i.done&&i.amount).reduce((a,i)=>a+Number(i.amount),0);return s?`<div class="card">💰 جمع مبالغ انجام‌نشده: <b>${fa(s.toLocaleString('en'))} تومان</b></div>`:''}
+function backup(){show(`<h1>پشتیبان‌گیری</h1><p>متن زیر را کپی کن و جای امنی نگه دار (مثلاً یادداشت گوشی).</p><textarea id="bk" style="height:140px;direction:ltr">${esc(JSON.stringify(S))}</textarea><p><button class="btn" onclick="var t=document.getElementById('bk');t.select();document.execCommand('copy')">کپی</button></p><h3>بازیابی</h3><p>متن پشتیبان را در کادر بالا جایگزین کن و بزن:</p><button class="btn g" onclick="restore()">بازیابی از کادر</button>`)}
+function restore(){try{const o=JSON.parse(document.getElementById('bk').value);if(!o.items)throw 0;S=Object.assign({items:[],meet:[],acts:[],prof:{}},o);save();document.getElementById('pa').classList.remove('show');render();alertMsg('بازیابی شد')}catch(e){alertMsg('متن پشتیبان معتبر نیست')}}
+function snz(k,id){const x=S[k].find(y=>y.id==id);x.sn=Date.now()+36e5;x.n=0;save()}
+function alertMsg(msg,k,id){const t=document.getElementById('toast'),d=document.createElement('div');d.className='tt';d.innerHTML=`<span>🔔 ${esc(msg)}</span><span>${id?`<button class="chip" onclick="snz('${k}','${id}');this.parentNode.parentNode.remove()">⏰ ۱ ساعت بعد</button> `:''}<button class="chip" onclick="this.parentNode.parentNode.remove()">✓</button></span>`;t.appendChild(d);try{if(id){navigator.vibrate&&navigator.vibrate([200,100,200]);if('Notification' in window&&Notification.permission=='granted')new Notification('یادآوری',{body:msg})}}catch(e){}}
+function check(){const n=Date.now();let ch=0;const go=(k,x,tm,txt)=>{if(x.done||x.rem<0)return;const tr=x.sn||(tm-x.rem*60000);if(!x.n&&n>=tr){x.n=1;x.sn=0;ch=1;alertMsg(txt,k,x.id)}};S.items.forEach(i=>go('items',i,when(i.date,i.time),i.title+' — '+jd(i.date)));S.meet.forEach(m=>go('meet',m,when(m.deadline,'09:00'),'مصوبه: '+m.title+' — مهلت '+jd(m.deadline)));if(ch)save()}
+function actForm(){return`<div class="card"><b>ثبت فعالیت</b>تاریخ${dfield('f1',today())}<input id="ft" placeholder="نام برنامه (مثلاً راهپیمایی روز دانش‌آموز)"><input id="fp" placeholder="محل / شهر (مثلاً شهرستان آران و بیدگل)"><div class="d3" style="grid-template-columns:1fr 1fr"><input id="ff" placeholder="مسیر: از ..."><input id="fo" placeholder="تا ..."></div><div class="d3" style="grid-template-columns:1fr 1fr"><input id="fh" type="number" step="0.5" placeholder="مدت (ساعت)"><input id="fn" type="number" placeholder="تعداد شرکت‌کننده"></div><input id="fs" placeholder="سخنران / مداح (اختیاری)"><textarea id="fx" placeholder="توضیح اضافه (اختیاری)"></textarea><div class="row"><button class="btn" onclick="saveAct()">ذخیره</button><button class="btn g" onclick="frm=null;render()">انصراف</button></div></div>`}
+function saveAct(){const t=v('ft').trim();if(!t){alertMsg('نام برنامه را بنویس');return}S.acts.push({id:uid(),date:gdate('f1'),title:t,place:v('fp'),from:v('ff'),to:v('fo'),hours:+v('fh')||0,count:+v('fn')||0,speaker:v('fs'),text:v('fx')});save();frm=null;render()}
+function actText(a,nb){return(nb?'':'به نام خدا\n')+`با استعانت از خداوند متعال و علی بن موسی الرضا (ع) در تاریخ ${jd(a.date)} در ${a.title}${a.place?' '+a.place:''}${S.prof.group?' با هماهنگی کانون '+S.prof.group:''} شرکت نمودم.${a.from&&a.to?` این برنامه از ${a.from} تا ${a.to} بود.`:''}${a.hours?` ${fa(a.hours)} ساعت زمان برد.`:''}${a.speaker?` از سخنان ${a.speaker} بهره بردیم.`:''}${a.text?' '+a.text:''}`}
+function actRep(id){const a=S.acts.find(x=>x.id==id);show(`<h1>متن گزارش فعالیت</h1><textarea id="rt" style="height:220px;line-height:2">${esc(actText(a))}</textarea><p><button class="btn" onclick="var t=document.getElementById('rt');t.select();document.execCommand('copy')">📋 کپی متن</button></p><p class="sub">متن را می‌توانی ویرایش و کپی کنی تا در سامانه بچسبانی.</p>`)}
+function report(){const m=+v('rmm'),y=+v('rmy');rm=[y,m,1];const A=S.acts.filter(a=>inM(a.date,y,m)).sort((a,b)=>a.date.localeCompare(b.date)),M=S.meet.filter(x=>inM(x.date,y,m));const ppl=A.reduce((s,a)=>s+a.count,0),hr=A.reduce((s,a)=>s+a.hours,0);show(`<h1>گزارش عملکرد ماهانه خادمیاری<br>${MN[m-1]} ${fa(y)}</h1><p><b>خادمیار:</b> ${esc(S.prof.name)||'................'} &nbsp;&nbsp; <b>کانون/گروه:</b> ${esc(S.prof.group)||'................'}</p><div class="stat"><div><b>${fa(A.length)}</b><br>تعداد فعالیت</div><div><b>${fa(ppl)}</b><br>مجموع شرکت‌کنندگان</div><div><b>${fa(hr)}</b><br>مجموع ساعت</div></div><p><b>به نام خدا</b></p>${A.length?`<table><tr><th>#</th><th>تاریخ</th><th>برنامه</th><th>ساعت</th></tr>${A.map((a,i)=>`<tr><td>${fa(i+1)}</td><td>${jd(a.date)}</td><td>${esc(a.title)}</td><td>${fa(a.hours)}</td></tr>`).join('')}</table><h3>شرح فعالیت‌ها</h3>${A.map((a,i)=>`<p><b>${fa(i+1)}.</b> ${esc(actText(a,1))}</p>`).join('')}`:'<p>فعالیتی در این ماه ثبت نشده.</p>'}<h3>مصوبات جلسه ماهانه</h3>${M.length?M.map(x=>`<p><b>${esc(x.title)}</b> (${jd(x.date)}) — مهلت پیگیری: ${jd(x.deadline)} — ${x.done?'✅ انجام شد':'⏳ در حال پیگیری'}</p><div style="white-space:pre-wrap">${esc(x.text)}</div>`).join(''):'<p>مصوبه‌ای ثبت نشده.</p>'}${v('rn')?`<h3>توضیحات تکمیلی</h3><p style="white-space:pre-wrap">${esc(v('rn'))}</p>`:''}<div class="sig"><div>امضای خادمیار</div><div>تأیید مسئول کانون</div></div>`)}
+render();check();setInterval(check,30000);
+</script>
+</body>
+</html>

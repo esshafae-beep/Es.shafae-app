@@ -1,0 +1,2739 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>سامانه کارنامه</title>
+  <style>
+    :root {
+      --primary: #1e3a5f;
+      --primary-light: #2c5282;
+      --accent: #c53030;
+      --bg: #f7fafc;
+      --card: #ffffff;
+      --border: #e2e8f0;
+      --text: #1a202c;
+      --muted: #718096;
+      --success: #276749;
+      --warning: #c05621;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Tahoma", "Segoe UI", "Vazirmatn", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .app-header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: white;
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .app-header h1 { font-size: 1.25rem; font-weight: 700; }
+    .header-actions { display: flex; gap: 0.5rem; align-items: center; }
+    .role-badge {
+      background: rgba(255,255,255,0.2);
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+    }
+
+    .layout { display: flex; min-height: calc(100vh - 56px); }
+    .sidebar {
+      width: 240px;
+      background: var(--card);
+      border-left: 1px solid var(--border);
+      padding: 1rem 0;
+      flex-shrink: 0;
+    }
+    .sidebar nav { display: flex; flex-direction: column; gap: 2px; }
+
+    .nav-item {
+      display: flex; align-items: center; gap: 0.6rem;
+      padding: 0.7rem 1.25rem;
+      color: var(--text); text-decoration: none;
+      font-size: 0.95rem; cursor: pointer;
+      border: none; background: none; width: 100%; text-align: right;
+      transition: background 0.15s;
+    }
+    .nav-item:hover { background: #edf2f7; }
+    .nav-item.active {
+      background: #ebf4ff; color: var(--primary);
+      font-weight: 600; border-right: 3px solid var(--primary);
+    }
+
+    .main { flex: 1; padding: 1.5rem; overflow-x: auto; }
+    .page { display: none; }
+    .page.active { display: block; }
+
+    .card {
+      background: var(--card);
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .card h2 {
+      font-size: 1.15rem; margin-bottom: 1rem;
+      color: var(--primary); display: flex; align-items: center; gap: 0.5rem;
+    }
+    .card h3 { font-size: 1rem; margin-bottom: 0.75rem; color: var(--text); }
+
+    .form-row { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem; }
+    .form-group { flex: 1; min-width: 180px; }
+    .form-group label {
+      display: block; font-size: 0.85rem; color: var(--muted); margin-bottom: 0.3rem;
+    }
+
+    input[type="text"], input[type="number"], input[type="password"],
+    select, textarea {
+      width: 100%;
+      padding: 0.55rem 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      background: white;
+      transition: border-color 0.15s;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(30,58,95,0.12);
+    }
+    textarea { min-height: 140px; resize: vertical; font-family: inherit; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.55rem 1.1rem;
+      border: none; border-radius: 6px;
+      font-size: 0.9rem; font-family: inherit;
+      cursor: pointer; transition: all 0.15s; font-weight: 500;
+    }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-light); }
+    .btn-success { background: var(--success); color: white; }
+    .btn-success:hover { background: #22543d; }
+    .btn-danger { background: var(--accent); color: white; }
+    .btn-danger:hover { background: #9b2c2c; }
+    .btn-outline { background: white; border: 1px solid var(--border); color: var(--text); }
+    .btn-outline:hover { background: #f7fafc; }
+    .btn-sm { padding: 0.3rem 0.7rem; font-size: 0.8rem; }
+    .btn-group { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+    .table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    th, td { padding: 0.65rem 0.85rem; text-align: right; border-bottom: 1px solid var(--border); }
+    th { background: #f7fafc; font-weight: 600; color: var(--primary); white-space: nowrap; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #f8fafc; }
+
+    .grade-input { width: 75px; text-align: center; padding: 0.4rem; font-size: 1rem; }
+
+    .alert {
+      padding: 0.75rem 1rem; border-radius: 6px;
+      margin-bottom: 1rem; font-size: 0.9rem;
+    }
+    .alert-info { background: #ebf8ff; color: #2b6cb0; border: 1px solid #bee3f8; }
+    .alert-success { background: #f0fff4; color: #276749; border: 1px solid #c6f6d5; }
+    .alert-warning { background: #fffaf0; color: #c05621; border: 1px solid #feebc8; }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem; margin-bottom: 1.5rem;
+    }
+    .stat-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1rem; text-align: center;
+    }
+    .stat-card .num { font-size: 1.75rem; font-weight: 700; color: var(--primary); }
+    .stat-card .label { font-size: 0.85rem; color: var(--muted); }
+
+    .login-screen {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 50%, #2b6cb0 100%);
+      padding: 1rem;
+    }
+    .login-box {
+      background: white; border-radius: 16px; padding: 2rem;
+      width: 100%; max-width: 400px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    }
+    .login-box h1 { text-align: center; color: var(--primary); font-size: 1.4rem; margin-bottom: 0.3rem; }
+    .login-box .subtitle { text-align: center; color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+
+    .role-select { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.25rem; }
+    .role-option {
+      border: 2px solid var(--border); border-radius: 10px;
+      padding: 1rem; text-align: center; cursor: pointer; transition: all 0.15s;
+    }
+    .role-option:hover { border-color: var(--primary); }
+    .role-option.selected { border-color: var(--primary); background: #ebf4ff; }
+    .role-option .icon { font-size: 1.8rem; margin-bottom: 0.3rem; }
+
+    /* Print - A5 */
+    @media print {
+      body * { visibility: hidden; }
+      #print-area, #print-area * { visibility: visible; }
+      #print-area {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-content: flex-start;
+        gap: 0;
+        padding: 0;
+        margin: 0;
+      }
+      .no-print { display: none !important; }
+      @page {
+        size: A4 portrait;
+        margin: 6mm;
+      }
+      .report-card {
+        width: 48%;
+        height: 138mm;
+        min-height: 138mm;
+        max-height: 138mm;
+        margin: 0 0 4mm 0;
+        page-break-inside: avoid;
+        overflow: hidden;
+        box-sizing: border-box;
+      }
+      /* every 2 cards start a new page feel */
+      .report-card:nth-child(2n) {
+        page-break-after: always;
+      }
+      .report-card:last-child {
+        page-break-after: auto;
+      }
+      .rc-logo { width: 14mm !important; height: 14mm !important; top: 2mm !important; left: 2mm !important; }
+      .rc-rank { width: 11mm !important; height: 11mm !important; top: 17mm !important; left: 3mm !important; font-size: 5.5pt !important; }
+      .rc-rank .num { font-size: 8pt !important; }
+      .rc-header { min-height: 12mm !important; padding-left: 18mm !important; padding-bottom: 1.5mm !important; margin-bottom: 1.5mm !important; }
+      .rc-header .school-name { font-size: 10pt !important; }
+      .rc-header .doc-title { font-size: 9pt !important; margin-top: 0.5mm !important; }
+      .rc-header .year { font-size: 7.5pt !important; }
+      .rc-info { font-size: 7.5pt !important; gap: 1mm 2mm !important; margin-bottom: 1.5mm !important; }
+      .rc-table { font-size: 7pt !important; margin-bottom: 1.5mm !important; }
+      .rc-table th, .rc-table td { padding: 0.8mm 1mm !important; }
+      .rc-summary { font-size: 7.5pt !important; gap: 1.5mm !important; margin-bottom: 1.5mm !important; }
+      .rc-summary .box { padding: 1mm !important; }
+      .rc-summary .box .val { font-size: 9pt !important; margin-top: 0.3mm !important; }
+      .rc-legend { font-size: 5.5pt !important; margin-top: 1mm !important; padding-top: 0.8mm !important; }
+      .rc-footer { margin-top: 1.5mm !important; font-size: 7pt !important; }
+      .rc-footer .sign { min-height: 10mm !important; padding: 1mm !important; }
+    }
+
+    .report-card {
+      width: 148mm;
+      min-height: 210mm;
+      background: white;
+      border: 2px solid #1e3a5f;
+      padding: 5mm;
+      font-family: "Tahoma", "B Nazanin", "Nazanin", sans-serif;
+      font-size: 9.5pt;
+      color: #000;
+      position: relative;
+      margin: 0 auto 15mm auto;
+      box-sizing: border-box;
+    }
+
+
+    .rc-logo {
+      position: absolute;
+      top: 4mm;
+      left: 4mm;
+      width: 20mm;
+      height: 20mm;
+      object-fit: contain;
+      z-index: 1;
+    }
+    .rc-rank {
+      position: absolute;
+      top: 26mm;
+      left: 5mm;
+      border: 2px solid #c53030;
+      border-radius: 50%;
+      width: 15mm;
+      height: 15mm;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #fff5f5;
+      font-size: 7pt;
+      z-index: 2;
+    }
+    .rc-rank .num { font-size: 10pt; font-weight: bold; color: #c53030; }
+
+    .rc-header {
+      text-align: center;
+      border-bottom: 2px solid #1e3a5f;
+      padding-bottom: 3mm;
+      margin-bottom: 3mm;
+      padding-left: 26mm;
+      min-height: 18mm;
+    }
+    .rc-header .school-name { font-size: 13pt; font-weight: bold; color: #1e3a5f; }
+    .rc-header .doc-title { font-size: 11pt; font-weight: bold; margin-top: 1.5mm; }
+    .rc-header .year { font-size: 9pt; color: #444; margin-top: 1mm; }
+
+    .rc-info {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 2mm 4mm; margin-bottom: 4mm; font-size: 9.5pt;
+    }
+    .rc-info .item { display: flex; gap: 2mm; }
+    .rc-info .label { font-weight: bold; white-space: nowrap; }
+
+    .rc-table { width: 100%; border-collapse: collapse; margin-bottom: 4mm; font-size: 9pt; }
+    .rc-table th, .rc-table td { border: 1px solid #333; padding: 2mm 1.5mm; text-align: center; }
+    .rc-table th { background: #e8eef5; font-weight: bold; }
+    .rc-table td.subject { text-align: right; padding-right: 3mm; }
+
+    .rc-summary {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 3mm; margin-bottom: 4mm; font-size: 9.5pt;
+    }
+    .rc-summary .box { border: 1px solid #333; padding: 2mm; text-align: center; }
+    .rc-summary .box .val { font-weight: bold; font-size: 11pt; margin-top: 1mm; }
+
+    .rc-footer { display: flex; justify-content: space-between; margin-top: 5mm; font-size: 9pt; gap: 4mm; }
+    .rc-footer .sign {
+      text-align: center;
+      width: 48%;
+      border: 1px solid #333;
+      padding: 2mm;
+      min-height: 18mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .rc-footer .sign .line { border-top: none; margin-top: 0; padding-top: 0; font-size: 8.5pt; }
+    .rc-legend {
+      font-size: 6.5pt;
+      color: #444;
+      text-align: center;
+      border-top: 1px dashed #999;
+      padding-top: 1.5mm;
+      margin-top: 2mm;
+      line-height: 1.5;
+    }
+
+    .preview-toolbar {
+      position: sticky; top: 56px; background: #edf2f7;
+      padding: 0.75rem 1rem; border-bottom: 1px solid var(--border);
+      display: flex; gap: 0.75rem; align-items: center; z-index: 50; flex-wrap: wrap;
+    }
+    .preview-area {
+      background: #e2e8f0; padding: 20px;
+      display: flex; flex-direction: column; align-items: center; gap: 20px;
+    }
+
+    .empty-state { text-align: center; padding: 3rem 1rem; color: var(--muted); }
+    .empty-state .icon { font-size: 3rem; margin-bottom: 0.75rem; }
+
+    .badge {
+      display: inline-block; padding: 0.15rem 0.5rem;
+      border-radius: 999px; font-size: 0.75rem; font-weight: 600;
+    }
+    .badge-blue { background: #ebf4ff; color: #2b6cb0; }
+    .badge-green { background: #f0fff4; color: #276749; }
+
+    .hidden { display: none !important; }
+
+    .mobile-nav {
+      display: none; background: white; border-bottom: 1px solid var(--border);
+      overflow-x: auto; padding: 0.5rem; gap: 0.3rem;
+    }
+    .mobile-nav .nav-item {
+      white-space: nowrap; padding: 0.5rem 0.85rem;
+      border-radius: 6px; font-size: 0.85rem;
+    }
+    .mobile-nav .nav-item.active { background: #ebf4ff; border-right: none; }
+
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .layout { flex-direction: column; }
+      .mobile-nav { display: flex !important; }
+    }
+
+    /* Import help box */
+    .import-help {
+      background: #f0f7ff;
+      border: 1px dashed #90cdf4;
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.88rem;
+      line-height: 1.7;
+    }
+    .import-help code {
+      background: #e2e8f0;
+      padding: 0.1rem 0.35rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+    }
+    .import-help strong { color: var(--primary); }
+
+    /* Nice select for subjects */
+    .subject-chips {
+      display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem;
+    }
+    .subject-chip {
+      padding: 0.4rem 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      background: white;
+      transition: all 0.15s;
+    }
+    .subject-chip:hover { border-color: var(--primary); background: #ebf4ff; }
+    .subject-chip.active {
+      background: var(--primary); color: white; border-color: var(--primary);
+    }
+  </style>
+<style>
+/* منوی ستونی، پررنگ، سمت راست */
+.sidebar{width:210px}
+.nav-item{font-size:1.05rem !important;font-weight:700 !important;padding:0.9rem 1.25rem !important;border-bottom:1px solid #edf2f7;color:#1e3a5f}
+.nav-item.active{background:#1e3a5f !important;color:#fff !important;border-right:5px solid #ed8936 !important}
+@media (max-width:768px){
+  .layout{flex-direction:row !important;align-items:flex-start}
+  .sidebar{display:block !important;width:92px;padding:0;position:sticky;top:56px;max-height:calc(100vh - 56px);overflow-y:auto}
+  .mobile-nav{display:none !important}
+  .nav-item{flex-direction:column;gap:0.15rem;justify-content:center;text-align:center !important;padding:0.75rem 0.2rem !important;font-size:0.78rem !important;line-height:1.35}
+  .main{padding:0.6rem !important;min-width:0}
+}
+/* دکمه‌های ثبت نمره */
+.grade-actions{display:flex;gap:0.6rem;flex-wrap:wrap;margin-top:1rem}
+.grade-actions .btn{font-size:0.95rem;font-weight:700;padding:0.7rem 1.1rem;flex:1 1 150px;justify-content:center}
+.btn-warn{background:#ed8936;color:#fff}.btn-warn:hover{background:#dd6b20}
+.final-badge{background:#f0fff4;border:1px solid #9ae6b4;color:#22543d;padding:0.6rem 0.9rem;border-radius:8px;margin-bottom:0.75rem;font-weight:600}
+#toast{position:fixed;left:50%;bottom:48px;transform:translateX(-50%);max-width:92vw;padding:0.8rem 1.2rem;border-radius:10px;color:#fff;font-weight:700;font-size:0.95rem;z-index:10000;box-shadow:0 6px 20px rgba(0,0,0,.25);display:none;text-align:center}
+#credit-bar{position:fixed;bottom:0;left:0;right:0;text-align:center;font-size:12px;padding:5px 8px;background:#1e3a5f;color:#fff;z-index:9998}
+body{padding-bottom:28px}
+@media print{#credit-bar,#toast{display:none !important}}
+</style>
+<style>
+/* ===== تم و حالت شب ===== */
+body.dark{--bg:#0f172a;--card:#1e293b;--border:#334155;--text:#e2e8f0;--muted:#94a3b8}
+body[data-accent=green]{--primary:#22543d;--primary-light:#2f855a}
+body[data-accent=purple]{--primary:#44337a;--primary-light:#6b46c1}
+body[data-accent=teal]{--primary:#234e52;--primary-light:#2c7a7b}
+body[data-accent=red]{--primary:#742a2a;--primary-light:#c53030}
+.nav-item{color:var(--primary)}
+.nav-item.active{background:var(--primary) !important}
+#credit-bar{background:var(--primary)}
+body.dark .nav-item{color:#cbd5e1}
+body.dark .nav-item:hover{background:#334155}
+body.dark input,body.dark select,body.dark textarea{background:#0f172a;color:#e2e8f0;border-color:#475569}
+body.dark table th{background:#334155 !important;color:#e2e8f0}
+body.dark table td{border-color:#334155}
+body.dark .login-box,body.dark .stat-card,body.dark .card,body.dark .sidebar{background:var(--card);color:var(--text)}
+body.dark .login-box h1,body.dark .card h2,body.dark .card h3{color:#e2e8f0}
+body.dark .role-option{background:#0f172a;color:#e2e8f0;border-color:#475569}
+body.dark .alert-info{background:#1e3a5f;color:#bee3f8;border-color:#2c5282}
+body.dark .alert-warning{background:#4a2c0a;color:#fbd38d;border-color:#7b341e}
+body.dark .subject-chip{background:#0f172a;color:#e2e8f0;border-color:#475569}
+body.dark .final-badge,body.dark .badge-blue{background:#1e3a5f;color:#bee3f8}
+.hdr-btn{background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.45);padding:.3rem .6rem}
+/* ===== داشبورد تصویری ===== */
+.welcome{display:flex;align-items:center;gap:1rem;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;border-radius:14px;padding:1rem 1.25rem;margin-bottom:1rem}
+.welcome img{width:70px;height:70px;object-fit:contain;background:#fff;border-radius:50%;padding:3px;flex-shrink:0}
+.welcome .w1{font-size:1.15rem;font-weight:700}.welcome .w2{font-size:.88rem;opacity:.92;margin-top:.25rem}
+.dash-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1rem;margin-bottom:1rem}
+.dash-grid .card{margin-bottom:0}
+.bar-row{display:flex;align-items:center;gap:.5rem;margin:.5rem 0;font-size:.85rem}
+.bar-row .nm{width:92px;flex-shrink:0;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar-track{flex:1;background:var(--border);border-radius:999px;height:12px;overflow:hidden}
+.bar-fill{height:100%;border-radius:999px}
+.bar-row .vl{min-width:54px;text-align:left;font-weight:700;direction:ltr}
+.donut{width:130px;height:130px;border-radius:50%;margin:.5rem auto;position:relative}
+.donut::after{content:'';position:absolute;inset:24px;background:var(--card);border-radius:50%}
+.donut-c{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.25rem;z-index:1}
+.legend{display:flex;gap:.9rem;justify-content:center;flex-wrap:wrap;font-size:.82rem}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-left:4px}
+.top-row{display:flex;align-items:center;gap:.6rem;padding:.5rem 0;border-bottom:1px solid var(--border);font-size:.9rem}
+.top-row:last-child{border-bottom:none}
+.medal{font-size:1.3rem;width:1.8rem;text-align:center}
+.top-row .av{margin-right:auto;font-weight:700}
+/* ===== رتبه‌بندی ===== */
+.rk-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:.6rem;margin:1rem 0}
+.rk-stats div{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:.6rem;text-align:center;font-size:.8rem;color:var(--muted)}
+.rk-stats b{display:block;font-size:1.2rem;color:var(--text)}
+.rk-bar{display:inline-block;width:80px;height:8px;background:var(--border);border-radius:4px;vertical-align:middle;margin-right:.5rem;overflow:hidden}
+.rk-bar i{display:block;height:100%}
+/* ===== کارنامه زیباتر ===== */
+.report-card,.report-card::before{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.report-card::before{content:'';position:absolute;inset:30% 12%;background:var(--logo-url) center/contain no-repeat;opacity:.05;pointer-events:none;z-index:0}
+.rc-header,.rc-info,.rc-table,.rc-summary,.rc-legend,.rc-footer{position:relative;z-index:1}
+.rc-photo{position:absolute;top:4mm;right:4mm;width:19mm;height:24mm;border:1px dashed #94a3b8;display:flex;align-items:center;justify-content:center;font-size:20pt;color:#cbd5e1;background:#f8fafc;overflow:hidden;z-index:1}
+.rc-photo img{width:100%;height:100%;object-fit:cover}
+.rc-header{padding-right:24mm !important}
+.rc-gv{font-weight:700}.rc-gv.g1{color:#276749}.rc-gv.g2{color:#2b6cb0}.rc-gv.g3{color:#b7791f}.rc-gv.g4{color:#c05621}.rc-gv.g5{color:#c53030}
+.rc-bar{display:inline-block;width:14mm;height:2mm;background:#e2e8f0;border-radius:1mm;margin-right:2mm;vertical-align:middle;overflow:hidden}
+.rc-bar i{display:block;height:100%}
+.rc-summary .box{background:#f7fafc}
+@media print{
+  .rc-photo{width:15mm !important;height:19mm !important;top:2mm !important;right:2mm !important;font-size:14pt !important}
+  .rc-header{padding-right:18mm !important}
+  .rc-bar{width:10mm !important;height:1.6mm !important}
+}
+/* ===== تقدیرنامه ===== */
+.cert{width:100%;max-width:297mm;box-sizing:border-box;padding:4mm;background:#fff;color:#1a202c;page-break-after:always;margin:0 auto 10mm;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.cert-in{border:6px double #b7791f;padding:10mm 14mm;text-align:center;min-height:172mm;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4mm;background:#fffdf7;position:relative}
+.cert-logo{width:34mm;height:34mm;object-fit:contain}
+.cert-school{font-size:18pt;font-weight:700;color:#1e3a5f}
+.cert-title{font-size:34pt;font-weight:700;color:#b7791f;margin:2mm 0}
+.cert-text{font-size:15pt;line-height:2.2;max-width:210mm}
+.cert-text b{color:#1e3a5f}
+.cert-medal{font-size:40pt}
+.cert-sign{margin-top:6mm;font-size:12pt;border-top:1px solid #333;padding-top:2mm;min-width:60mm}
+.settings-note{display:none}
+@media (max-width:768px){.app-header{padding:.5rem .6rem !important}.app-header h1{font-size:.9rem !important;gap:.35rem !important}.app-header h1 img{width:30px !important;height:30px !important}.header-actions{gap:.25rem !important}.hdr-btn{padding:.25rem .4rem}.role-badge{font-size:.7rem !important;padding:.2rem .5rem !important}.welcome{padding:.75rem}.welcome img{width:52px;height:52px}}
+
+#page-settings .settings-note{display:block;color:var(--muted);line-height:2}
+</style>
+<style id="dyn-page"></style>
+<style>
+/* ===== ظاهر شکیل‌تر ===== */
+.hdr-city{display:block;font-size:.68rem;font-weight:400;opacity:.85;margin-top:1px}
+.login-screen{background:radial-gradient(1000px 500px at 85% -10%,var(--primary-light),transparent 60%),linear-gradient(160deg,var(--primary),#0b1f3a) !important}
+.login-box{border-radius:22px !important;box-shadow:0 25px 70px rgba(0,0,0,.4) !important;max-width:430px !important}
+.login-quote{margin:.4rem 0 1.2rem;padding:.8rem .9rem;background:linear-gradient(135deg,#fffaf0,#fef3e2);border-right:4px solid #d69e2e;border-radius:10px;font-size:.8rem;line-height:1.95;color:#5f4b1a;text-align:justify}
+.login-quote small{display:block;margin-top:.35rem;color:#975a16;font-weight:700}
+body.dark .login-quote{background:#3b2f14;color:#fbd38d}
+.app-header{box-shadow:0 3px 14px rgba(0,0,0,.25)}
+.card{border-radius:14px !important;box-shadow:0 2px 12px rgba(30,58,95,.07)}
+.stat-card{border-radius:14px !important;border-top:4px solid var(--primary-light) !important;box-shadow:0 2px 12px rgba(30,58,95,.07)}
+.btn{border-radius:10px;transition:transform .12s,box-shadow .12s,background .2s}
+.btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.btn-primary{background:linear-gradient(135deg,var(--primary-light),var(--primary)) !important}
+th{background:linear-gradient(180deg,#f1f5fb,#e7eef8) !important}
+tbody tr:nth-child(even) td{background:rgba(30,58,95,.03)}
+@media (min-width:769px){.nav-item{margin:.15rem .6rem;border-radius:10px}}
+.welcome{flex-wrap:wrap}
+.welcome .w1{font-size:1.25rem}
+.w-quote{width:100%;margin-top:.4rem;padding:.75rem 1rem;background:rgba(255,255,255,.13);border-radius:10px;font-size:.92rem;line-height:2.05;border-right:4px solid #f6e05e;text-align:justify}
+.w-quote small{display:block;opacity:.85;margin-top:.3rem;font-weight:700}
+.martyr-photo{width:90px;height:112px;object-fit:cover;border-radius:12px;border:3px solid #fff}
+.rc-header .city{font-size:9pt;color:#555;margin-top:-1mm}
+.cert-city{font-size:12pt;color:#555;margin-top:-3mm}
+/* ===== دکمه‌های ثبت (ستون راست) ===== */
+.side-actions{padding:.75rem .6rem;border-top:2px solid var(--border);margin-top:.6rem;display:flex;flex-direction:column;gap:.5rem}
+.sa-title{font-size:.72rem;color:var(--muted);font-weight:700;text-align:center}
+.side-actions .btn{width:100%;justify-content:center;font-weight:700;padding:.7rem .3rem;font-size:.92rem}
+@media (max-width:768px){
+  .side-actions{padding:.5rem .2rem}
+  .side-actions .btn{flex-direction:column;font-size:.68rem;padding:.5rem .1rem;line-height:1.35;gap:.1rem}
+  .hdr-city{font-size:.55rem}
+  .login-quote{font-size:.74rem}
+}
+
+/* ===== ورود فشرده (بدون پیمایش در گوشی) ===== */
+.login-screen{padding:.5rem !important}
+.login-box{padding:.9rem 1rem .7rem !important}
+.login-box .logo-img{width:60px !important;height:60px !important;margin:0 auto .15rem !important}
+.login-box h1{font-size:1.1rem !important;margin-bottom:.05rem !important}
+.login-box .subtitle{font-size:.76rem !important;margin-bottom:.55rem !important}
+.login-qcard{padding:.55rem .75rem .45rem !important;margin:.15rem 0 .65rem !important}
+.login-qcard .q-verse{font-size:.8rem !important;line-height:1.9 !important;margin-bottom:.3rem !important;padding-bottom:.3rem !important}
+.login-qcard .q-verse small{font-size:.66rem !important}
+.login-qcard .q-text{font-size:.75rem !important;line-height:1.8 !important;margin-top:0 !important}
+.login-qcard .q-mark{display:none}
+.login-qcard .q-by{font-size:.7rem !important;margin-top:.25rem !important}
+.login-qcard .q-row .martyr-photo{width:62px !important;height:78px !important}
+.role-select{gap:.5rem !important;margin-bottom:.55rem !important}
+.role-option{padding:.5rem .4rem !important;cursor:default !important}
+.role-option .icon{font-size:1.35rem !important;margin-bottom:0 !important}
+.role-option .rn{font-weight:800;font-size:.95rem}
+.ro-btn{width:100%;margin-top:.35rem;padding:.4rem 0 !important;font-weight:800;display:flex !important;justify-content:center;align-items:center;text-align:center}
+#login-screen{min-height:calc(100vh - 28px) !important}
+#login-name{width:100%;box-sizing:border-box;padding:.5rem .7rem;font-size:.85rem}
+#page-settings .settings-note{display:block !important;color:var(--muted);line-height:2}
+
+/* ===== کارنامه: دو A5 در یک A4 افقی، بدون حاشیه‌ی اضافی ===== */
+.report-card{width:144.5mm !important;height:202mm !important;min-height:202mm !important;max-height:202mm !important;padding:4mm !important;display:flex !important;flex-direction:column !important;box-sizing:border-box !important;overflow:hidden !important;margin:0 auto 4mm !important}
+.rc-logo{width:20mm !important;height:20mm !important;top:4mm !important;left:4mm !important}
+.rc-photo{width:19mm !important;height:24mm !important;top:4mm !important;right:4mm !important;font-size:20pt !important}
+.rc-rank{width:15mm !important;height:15mm !important;top:26mm !important;left:6mm !important;font-size:7pt !important}
+.rc-rank .num{font-size:11pt !important}
+.rc-header{min-height:24mm !important;padding:0 24mm 2mm 24mm !important;margin-bottom:2.5mm !important}
+.rc-header .school-name{font-size:13pt !important}
+.rc-header .city{font-size:9pt !important}
+.rc-header .doc-title{font-size:11pt !important;margin-top:1mm !important}
+.rc-header .year{font-size:9pt !important}
+.rc-info{font-size:9pt !important;gap:1.5mm 3mm !important;margin-bottom:2mm !important}
+.rc-table{font-size:9pt !important;margin-bottom:2mm !important;width:100% !important}
+.rc-table th,.rc-table td{padding:0 1.2mm !important;height:var(--rowh,6.5mm) !important;line-height:1.1 !important}
+.rc-summary{font-size:9pt !important;gap:2mm !important;margin-top:auto !important;margin-bottom:2mm !important}
+.rc-summary .box{padding:1.5mm !important}
+.rc-summary .box .val{font-size:12pt !important}
+.rc-legend{font-size:7pt !important;margin-top:1mm !important;padding-top:1mm !important}
+.rc-footer{margin-top:2mm !important;font-size:9pt !important}
+.rc-footer .sign{min-height:14mm !important;padding:1.2mm !important}
+@media print{#print-area{gap:0 !important;flex-direction:row !important;flex-wrap:wrap !important;align-items:flex-start !important;align-content:flex-start !important;justify-content:space-between !important}.report-card{margin:0 !important}}
+
+
+/* ===== ورود، منو، راهنما، کارنامه ===== */
+#pin-group{display:none !important}
+.login-box button.btn-primary[onclick="doLogin()"]{display:flex !important;justify-content:center;align-items:center;text-align:center}
+.login-qcard{position:relative;margin:.2rem 0 1.2rem;padding:1rem 1.1rem .8rem;border-radius:14px;background:linear-gradient(135deg,var(--primary) 0%,var(--primary-light) 80%);color:#fff;overflow:hidden}
+.login-qcard .q-mark{font-size:2rem;line-height:.5;color:#f6e05e}
+.login-qcard .q-text{font-size:.88rem;line-height:2.05;color:#fff;font-weight:500;text-align:justify;margin-top:.3rem}
+.login-qcard .q-by{margin-top:.4rem;color:#f6e05e;font-weight:700;font-size:.78rem}
+.login-qcard .q-verse{text-align:center;color:#f6e05e;font-size:.95rem;line-height:2.1;font-weight:700;margin-bottom:.6rem;padding-bottom:.6rem;border-bottom:1px solid rgba(255,255,255,.25)}
+.login-qcard .q-verse small{display:block;font-size:.72rem;font-weight:400;color:#fff;opacity:.85}
+.login-qcard .q-row{display:flex;gap:.8rem;align-items:flex-start}
+.login-qcard .q-row .martyr-photo{width:76px;height:94px;object-fit:cover;border-radius:10px;border:2px solid #f6e05e;flex-shrink:0;margin:0;float:none}
+.login-qcard .q-content{flex:1;min-width:0}
+.pw-modal{position:fixed;inset:0;background:rgba(10,20,40,.6);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);align-items:center;justify-content:center;z-index:10001}
+.pw-box{background:var(--card);color:var(--text);border-radius:16px;padding:1.4rem 1.3rem;width:88%;max-width:340px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.pw-box h3{font-size:1.1rem;margin-bottom:.4rem;color:var(--primary)}
+.pw-box p{font-size:.85rem;color:var(--muted);margin-bottom:.8rem}
+.pw-box input{width:100%;box-sizing:border-box;padding:.7rem;font-size:1rem;text-align:center;direction:ltr;border:1px solid var(--border);border-radius:10px}
+.pw-err{color:#c53030;font-size:.82rem;min-height:1.3rem;margin-top:.4rem}
+.pw-btns{display:flex;gap:.6rem}
+.pw-btns .btn{flex:1;justify-content:center;font-weight:700}
+.nav-item{font-family:'Noto Kufi Arabic','Vazirmatn','Segoe UI',Tahoma,sans-serif;font-weight:800 !important;font-size:1.12rem !important;letter-spacing:.2px}
+.card h2,.card h3,.stat-card .label{font-weight:800}
+.nav-item[data-page="guide"]{margin-top:1.6rem !important;background:linear-gradient(135deg,rgba(66,153,225,.28),rgba(159,122,234,.25)) !important;border:1px solid rgba(66,153,225,.45) !important;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 4px 14px rgba(66,153,225,.18);border-radius:12px}
+.nav-item[data-page="guide"].active{background:var(--primary) !important;color:#fff !important}
+@media (max-width:768px){.nav-item{font-size:.82rem !important}.nav-item[data-page="guide"]{margin-top:1.1rem !important}}
+.rc-cmp{font-weight:700;font-size:11pt}
+.rc-photo.rc-num{flex-direction:column;font-weight:800;color:#111 !important;border:1.5px solid #222 !important;background:#fff !important;line-height:1.1;gap:1mm}
+.rc-photo.rc-num small{font-size:6.5pt;font-weight:400}
+.rc-table th,.rc-table td{text-align:center}
+.rc-table td.subject{text-align:right}
+
+
+/* ===== اصلاحات نسخه جدید ===== */
+.hdr-city{opacity:1 !important;font-size:.7rem;font-weight:400}
+.app-header h1 span{line-height:1.35}
+.login-box h1{margin-bottom:.1rem;font-size:1.45rem}
+@media (max-width:480px){.login-box h1{font-size:1.08rem !important;white-space:nowrap}.login-box .subtitle{font-size:.8rem !important}}
+.login-box .subtitle{color:var(--primary) !important;font-size:.85rem;margin-bottom:1.3rem}
+.rc-header .city{color:inherit !important;font-size:9pt}
+.cert-city{color:#1e3a5f !important;font-size:12pt}
+.side-actions{margin-top:2.4rem !important}
+.q-card{align-items:center;gap:1rem;padding:1.1rem 1.25rem;background:linear-gradient(135deg,var(--primary) 0%,var(--primary-light) 70%) !important;position:relative;overflow:hidden}
+.q-card::after{content:'';position:absolute;inset:0;background:radial-gradient(500px 160px at 90% 0%,rgba(246,224,94,.18),transparent 70%);pointer-events:none}
+.q-card .logo-img{width:78px;height:78px;object-fit:contain;background:#fff;border-radius:50%;padding:4px;flex-shrink:0;z-index:1}
+.q-body{flex:1;z-index:1;min-width:0}
+.q-mark{font-size:2.2rem;line-height:.6;color:#f6e05e;opacity:.9}
+.q-text{font-size:1.08rem;line-height:2.15;font-weight:500;color:#fff;text-align:justify;margin-top:.2rem}
+.q-by{margin-top:.5rem;color:#f6e05e;font-weight:700;font-size:.85rem}
+@media (max-width:768px){.q-card{padding:.9rem}.q-card .logo-img{display:none}.q-text{font-size:.92rem;line-height:2}.app-header h1{font-size:.72rem !important}.app-header h1 span{white-space:nowrap}.hdr-city{font-size:.52rem !important}}
+/* کادرهای آمار شیشه‌ای */
+#page-dashboard .stats{display:grid !important;grid-template-columns:repeat(4,1fr) !important;gap:.7rem;padding:.9rem;border-radius:18px;background:linear-gradient(135deg,var(--primary-light),var(--primary) 60%,#6b46c1 140%);margin-bottom:1rem}
+#page-dashboard .stat-card{background:rgba(255,255,255,.16) !important;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.4) !important;box-shadow:0 6px 18px rgba(0,0,0,.18);padding:.85rem .4rem !important;text-align:center}
+#page-dashboard .stat-card .num{color:#fff !important;font-size:1.8rem}
+#page-dashboard .stat-card .label{color:rgba(255,255,255,.92) !important}
+@media (max-width:768px){
+  #page-dashboard .stats{grid-template-columns:1fr 1fr !important;gap:.5rem;padding:.6rem}
+  #page-dashboard .stat-card:nth-child(n+3){padding:.4rem .2rem !important}
+  #page-dashboard .stat-card:nth-child(n+3) .num{font-size:1.05rem}
+  #page-dashboard .stat-card:nth-child(n+3) .label{font-size:.68rem}
+}
+/* نمودار ستونی دروس */
+.colchart{display:flex;gap:10px;overflow-x:auto;padding:.5rem .3rem .3rem;border-bottom:2px solid var(--border)}
+.colchart .col{flex:0 0 48px;display:flex;flex-direction:column;align-items:center}
+.colchart .vv{font-size:.74rem;font-weight:700;height:1.2rem}
+.colchart .area{height:220px;display:flex;align-items:flex-end}
+.colchart .bar{width:30px;border-radius:7px 7px 0 0;min-height:2px;transition:height .5s}
+.colchart .lbl{height:145px;writing-mode:vertical-rl;transform:rotate(180deg);font-size:.78rem;margin-top:.4rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* بخش‌های مخصوص سازنده */
+body:not(.owner) .import-help, body:not(.owner) #bulk-students, body:not(.owner) #bulk-subjects, body:not(.owner) #csv-file,
+body:not(.owner) .btn-group:has(#csv-file), body:not(.owner) button[onclick*="csv-file"], body:not(.owner) .form-group:has(#bulk-students), body:not(.owner) .form-group:has(#bulk-subjects),
+body:not(.owner) .form-row:has(button[onclick*="addSubject"]), body:not(.owner) .form-row:has(button[onclick*="addClass"]), body:not(.owner) .btn-group:has(button[onclick*="importSubjects"]),
+body:not(.owner) button[onclick*="import"], body:not(.owner) button[onclick*="addClass"], body:not(.owner) button[onclick*="addSubject"], body:not(.owner) button[onclick*="delete"], body:not(.owner) button[onclick*="loadSeed"],
+body:not(.owner) #backup-main-card button[onclick*="import-file"], body:not(.owner) #backup-main-card .btn-danger{display:none !important}
+#owner-link{position:fixed;bottom:5px;left:8px;font-size:11px;color:#fff;opacity:.8;cursor:pointer;z-index:9999;padding:2px 6px}
+body:not(.owner) .owner-only{display:none !important}
+@media (max-width:768px){#owner-link{font-size:10px !important;padding:2px 4px !important}#credit-bar{font-size:11px !important}}
+#owner-link{display:none !important}
+#page-backup .card:not(#public-note){display:none !important}
+.login-tag{text-align:center;font-size:.8rem;color:var(--muted);margin:.2rem 0 .9rem;line-height:1.8}
+</style>
+</head>
+<body>
+
+
+  <!-- LOCK SCREEN (Master Password) -->
+  <div id="credit-bar" class="no-print">سازنده: الف. شفائی مقدم &nbsp;|&nbsp; <span dir="ltr">۰۹۱۳۲۶۰۳۹۳۰</span></div>
+  <div id="toast"></div>
+  <div id="pw-modal" class="pw-modal" style="display:none"><div class="pw-box"><h3>🔒 رمز مدیر</h3><p>برای ورود به بخش مدیر، رمز را وارد کنید.</p><input type="password" id="pw-input" autocomplete="off" placeholder="رمز مدیر"><div class="pw-err" id="pw-err"></div><div class="pw-btns"><button class="btn btn-primary" id="pw-ok">ورود</button><button class="btn btn-outline" id="pw-cancel">انصراف</button></div></div></div>
+  <div id="trial-block" style="display:none;position:fixed;inset:0;z-index:2147483647;background:linear-gradient(160deg,#1e3a5f,#0b1f3a);color:#fff;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:2rem;gap:1rem"><div style="font-size:3rem">🔒</div><div id="trial-msg" style="font-size:1.15rem;line-height:2;max-width:420px"></div><div style="font-size:1.05rem;color:#f6e05e;font-weight:700">سازنده: الف. شفائی مقدم<br><span dir="ltr">۰۹۱۳۲۶۰۳۹۳۰</span></div></div>
+  <div id="lock-screen" class="login-screen">
+    <div class="login-box">
+      <h1>🔒 قفل برنامه</h1>
+      <p class="subtitle" id="lock-subtitle">برای ورود، رمز عبور را وارد کنید</p>
+
+      <div id="lock-set-mode" class="hidden">
+        <div class="alert alert-info" style="margin-bottom:1rem;">
+          اولین بار است که برنامه را باز می‌کنید.<br>
+          یک رمز عبور برای محافظت از برنامه تعیین کنید.
+        </div>
+        <div class="form-group" style="margin-bottom:0.75rem;">
+          <label>رمز عبور جدید</label>
+          <input type="password" id="lock-new-pass" placeholder="حداقل ۴ کاراکتر" />
+        </div>
+        <div class="form-group" style="margin-bottom:1.25rem;">
+          <label>تکرار رمز عبور</label>
+          <input type="password" id="lock-new-pass2" placeholder="دوباره وارد کنید" />
+        </div>
+        <button class="btn btn-primary" style="width:100%;" onclick="setMasterPassword()">ذخیره رمز و ورود</button>
+      </div>
+
+      <div id="lock-enter-mode">
+        <div class="form-group" style="margin-bottom:1.25rem;">
+          <label>رمز عبور برنامه</label>
+          <input type="password" id="lock-pass" placeholder="رمز عبور را وارد کنید" onkeydown="if(event.key==='Enter')checkMasterPassword()" />
+        </div>
+        <button class="btn btn-primary" style="width:100%;" onclick="checkMasterPassword()">ورود</button>
+        <p id="lock-error" style="color:#c53030;text-align:center;margin-top:0.75rem;font-size:0.85rem;display:none;">رمز عبور اشتباه است</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOGIN -->
+  <div id="login-screen" class="login-screen hidden">
+    <div class="login-box">
+      <img class="logo-img" alt="لوگو" style="width:110px;height:110px;object-fit:contain;display:block;margin:0 auto 0.5rem;" />
+      <h1 id="login-brand">نام مدرسه</h1>
+      <p class="subtitle" id="login-region">سامانه کارنامه تحصیلی</p>
+
+      <div class="login-tag">نرم‌افزار ساخت کارنامه تحصیلی · نسخه عمومی (آزمایشی)</div>
+      <div class="role-select">
+        <div class="role-option" data-role="admin">
+          <div class="icon">👨‍💼</div>
+          <div class="rn">مدیر</div>
+          <button class="btn btn-primary ro-btn" onclick="loginAs('admin')">ورود</button>
+        </div>
+        <div class="role-option" data-role="teacher">
+          <div class="icon">👩‍🏫</div>
+          <div class="rn">معلم</div>
+          <button class="btn btn-primary ro-btn" onclick="loginAs('teacher')">ورود</button>
+        </div>
+      </div>
+
+      <input type="text" id="login-name" placeholder="نام شما (اختیاری)" />
+
+      <div class="form-group" style="margin-bottom:1.25rem;" id="pin-group">
+        <label>رمز مدیر</label>
+        <input type="password" id="login-pin" placeholder="رمز مدیر را وارد کنید" onkeydown="if(event.key==='Enter')doLogin()" />
+      </div>
+
+      
+      <p style="text-align:center;margin-top:.5rem;font-size:0.72rem;color:#718096;">
+        داده‌ها فقط روی همین دستگاه ذخیره می‌شوند
+      </p>
+    </div>
+  </div>
+
+  <!-- APP -->
+  <div id="app" class="hidden">
+    <header class="app-header no-print">
+      <h1 style="display:flex;align-items:center;gap:0.6rem;"><img id="hdr-logo" alt="لوگو" style="width:38px;height:38px;object-fit:contain;background:#fff;border-radius:50%;" /><span><span id="brand-name">نام مدرسه</span><small class="hdr-city" id="brand-region"></small></span></h1>
+      <div class="header-actions">
+        <button class="btn btn-sm hdr-btn" onclick="toggleDark()" title="حالت شب و روز">🌙</button>
+        <button class="btn btn-sm hdr-btn" onclick="cycleAccent()" title="تغییر رنگ برنامه">🎨</button>
+        <span class="role-badge" id="current-role-label">مدیر</span>
+        <button class="btn btn-sm" style="background:rgba(255,255,255,0.18);color:white;border:1px solid rgba(255,255,255,0.5);" onclick="logout()">خروج</button>
+      </div>
+    </header>
+
+    <div class="mobile-nav no-print" id="mobile-nav"></div>
+
+    <div class="layout">
+      <aside class="sidebar no-print">
+        <nav id="sidebar-nav"></nav>
+        <div class="side-actions" id="side-actions" style="display:none">
+          <div class="sa-title">ثبت نمرات</div>
+          <button class="btn btn-primary" onclick="sideRegister()">💾 <span>ثبت نمرات</span></button>
+          <button class="btn btn-warn" onclick="sideSame()">⚖️ <span>ثبت برای همه</span></button>
+        </div>
+      </aside>
+
+      <main class="main">
+        <!-- Dashboard -->
+        <div class="page" id="page-dashboard">
+          <div class="stats" id="dashboard-stats"></div>
+          <div id="dashboard-extra"></div>
+        </div>
+
+        <!-- Classes -->
+        <div class="page" id="page-classes">
+          <div class="card">
+            <h2>مدیریت کلاس‌ها</h2>
+            <div class="form-row">
+              <div class="form-group">
+                <label>نام کلاس جدید</label>
+                <input type="text" id="new-class-name" placeholder="مثلاً دهم تجربی ۱" />
+              </div>
+              <div class="form-group" style="flex:0;align-self:flex-end;">
+                <button class="btn btn-primary" onclick="addClass()">افزودن کلاس</button>
+              </div>
+            </div>
+            <div id="classes-list"></div>
+
+          </div>
+        </div>
+
+        <!-- Students -->
+        <div class="page" id="page-students">
+          <div class="card">
+            <h2>دانش‌آموزان</h2>
+            <div class="form-row">
+              <div class="form-group">
+                <label>انتخاب کلاس</label>
+                <select id="students-class-select" onchange="renderStudents()"></select>
+              </div>
+            </div>
+
+            <div class="import-help">
+              <strong>چطور از اکسل وارد کنم؟</strong><br>
+              ستون‌های اکسل را کپی کنید و اینجا پیست کنید. برنامه خودش ستون‌ها را تشخیص می‌دهد:<br>
+              • فقط نام کامل: <code>علی رضایی</code><br>
+              • نام + نام‌خانوادگی: <code>علی &nbsp;&nbsp; رضایی</code> (با Tab یا چند فاصله)<br>
+              • نام + نام‌خانوادگی + کد ملی: <code>علی &nbsp;&nbsp; رضایی &nbsp;&nbsp; ۰۰۱۲۳۴۵۶۷۸</code><br>
+              • یا: <code>کدملی - نام نام‌خانوادگی</code>
+            </div>
+
+            <div class="form-group">
+              <label>لیست دانش‌آموزان (کپی از اکسل / ورد)</label>
+              <textarea id="bulk-students" placeholder="علی	رضایی	۰۰۱۲۳۴۵۶۷۸&#10;مریم	احمدی	۰۰۹۸۷۶۵۴۳۲&#10;سارا محمدی"></textarea>
+            </div>
+            <div class="btn-group" style="margin-bottom:1rem;">
+              <button class="btn btn-success" onclick="importStudents()">افزودن به کلاس</button>
+              <button class="btn btn-outline" onclick="document.getElementById('csv-file').click()">بارگذاری فایل CSV / TXT</button>
+              <input type="file" id="csv-file" accept=".csv,.txt" class="hidden" onchange="importCSV(event)" />
+            </div>
+
+            <div id="students-table"></div>
+          </div>
+        </div>
+
+        <!-- Subjects -->
+        <div class="page" id="page-subjects">
+          <div class="card">
+            <h2>دروس هر کلاس</h2>
+            <div class="form-row">
+              <div class="form-group">
+                <label>انتخاب کلاس</label>
+                <select id="subjects-class-select" onchange="renderSubjects()"></select>
+              </div>
+            </div>
+
+            <div class="import-help">
+              <strong>وارد کردن گروهی درس‌ها:</strong><br>
+              لیست درس‌ها را از اکسل یا ورد کپی کنید و اینجا پیست کنید.<br>
+              هر خط یک درس. مثال:<br>
+              <code>ریاضی ۱</code><br>
+              <code>فیزیک</code><br>
+              <code>شیمی</code><br>
+              <code>ادبیات فارسی</code>
+            </div>
+
+            <div class="form-group">
+              <label>لیست دروس (کپی از اکسل / ورد)</label>
+              <textarea id="bulk-subjects" placeholder="ریاضی ۱&#10;فیزیک&#10;شیمی&#10;زیست‌شناسی&#10;ادبیات فارسی&#10;عربی&#10;زبان انگلیسی&#10;دینی"></textarea>
+            </div>
+            <div class="btn-group" style="margin-bottom:1rem;">
+              <button class="btn btn-success" onclick="importSubjects()">افزودن دروس به کلاس</button>
+            </div>
+
+            <div class="form-row" style="margin-top:1rem;border-top:1px solid var(--border);padding-top:1rem;">
+              <div class="form-group">
+                <label>یا افزودن تکی</label>
+                <input type="text" id="new-subject-name" placeholder="نام درس" />
+              </div>
+              <div class="form-group" style="flex:0;align-self:flex-end;">
+                <button class="btn btn-primary" onclick="addSubject()">افزودن</button>
+              </div>
+            </div>
+
+            <div id="subjects-list"></div>
+          </div>
+        </div>
+
+        <!-- Grades -->
+        <div class="page" id="page-grades">
+          <div class="card">
+            <h2>ورود نمرات</h2>
+            <div class="form-row">
+              <div class="form-group">
+                <label>کلاس</label>
+                <select id="grades-class-select" onchange="onGradesClassChange()"></select>
+              </div>
+            </div>
+
+            <div id="subject-chips-area" style="margin-bottom:1rem;"></div>
+
+            <div id="grades-table-area"></div>
+          </div>
+        </div>
+
+        <!-- Reports -->
+        <div class="page" id="page-reports">
+          <div class="card no-print">
+            <h2>کارنامه و رتبه</h2>
+            <div class="form-row">
+              <div class="form-group">
+                <label>کلاس</label>
+                <select id="reports-class-select" onchange="prepareReports()"></select>
+              </div>
+              <div class="form-group">
+                <label>نام مدرسه (برای چاپ)</label>
+                <input type="text" id="school-name" placeholder="نام مدرسه" />
+              </div>
+              <div class="form-group">
+                <label>سال تحصیلی</label>
+                <input type="text" id="school-year" placeholder="۱۴۰۴-۱۴۰۵" />
+              </div>
+            </div>
+            <div class="btn-group">
+              <button class="btn btn-primary" onclick="generateAllReports()">تولید همه کارنامه‌ها</button>
+              <button class="btn btn-success" onclick="window.print()">🖨 چاپ همه (۲ تا در هر A4)</button>
+              <button class="btn btn-warn" onclick="generateCertificates()">🏆 تقدیرنامه ۳ نفر برتر</button>
+              <button class="btn btn-outline" onclick="exportClassCSV()">📊 خروجی اکسل ریز نمرات</button>
+            </div>
+          </div>
+
+          <div id="rank-table-area" class="no-print"></div>
+
+          <div class="preview-toolbar no-print" id="preview-toolbar" style="display:none;">
+            <strong>پیش‌نمایش کارنامه (۲ عدد در هر صفحه A4)</strong>
+            <button class="btn btn-success btn-sm" onclick="window.print()">چاپ</button>
+            <button class="btn btn-outline btn-sm" onclick="document.getElementById('print-area').innerHTML=''">پاک کردن پیش‌نمایش</button>
+          </div>
+          <div class="preview-area" id="print-area"></div>
+        </div>
+
+        <div class="page" id="page-guide"><div class="card"><h2>📖 راهنمای سریع</h2><div id="dashboard-guide"></div></div></div>
+
+        <div class="page" id="page-subjchart">
+          <div class="card">
+            <h2>📊 نمودار دروس کلاس</h2>
+            <div class="form-row">
+              <div class="form-group"><label>کلاس</label><select id="sc-class" onchange="renderSubjChart()"></select></div>
+              <div class="form-group"><label>نوع نمودار</label>
+                <select id="sc-type" onchange="renderSubjChart()">
+                  <option value="col">نمودار ستونی (عمودی)</option>
+                  <option value="row">نمودار میله‌ای (افقی)</option>
+                </select></div>
+            </div>
+            <div id="sc-chart"></div>
+          </div>
+        </div>
+
+        <!-- Ranking -->
+        <div class="page" id="page-ranking">
+          <div class="card">
+            <h2>🏅 رتبه‌بندی و آمار</h2>
+            <div class="form-row">
+              <div class="form-group"><label>کلاس</label><select id="rk-class" onchange="rkClassChange()"></select></div>
+              <div class="form-group"><label>نمایش بر اساس</label><select id="rk-scope" onchange="renderRanking()"></select></div>
+              <div class="form-group"><label>ترتیب نمایش</label>
+                <select id="rk-order" onchange="renderRanking()">
+                  <option value="desc">از بالاترین معدل به پایین‌ترین</option>
+                  <option value="asc">از پایین‌ترین معدل به بالاترین</option>
+                </select></div>
+            </div>
+            <div id="rk-stats"></div>
+            <div id="rk-table"></div>
+          </div>
+        </div>
+
+        <!-- Backup -->
+        <div class="page" id="page-backup">
+          <div class="card" id="public-note"><h2>💾 پشتیبان‌گیری و بازیابی</h2><p style="line-height:2;margin-top:.6rem">در نسخه عمومی (آزمایشی) پشتیبان‌گیری، بازیابی اطلاعات و ادغام نمرات معلم‌ها غیرفعال است.<br>برای دریافت نسخه کامل با سازنده تماس بگیرید:<br><strong>الف. شفائی مقدم — <span dir="ltr">۰۹۱۳۲۶۰۳۹۳۰</span></strong></p></div>
+          <div class="card" id="backup-main-card">
+            <h2>پشتیبان‌گیری و بازیابی</h2>
+            <p style="margin-bottom:1rem;color:var(--muted);">
+              چون برنامه روی مرورگر اجرا می‌شود، حتماً از داده‌ها پشتیبان بگیرید.
+              فایل خروجی را می‌توانید در سیستم‌های دیگر بارگذاری کنید.
+            </p>
+            <div class="btn-group">
+              <button class="btn btn-primary" onclick="exportData()">⬇ خروجی گرفتن (JSON)</button>
+              <button class="btn btn-outline" onclick="document.getElementById('import-file').click()">⬆ بارگذاری پشتیبان</button>
+              <input type="file" id="import-file" accept=".json" class="hidden" onchange="importData(event)" />
+            </div>
+            <div style="margin-top:1.5rem;">
+              <button class="btn btn-danger btn-sm" onclick="if(confirm('همه داده‌ها پاک شود؟')){clearAllData()}">پاک کردن همه داده‌ها</button>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:1rem;">
+            <h3>📤 ارسال نمرات به مدیر</h3>
+            <p style="margin:0.5rem 0 1rem;color:var(--muted);font-size:0.9rem;">
+              فقط فایل نمرات ساخته می‌شود (بدون نام دانش‌آموزان). این فایل را برای مدیر بفرستید.
+            </p>
+            <button class="btn btn-success" onclick="exportGradesOnly()">⬇ خروجی نمرات</button>
+          </div>
+
+          <div class="card" id="merge-card" style="margin-top:1rem;">
+            <h3>📥 دریافت نمرات از معلم‌ها (مدیر)</h3>
+            <p style="margin:0.5rem 0 1rem;color:var(--muted);font-size:0.9rem;">
+              فایل نمرات یک یا چند معلم را انتخاب کنید. نمره‌ها به نمرات فعلی <strong>اضافه</strong> می‌شوند و چیزی پاک نمی‌شود.
+              هر تعداد فایل را می‌توانید یک‌جا یا جداگانه ادغام کنید.
+            </p>
+            <button class="btn btn-warn" onclick="document.getElementById('merge-file').click()">⬆ انتخاب فایل نمرات معلم‌ها</button>
+            <input type="file" id="merge-file" accept=".json" multiple class="hidden" onchange="mergeTeacherFiles(event)" />
+          </div>
+
+          <div class="card owner-only" id="saveas-card" style="margin-top:1rem;">
+            <h3>💾 ذخیره نسخه کامل (Save As)</h3>
+            <p style="margin:0.5rem 0 1rem;color:var(--muted);font-size:0.9rem;">یک فایل کامل از برنامه همراه با همه‌ی داده‌ها (دانش‌آموزان، کد ملی، نمرات) ساخته می‌شود و با رمزی که خودتان می‌گذارید قفل است. هر وقت آن فایل را باز کنید، همین اطلاعات را دارد.</p>
+            <button class="btn btn-success" onclick="saveAsFull()">💾 ذخیره نسخه کامل</button>
+          </div>
+        </div>
+
+        <!-- Settings -->
+        <div class="page" id="page-settings">
+          <div class="card" id="identity-card">
+            <h2>🏫 مشخصات مدرسه</h2>
+            <div class="form-group" style="margin-bottom:.8rem"><label>نام مدرسه</label><input type="text" id="idn-name" placeholder="مثلاً هنرستان شهید ..." /></div>
+            <div class="form-group" style="margin-bottom:.8rem"><label>استان و شهرستان</label><input type="text" id="idn-region" placeholder="مثلاً استان ... - شهرستان ..." /></div>
+            <div class="form-group" style="margin-bottom:.8rem"><label>لوگوی مدرسه</label>
+              <div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap">
+                <img id="idn-logo-prev" alt="لوگو" style="width:56px;height:56px;object-fit:contain;border:1px solid var(--border);border-radius:10px;background:#fff" />
+                <button class="btn btn-outline btn-sm" onclick="document.getElementById('idn-logo-file').click()">انتخاب تصویر</button>
+                <button class="btn btn-outline btn-sm" onclick="clearLogo()">حذف لوگو</button>
+              </div>
+              <input type="file" id="idn-logo-file" accept="image/*" class="hidden" onchange="pickLogo(event)" />
+            </div>
+            <button class="btn btn-primary" onclick="saveIdentity()">ذخیره مشخصات</button>
+          </div>
+          <div class="card" id="principal-card">
+            <h2>🖊 نام مدیر مدرسه</h2>
+            <p style="font-size:.85rem;color:var(--muted);margin:.4rem 0 .8rem">این نام روی کارنامه، بالای «مهر و امضای مدیر مدرسه» چاپ می‌شود.</p>
+            <div class="form-group" style="margin-bottom:.8rem"><input type="text" id="principal-name" placeholder="نام و نام‌خانوادگی مدیر" /></div>
+            <button class="btn btn-primary" onclick="savePrincipal()">ذخیره نام مدیر</button>
+          </div>
+          <div class="card">
+            <h2>تنظیمات</h2>
+            <div class="form-group" style="margin-bottom:1rem;">
+              <label>رمز عبور مدیر (اختیاری - برای ورود به نقش مدیر)</label>
+              <input type="password" id="admin-pin-set" placeholder="برای محافظت از بخش مدیریت" />
+            </div>
+            <button class="btn btn-primary" onclick="saveSettings()">ذخیره تنظیمات</button>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+const __SRC = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+
+    
+    const DEFAULT_LOGO = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0NiIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjMWUzYTVmIiBzdHJva2Utd2lkdGg9IjQiLz48cGF0aCBkPSJNNTAgMjIgMTQgNDBsMzYgMTggMzYtMTh6IiBmaWxsPSIjMWUzYTVmIi8+PHBhdGggZD0iTTI4IDUydjE2YzAgNiA0NCA2IDQ0IDBWNTJMNTAgNjJ6IiBmaWxsPSIjMmM1MjgyIi8+PC9zdmc+";
+    let SCHOOL_LOGO = DEFAULT_LOGO;
+
+    const STORAGE_KEY = 'karnome_public_v1';
+
+    // ========== MASTER PASSWORD PROTECTION ==========
+    async function sha256(str) {
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    async function initLock() {
+      const hash = localStorage.getItem('karnome_master_hash');
+      const lockScreen = document.getElementById('lock-screen');
+      const setMode = document.getElementById('lock-set-mode');
+      const enterMode = document.getElementById('lock-enter-mode');
+
+      if (!hash) {
+        // First run → set password
+        setMode.classList.remove('hidden');
+        enterMode.classList.add('hidden');
+        document.getElementById('lock-subtitle').textContent = 'تعیین رمز عبور برای محافظت از برنامه';
+      } else {
+        setMode.classList.add('hidden');
+        enterMode.classList.remove('hidden');
+        document.getElementById('lock-subtitle').textContent = 'برای ورود، رمز عبور را وارد کنید';
+        setTimeout(() => document.getElementById('lock-pass').focus(), 100);
+      }
+      lockScreen.classList.remove('hidden');
+    }
+
+    async function setMasterPassword() {
+      const p1 = document.getElementById('lock-new-pass').value;
+      const p2 = document.getElementById('lock-new-pass2').value;
+      if (!p1 || p1.length < 4) {
+        alert('رمز عبور باید حداقل ۴ کاراکتر باشد.');
+        return;
+      }
+      if (p1 !== p2) {
+        alert('رمز عبور و تکرار آن یکسان نیستند.');
+        return;
+      }
+      const hash = await sha256(p1);
+      localStorage.setItem('karnome_master_hash', hash);
+      unlockApp();
+    }
+
+    async function checkMasterPassword() {
+      const pass = document.getElementById('lock-pass').value;
+      const stored = localStorage.getItem('karnome_master_hash');
+      const hash = await sha256(pass);
+      if (hash === stored) {
+        document.getElementById('lock-error').style.display = 'none';
+        unlockApp();
+      } else {
+        document.getElementById('lock-error').style.display = 'block';
+        document.getElementById('lock-pass').value = '';
+        document.getElementById('lock-pass').focus();
+      }
+    }
+
+    function unlockApp() {
+      document.getElementById('lock-screen').classList.add('hidden');
+      document.getElementById('login-screen').classList.remove('hidden');
+    }
+
+    async function changeMasterPassword() {
+      alert('رمز ورود به برنامه فقط توسط سازنده قابل تغییر است.'); return;
+      const oldP = document.getElementById('old-master-pass').value;
+      const newP = document.getElementById('new-master-pass').value;
+      const newP2 = document.getElementById('new-master-pass2').value;
+      const stored = localStorage.getItem('karnome_master_hash');
+
+      if (!stored) {
+        alert('هنوز رمزی تنظیم نشده است.');
+        return;
+      }
+      const oldHash = await sha256(oldP);
+      if (oldHash !== stored) {
+        alert('رمز فعلی اشتباه است.');
+        return;
+      }
+      if (!newP || newP.length < 4) {
+        alert('رمز جدید باید حداقل ۴ کاراکتر باشد.');
+        return;
+      }
+      if (newP !== newP2) {
+        alert('رمز جدید و تکرار آن یکسان نیستند.');
+        return;
+      }
+      const newHash = await sha256(newP);
+      localStorage.setItem('karnome_master_hash', newHash);
+      alert('رمز عبور برنامه با موفقیت تغییر کرد.');
+      document.getElementById('old-master-pass').value = '';
+      document.getElementById('new-master-pass').value = '';
+      document.getElementById('new-master-pass2').value = '';
+    }
+
+
+    
+    // ========== PRELOADED CURRICULUM ==========
+    const SEED_CLASSES = [];
+    const SEED_STUDENTS = [];
+    const SEED_SUBJECTS = [];
+
+    function loadSeedCurriculum(force) {
+      if (!force && state.classes.length > 0) {
+        if (!confirm('کلاس‌ها، درس‌ها و دانش‌آموزان از قبل وجود دارند. با داده‌های هنرستان جایگزین شوند؟ (نمرات قبلی پاک می‌شود)')) return;
+      }
+      state.classes = JSON.parse(JSON.stringify(SEED_CLASSES));
+      state.subjects = JSON.parse(JSON.stringify(SEED_SUBJECTS));
+      state.students = JSON.parse(JSON.stringify(SEED_STUDENTS));
+      state.grades = {};
+      saveState();
+      refreshAllSelects();
+      renderDashboard();
+      if (document.getElementById('page-classes').classList.contains('active')) renderClasses();
+      if (document.getElementById('page-subjects').classList.contains('active')) renderSubjects();
+      if (document.getElementById('page-students').classList.contains('active')) renderStudents();
+      alert('۱۴ کلاس + تمام درس‌ها + ' + SEED_STUDENTS.length + ' دانش‌آموز بارگذاری شد.');
+    }
+
+
+    let state = {
+      classes: [],
+      students: [],     // { id, classId, firstName, lastName, name, nationalId }
+      subjects: [],     // { id, classId, name, coef: 1 }
+      grades: {},
+      finals: {},       // ثبت نهایی: { classId_subjectId: تاریخ }
+      settings: { adminPin: '', schoolName: '', schoolYear: '' }
+    };
+
+    let currentUser = { role: 'admin', name: '' };
+    let selectedSubjectId = null;
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          state = { ...state, ...parsed };
+        }
+      } catch (e) { console.warn(e); }
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function uid() {
+      return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+    }
+
+    // ========== LOGIN ==========
+    let selectedRole = 'admin';
+
+    function selectRole(el) {
+      document.querySelectorAll('.role-option').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedRole = el.dataset.role;
+      document.getElementById('pin-group').style.display = selectedRole === 'admin' ? 'block' : 'none';
+    }
+
+    function doLogin() {
+      const name = document.getElementById('login-name').value.trim() || (selectedRole === 'admin' ? 'مدیر' : 'معلم');
+      const pin = document.getElementById('login-pin').value;
+
+      if (selectedRole === 'admin' && state.settings.adminPin && pin !== state.settings.adminPin) {
+        alert('رمز عبور اشتباه است.');
+        return;
+      }
+
+      currentUser = { role: selectedRole, name };
+      document.getElementById('login-screen').classList.add('hidden');
+      document.getElementById('app').classList.remove('hidden');
+      document.getElementById('current-role-label').textContent =
+        (selectedRole === 'admin' ? 'مدیر' : 'معلم') + ((name === 'مدیر' || name === 'معلم') ? '' : ' · ' + name);
+
+      buildNav();
+      showPage('dashboard');
+      refreshAllSelects();
+      renderDashboard();
+    }
+
+    function logout() {
+      document.getElementById('app').classList.add('hidden');
+      document.getElementById('login-screen').classList.remove('hidden');
+    }
+
+    // ========== NAV ==========
+    const NAV_ITEMS = {
+      admin: [
+        { id: 'dashboard', label: 'داشبورد', icon: '🏠' },
+        { id: 'classes', label: 'کلاس‌ها', icon: '🏫' },
+        { id: 'students', label: 'دانش‌آموزان', icon: '👨‍🎓' },
+        { id: 'subjects', label: 'دروس', icon: '📚' },
+        { id: 'grades', label: 'ورود نمرات', icon: '✏️' },
+        { id: 'reports', label: 'کارنامه و رتبه', icon: '📄' },
+        { id: 'backup', label: 'پشتیبان‌گیری', icon: '💾' },
+        { id: 'settings', label: 'تنظیمات', icon: '⚙️' }
+      ],
+      teacher: [
+        { id: 'dashboard', label: 'داشبورد', icon: '🏠' },
+        { id: 'grades', label: 'ورود نمرات', icon: '✏️' },
+        { id: 'backup', label: 'پشتیبان‌گیری', icon: '💾' }
+      ]
+    };
+
+    function buildNav() {
+      const items = NAV_ITEMS[currentUser.role];
+      const html = items.map(i =>
+        `<button class="nav-item" data-page="${i.id}" onclick="showPage('${i.id}')">${i.icon} ${i.label}</button>`
+      ).join('');
+      document.getElementById('sidebar-nav').innerHTML = html;
+      document.getElementById('mobile-nav').innerHTML = html;
+    }
+
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page-' + id).classList.add('active');
+      document.querySelectorAll('.nav-item').forEach(n => {
+        n.classList.toggle('active', n.dataset.page === id);
+      });
+
+      if (id === 'dashboard') renderDashboard();
+      if (id === 'classes') renderClasses();
+      if (id === 'students') { refreshAllSelects(); renderStudents(); }
+      if (id === 'subjects') { refreshAllSelects(); renderSubjects(); }
+      if (id === 'grades') { refreshAllSelects(); onGradesClassChange(); }
+      if (id === 'reports') { refreshAllSelects(); prepareReports(); }
+      if (id === 'backup') { const m = document.getElementById('merge-card'); if (m) m.style.display = currentUser.role === 'admin' ? '' : 'none'; }
+      if (id === 'settings') {
+        document.getElementById('admin-pin-set').value = state.settings.adminPin || '';
+      }
+    }
+
+    // ========== PARSE HELPERS ==========
+    function parseLineColumns(line) {
+      // Support Tab, multiple spaces, or comma
+      let parts;
+      if (line.includes('\t')) {
+        parts = line.split('\t').map(p => p.trim()).filter(Boolean);
+      } else if (line.includes(',')) {
+        parts = line.split(',').map(p => p.trim()).filter(Boolean);
+      } else {
+        // multiple spaces
+        parts = line.split(/\s{2,}/).map(p => p.trim()).filter(Boolean);
+        if (parts.length === 1) {
+          // single spaces - treat whole as name, or try "code - name"
+          const m = line.match(/^(\d{5,})\s*[-–—]?\s*(.+)$/);
+          if (m) return { nationalId: m[1], firstName: '', lastName: '', name: m[2].trim() };
+          return { nationalId: '', firstName: '', lastName: '', name: line.trim() };
+        }
+      }
+      return parts;
+    }
+
+    function parseStudentLine(line) {
+      line = line.trim();
+      if (!line) return null;
+
+      // Format: 1234567890 - نام نام‌خانوادگی
+      const dashMatch = line.match(/^(\d{5,})\s*[-–—]\s*(.+)$/);
+      if (dashMatch) {
+        return {
+          nationalId: dashMatch[1],
+          firstName: '',
+          lastName: '',
+          name: dashMatch[2].trim()
+        };
+      }
+
+      let parts;
+      if (line.includes('\t')) {
+        parts = line.split('\t').map(p => p.trim()).filter(p => p !== '');
+      } else if (/,/.test(line) && line.split(',').length >= 2) {
+        parts = line.split(',').map(p => p.trim()).filter(p => p !== '');
+      } else {
+        // try multiple spaces
+        parts = line.split(/\s{2,}/).map(p => p.trim()).filter(Boolean);
+        if (parts.length < 2) {
+          // single name
+          return { nationalId: '', firstName: '', lastName: '', name: line };
+        }
+      }
+
+      if (parts.length === 1) {
+        return { nationalId: '', firstName: '', lastName: '', name: parts[0] };
+      }
+
+      // Detect if last part is national ID (mostly digits, length 8-12)
+      const last = parts[parts.length - 1];
+      const isNationalId = /^\d{8,12}$/.test(last.replace(/[^\d]/g, '')) && last.replace(/[^\d]/g, '').length >= 8;
+
+      if (parts.length === 2) {
+        if (isNationalId) {
+          return { nationalId: last.replace(/[^\d]/g, ''), firstName: '', lastName: '', name: parts[0] };
+        }
+        return { nationalId: '', firstName: parts[0], lastName: parts[1], name: parts[0] + ' ' + parts[1] };
+      }
+
+      // 3 or more
+      if (isNationalId) {
+        const nameParts = parts.slice(0, -1);
+        const firstName = nameParts[0] || '';
+        const lastName = nameParts.slice(1).join(' ') || '';
+        return {
+          nationalId: last.replace(/[^\d]/g, ''),
+          firstName,
+          lastName,
+          name: nameParts.join(' ')
+        };
+      }
+
+      // no national id
+      return {
+        nationalId: '',
+        firstName: parts[0],
+        lastName: parts.slice(1).join(' '),
+        name: parts.join(' ')
+      };
+    }
+
+    // ========== CLASSES ==========
+    function addClass() {
+      const name = document.getElementById('new-class-name').value.trim();
+      if (!name) return alert('نام کلاس را وارد کنید.');
+      state.classes.push({ id: uid(), name });
+      document.getElementById('new-class-name').value = '';
+      saveState();
+      renderClasses();
+      refreshAllSelects();
+    }
+
+    function deleteClass(id) {
+      if (!confirm('کلاس و تمام دانش‌آموزان و نمرات مربوط به آن حذف شود؟')) return;
+      state.classes = state.classes.filter(c => c.id !== id);
+      state.students = state.students.filter(s => s.classId !== id);
+      state.subjects = state.subjects.filter(s => s.classId !== id);
+      saveState();
+      renderClasses();
+      refreshAllSelects();
+    }
+
+    function renderClasses() {
+      const el = document.getElementById('classes-list');
+      if (!state.classes.length) {
+        el.innerHTML = '<div class="empty-state"><div class="icon">🏫</div>هنوز کلاسی تعریف نشده</div>';
+        return;
+      }
+      el.innerHTML = `<div class="table-wrap"><table>
+        <thead><tr><th>نام کلاس</th><th>تعداد دانش‌آموز</th><th>تعداد درس</th><th></th></tr></thead>
+        <tbody>
+          ${state.classes.map(c => {
+            const stCount = state.students.filter(s => s.classId === c.id).length;
+            const subCount = state.subjects.filter(s => s.classId === c.id).length;
+            return `<tr>
+              <td><strong>${c.name}</strong></td>
+              <td>${stCount}</td>
+              <td>${subCount}</td>
+              <td><button class="btn btn-danger btn-sm" onclick="deleteClass('${c.id}')">حذف</button></td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table></div>`;
+    }
+
+    // ========== STUDENTS ==========
+    function importStudents() {
+      const classId = document.getElementById('students-class-select').value;
+      if (!classId) return alert('ابتدا یک کلاس انتخاب کنید.');
+      const text = document.getElementById('bulk-students').value.trim();
+      if (!text) return alert('لیستی وارد نشده است.');
+
+      const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+      let added = 0;
+
+      lines.forEach(line => {
+        const parsed = parseStudentLine(line);
+        if (parsed && parsed.name) {
+          state.students.push({
+            id: uid(),
+            classId,
+            firstName: parsed.firstName || '',
+            lastName: parsed.lastName || '',
+            name: parsed.name,
+            nationalId: parsed.nationalId || ''
+          });
+          added++;
+        }
+      });
+
+      document.getElementById('bulk-students').value = '';
+      saveState();
+      renderStudents();
+      alert(added + ' دانش‌آموز اضافه شد.');
+    }
+
+    function importCSV(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        document.getElementById('bulk-students').value = ev.target.result;
+        importStudents();
+      };
+      reader.readAsText(file, 'UTF-8');
+      e.target.value = '';
+    }
+
+    function deleteStudent(id) {
+      if (!confirm('این دانش‌آموز حذف شود؟')) return;
+      state.students = state.students.filter(s => s.id !== id);
+      saveState();
+      renderStudents();
+    }
+
+    function renderStudents() {
+      const classId = document.getElementById('students-class-select').value;
+      const el = document.getElementById('students-table');
+      const list = state.students.filter(s => s.classId === classId);
+
+      if (!classId) {
+        el.innerHTML = '<p class="alert alert-warning">ابتدا یک کلاس انتخاب کنید.</p>';
+        return;
+      }
+      if (!list.length) {
+        el.innerHTML = '<div class="empty-state"><div class="icon">👨‍🎓</div>دانش‌آموزی در این کلاس نیست. از کادر بالا اضافه کنید.</div>';
+        return;
+      }
+
+      el.innerHTML = `<div class="table-wrap"><table>
+        <thead><tr>
+          <th>#</th>
+          <th>نام</th>
+          <th>نام‌خانوادگی</th>
+          <th>کد ملی</th>
+          <th></th>
+        </tr></thead>
+        <tbody>
+          ${list.map((s, i) => `<tr>
+            <td>${i + 1}</td>
+            <td>${s.firstName || s.name.split(' ')[0] || s.name}</td>
+            <td>${s.lastName || s.name.split(' ').slice(1).join(' ') || '—'}</td>
+            <td>${s.nationalId || '—'}</td>
+            <td><button class="btn btn-danger btn-sm" onclick="deleteStudent('${s.id}')">حذف</button></td>
+          </tr>`).join('')}
+        </tbody>
+      </table></div>
+      <p style="margin-top:0.5rem;color:var(--muted);font-size:0.85rem;">تعداد: ${list.length} نفر</p>`;
+    }
+
+    // ========== SUBJECTS ==========
+    function importSubjects() {
+      const classId = document.getElementById('subjects-class-select').value;
+      if (!classId) return alert('ابتدا یک کلاس انتخاب کنید.');
+      const text = document.getElementById('bulk-subjects').value.trim();
+      if (!text) return alert('لیستی وارد نشده است.');
+
+      const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+      let added = 0;
+
+      lines.forEach(line => {
+        // also support tab-separated (take first column)
+        let name = line;
+        if (line.includes('\t')) name = line.split('\t')[0].trim();
+        if (line.includes(',')) name = line.split(',')[0].trim();
+
+        if (name) {
+          // avoid duplicates in same class
+          const exists = state.subjects.some(s => s.classId === classId && s.name === name);
+          if (!exists) {
+            state.subjects.push({ id: uid(), classId, name, coef: 1, teacher: '' });
+            added++;
+          }
+        }
+      });
+
+      document.getElementById('bulk-subjects').value = '';
+      saveState();
+      renderSubjects();
+      refreshAllSelects();
+      alert(added + ' درس اضافه شد.');
+    }
+
+    function addSubject() {
+      const classId = document.getElementById('subjects-class-select').value;
+      const name = document.getElementById('new-subject-name').value.trim();
+      if (!classId) return alert('کلاس را انتخاب کنید.');
+      if (!name) return alert('نام درس را وارد کنید.');
+
+      const exists = state.subjects.some(s => s.classId === classId && s.name === name);
+      if (exists) return alert('این درس قبلاً اضافه شده است.');
+
+      state.subjects.push({ id: uid(), classId, name, coef: 1, teacher: '' });
+      document.getElementById('new-subject-name').value = '';
+      saveState();
+      renderSubjects();
+      refreshAllSelects();
+    }
+
+    function deleteSubject(id) {
+      if (!confirm('این درس حذف شود؟')) return;
+      state.subjects = state.subjects.filter(s => s.id !== id);
+      saveState();
+      renderSubjects();
+    }
+
+    function renderSubjects() {
+      const classId = document.getElementById('subjects-class-select').value;
+      const el = document.getElementById('subjects-list');
+      const list = state.subjects.filter(s => s.classId === classId);
+
+      if (!classId) {
+        el.innerHTML = '<p class="alert alert-warning">ابتدا یک کلاس انتخاب کنید.</p>';
+        return;
+      }
+      if (!list.length) {
+        el.innerHTML = '<div class="empty-state"><div class="icon">📚</div>درسی برای این کلاس تعریف نشده. از کادر بالا اضافه کنید.</div>';
+        return;
+      }
+
+      el.innerHTML = `<div class="table-wrap"><table>
+        <thead><tr><th>#</th><th>نام درس</th><th>ساعت</th><th>معلم</th><th></th></tr></thead>
+        <tbody>
+          ${list.map((s, i) => `<tr>
+            <td>${i + 1}</td>
+            <td>${s.name}</td>
+            <td>${s.coef || 1}</td>
+            <td>${s.teacher || '—'}</td>
+            <td><button class="btn btn-danger btn-sm" onclick="deleteSubject('${s.id}')">حذف</button></td>
+          </tr>`).join('')}
+        </tbody>
+      </table></div>
+      <p style="margin-top:0.5rem;color:var(--muted);font-size:0.85rem;">تعداد دروس: ${list.length}</p>`;
+    }
+
+    // ========== GRADES ==========
+    function onGradesClassChange() {
+      selectedSubjectId = null;
+      renderSubjectChips();
+      renderGradesTable();
+    }
+
+    function renderSubjectChips() {
+      const classId = document.getElementById('grades-class-select').value;
+      const el = document.getElementById('subject-chips-area');
+      const subjects = state.subjects.filter(s => s.classId === classId);
+
+      if (!classId || !subjects.length) {
+        el.innerHTML = '';
+        return;
+      }
+
+      // auto select first if none
+      if (!selectedSubjectId || !subjects.find(s => s.id === selectedSubjectId)) {
+        selectedSubjectId = subjects[0].id;
+      }
+
+      el.innerHTML = `
+        <label style="display:block;font-size:0.85rem;color:var(--muted);margin-bottom:0.4rem;">انتخاب درس:</label>
+        <div class="subject-chips">
+          ${subjects.map(s => `
+            <div class="subject-chip ${s.id === selectedSubjectId ? 'active' : ''}"
+                 onclick="selectSubject('${s.id}')">${s.name}</div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    function selectSubject(id) {
+      selectedSubjectId = id;
+      renderSubjectChips();
+      renderGradesTable();
+    }
+
+    function renderGradesTable() {
+      const classId = document.getElementById('grades-class-select').value;
+      const el = document.getElementById('grades-table-area');
+
+      if (!classId) {
+        el.innerHTML = '<p class="alert alert-warning">کلاس را انتخاب کنید.</p>';
+        return;
+      }
+
+      const subjects = state.subjects.filter(s => s.classId === classId);
+      if (!subjects.length) {
+        el.innerHTML = '<p class="alert alert-warning">برای این کلاس هنوز درسی تعریف نشده است.</p>';
+        return;
+      }
+
+      if (!selectedSubjectId) {
+        el.innerHTML = '<p class="alert alert-info">یک درس را از بالا انتخاب کنید.</p>';
+        return;
+      }
+
+      const students = state.students.filter(s => s.classId === classId);
+      if (!students.length) {
+        el.innerHTML = '<p class="alert alert-warning">دانش‌آموزی در این کلاس نیست.</p>';
+        return;
+      }
+
+      const subName = subjects.find(s => s.id === selectedSubjectId)?.name || '';
+      const fkey = classId + '_' + selectedSubjectId;
+      const fin = null;
+      const locked = false;
+
+      el.innerHTML = `
+        ${fin ? `<div class="final-badge">✅ نمرات این درس به‌صورت نهایی ثبت شده است (${fin})${locked ? ' — برای ویرایش با مدیر تماس بگیرید.' : ''}</div>` : ''}
+        <div class="alert alert-info">
+          در حال ورود نمره برای درس: <strong>${subName}</strong>
+          — نمره را بین ۰ تا ۲۰ وارد کنید. پس از وارد کردن، دکمه <strong>ثبت نمرات</strong> را بزنید تا از ثبت شدن مطمئن شوید.
+        </div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>#</th><th>نام و نام‌خانوادگی</th><th>کد ملی</th><th>نمره</th></tr></thead>
+          <tbody>
+            ${students.map((s, i) => {
+              const key = s.id + '_' + selectedSubjectId;
+              const val = state.grades[key] !== undefined ? state.grades[key] : '';
+              return `<tr>
+                <td>${i + 1}</td>
+                <td>${s.name}</td>
+                <td>${s.nationalId || '—'}</td>
+                <td>
+                  <input type="text" inputmode="decimal" autocomplete="off" class="grade-input" data-sid="${s.id}"
+                    value="${val}" ${locked ? 'disabled' : ''}
+                    onfocus="this.dataset.orig = this.value; this.select()" oninput="liveGrade(this)" onchange="commitGrade(this)" onkeydown="gradeKey(event, this)" />
+                </td>
+              </tr>`;
+            }).join('')}
+          </tbody>
+        </table></div>
+        `;
+    }
+
+    // ----- پیام موفقیت / خطا -----
+    let _toastTimer = null;
+    function showToast(msg, type) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.style.background = type === 'error' ? '#c53030' : type === 'warn' ? '#dd6b20' : '#276749';
+      el.style.display = 'block';
+      clearTimeout(_toastTimer);
+      _toastTimer = setTimeout(() => { el.style.display = 'none'; }, 4000);
+    }
+
+    function normalizeNumber(s) {
+      return String(s).trim()
+        .replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d))
+        .replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))
+        .replace(/[٫,\/]/g, '.');
+    }
+
+    // ----- ورود سریع نمره: Enter / فلش‌ها = ردیف بعد، بدون تغییر ناخواسته‌ی نمره -----
+    function gradeInputInfo(inp) {
+      const key = inp.dataset.sid + '_' + selectedSubjectId;
+      return { key, raw: normalizeNumber(inp.value) };
+    }
+    function liveGrade(inp) {
+      if (inp.disabled) return;
+      const { key, raw } = gradeInputInfo(inp);
+      if (raw === '') { delete state.grades[key]; saveState(); inp.style.borderColor = ''; inp.style.background = ''; return; }
+      const num = parseFloat(raw);
+      if (isNaN(num)) return;
+      if (num < 0 || num > 20) { inp.style.borderColor = '#c53030'; inp.style.background = '#fff5f5'; return; }
+      inp.style.borderColor = ''; inp.style.background = '';
+      state.grades[key] = Math.round(num * 100) / 100;
+      saveState();
+    }
+    function commitGrade(inp) {
+      if (inp.disabled) return true;
+      const { key, raw } = gradeInputInfo(inp);
+      if (raw === '') { delete state.grades[key]; saveState(); return true; }
+      const num = parseFloat(raw);
+      if (isNaN(num) || num < 0 || num > 20) {
+        showToast('نمره باید عددی بین ۰ تا ۲۰ باشد.', 'error');
+        const orig = inp.dataset.orig || '';
+        inp.value = orig;
+        if (orig === '') delete state.grades[key]; else state.grades[key] = parseFloat(normalizeNumber(orig));
+        saveState();
+        inp.style.borderColor = ''; inp.style.background = '';
+        inp.focus(); inp.select();
+        return false;
+      }
+      state.grades[key] = Math.round(num * 100) / 100;
+      inp.value = state.grades[key];
+      saveState();
+      return true;
+    }
+    function gradeKey(e, inp) {
+      const k = e.key;
+      if (k !== 'Enter' && k !== 'ArrowDown' && k !== 'ArrowUp') return;
+      e.preventDefault();
+      if (!commitGrade(inp)) return;
+      const all = Array.from(document.querySelectorAll('#grades-table-area .grade-input:not([disabled])'));
+      const i = all.indexOf(inp);
+      const next = all[k === 'ArrowUp' ? i - 1 : i + 1];
+      if (next) { next.focus(); next.select(); }
+      else if (k === 'Enter') { inp.blur(); showToast('به آخر لیست رسیدید. برای اطمینان «ثبت نمرات» را بزنید.', 'warn'); }
+    }
+
+    function gradeContext() {
+      const classId = document.getElementById('grades-class-select').value;
+      const students = state.students.filter(s => s.classId === classId);
+      const sub = state.subjects.find(s => s.id === selectedSubjectId);
+      return { classId, students, subName: sub ? sub.name : '', fkey: classId + '_' + selectedSubjectId };
+    }
+
+    function isGradeLocked(fkey) { return false; }
+
+    // دکمه ثبت نمرات: تمام نمرات روی صفحه را بررسی و ذخیره می‌کند
+    function registerGrades() {
+      const { students, subName, fkey } = gradeContext();
+      if (isGradeLocked(fkey)) { showToast('نمرات این درس نهایی شده و قابل تغییر نیست.', 'error'); return; }
+      const inputs = document.querySelectorAll('#grades-table-area .grade-input');
+      let filled = 0, bad = 0;
+      inputs.forEach(inp => {
+        const key = inp.dataset.sid + '_' + selectedSubjectId;
+        const raw = normalizeNumber(inp.value);
+        if (raw === '') { delete state.grades[key]; return; }
+        const num = parseFloat(raw);
+        if (isNaN(num) || num < 0 || num > 20) { bad++; inp.style.borderColor = '#c53030'; inp.style.background = '#fff5f5'; return; }
+        state.grades[key] = Math.round(num * 100) / 100;
+        filled++;
+      });
+      saveState();
+      if (bad) { showToast(bad + ' نمره نامعتبر است (باید بین ۰ تا ۲۰ باشد). آن‌ها ثبت نشدند.', 'error'); return; }
+      const missing = students.length - filled;
+      if (filled === 0) { showToast('هنوز نمره‌ای وارد نشده است.', 'warn'); return; }
+      if (missing > 0) showToast('✔ نمره‌ی ' + filled + ' نفر برای درس «' + subName + '» ثبت شد. ' + missing + ' نفر هنوز نمره ندارند.', 'warn');
+      else showToast('✔ نمرات درس «' + subName + '» برای ' + filled + ' دانش‌آموز با موفقیت ثبت شد.', 'success');
+    }
+
+    // ثبت یکسان: یک نمره برای همه
+    function registerSameForAll() {
+      const { students, subName, fkey } = gradeContext();
+      if (isGradeLocked(fkey)) { showToast('نمرات این درس نهایی شده و قابل تغییر نیست.', 'error'); return; }
+      const ans = prompt('یک نمره‌ی یکسان (۰ تا ۲۰) برای همه‌ی ' + students.length + ' دانش‌آموز وارد کنید:');
+      if (ans === null) return;
+      const num = parseFloat(normalizeNumber(ans));
+      if (isNaN(num) || num < 0 || num > 20) { showToast('نمره نامعتبر است. عددی بین ۰ تا ۲۰ وارد کنید.', 'error'); return; }
+      if (!confirm('نمره ' + num + ' برای همه‌ی ' + students.length + ' دانش‌آموز در درس «' + subName + '» ثبت شود؟\n(نمره‌های قبلی جایگزین می‌شوند)')) return;
+      students.forEach(s => { state.grades[s.id + '_' + selectedSubjectId] = Math.round(num * 100) / 100; });
+      saveState();
+      renderGradesTable();
+      showToast('✔ نمره ' + num + ' برای همه‌ی ' + students.length + ' دانش‌آموز با موفقیت ثبت شد.', 'success');
+    }
+
+    function registerGradesSilent() {
+      document.querySelectorAll('#grades-table-area .grade-input').forEach(inp => {
+        const key = inp.dataset.sid + '_' + selectedSubjectId;
+        const raw = normalizeNumber(inp.value);
+        if (raw === '') { delete state.grades[key]; return; }
+        const num = parseFloat(raw);
+        if (!isNaN(num) && num >= 0 && num <= 20) state.grades[key] = Math.round(num * 100) / 100;
+      });
+      saveState();
+    }
+
+
+    function saveGrade(studentId, subjectId, value, inputEl) {
+      const key = studentId + '_' + subjectId;
+      if (value === '' || value === null) {
+        delete state.grades[key];
+        if (inputEl) inputEl.style.borderColor = '';
+        saveState();
+        return;
+      }
+      const num = parseFloat(value);
+      if (isNaN(num) || num < 0 || num > 20) {
+        if (inputEl) {
+          inputEl.style.borderColor = '#c53030';
+          inputEl.style.background = '#fff5f5';
+        }
+        alert('نمره باید بین ۰ تا ۲۰ باشد. این نمره معتبر نیست.');
+        if (inputEl) {
+          inputEl.value = state.grades[key] !== undefined ? state.grades[key] : '';
+          setTimeout(() => { inputEl.style.borderColor = ''; inputEl.style.background = ''; }, 1500);
+        }
+        return;
+      }
+      if (inputEl) {
+        inputEl.style.borderColor = '';
+        inputEl.style.background = '';
+      }
+      state.grades[key] = Math.round(num * 100) / 100;
+      saveState();
+    }
+
+    // ========== REPORTS ==========
+    function calcStudentAverage(studentId, classId) {
+      const subjects = state.subjects.filter(s => s.classId === classId);
+      if (!subjects.length) return null;
+
+      let total = 0;
+      let count = 0;
+
+      subjects.forEach(sub => {
+        const key = studentId + '_' + sub.id;
+        if (state.grades[key] !== undefined) {
+          total += state.grades[key];
+          count++;
+        }
+      });
+
+      if (count === 0) return null;
+      return Math.round((total / count) * 100) / 100;
+    }
+
+    function getClassRanking(classId) {
+      const students = state.students.filter(s => s.classId === classId);
+      const ranked = students.map(s => ({
+        ...s,
+        avg: calcStudentAverage(s.id, classId)
+      })).filter(s => s.avg !== null);
+
+      ranked.sort((a, b) => b.avg - a.avg);
+
+      let rank = 1;
+      for (let i = 0; i < ranked.length; i++) {
+        if (i > 0 && ranked[i].avg < ranked[i - 1].avg) {
+          rank = i + 1;
+        }
+        ranked[i].rank = rank;
+      }
+      return ranked;
+    }
+
+    function prepareReports() {
+      const classId = document.getElementById('reports-class-select').value;
+      const el = document.getElementById('rank-table-area');
+
+      document.getElementById('school-name').value = state.settings.schoolName || '';
+      document.getElementById('school-year').value = state.settings.schoolYear || '';
+
+      if (!classId) { el.innerHTML = ''; return; }
+
+      const ranking = getClassRanking(classId);
+      const total = state.students.filter(s => s.classId === classId).length;
+
+      if (!ranking.length) {
+        el.innerHTML = '<div class="card"><p class="alert alert-warning">هنوز نمره‌ای برای محاسبه رتبه وارد نشده است.</p></div>';
+        return;
+      }
+
+      el.innerHTML = `<div class="card">
+        <h3>رتبه‌بندی کلاس (بر اساس میانگین ساده)</h3>
+        <div class="table-wrap"><table>
+          <thead><tr><th>رتبه</th><th>نام و نام‌خانوادگی</th><th>کد ملی</th><th>میانگین</th><th>از تعداد</th></tr></thead>
+          <tbody>
+            ${ranking.map(s => `<tr>
+              <td><span class="badge badge-blue">${s.rank}</span></td>
+              <td>${s.name}</td>
+              <td>${s.nationalId || '—'}</td>
+              <td><strong>${s.avg}</strong></td>
+              <td>${total}</td>
+            </tr>`).join('')}
+          </tbody>
+        </table></div>
+      </div>`;
+    }
+
+    function generateAllReports() {
+      const classId = document.getElementById('reports-class-select').value;
+      if (!classId) return alert('کلاس را انتخاب کنید.');
+
+      const schoolName = document.getElementById('school-name').value.trim() || schoolDisplayName();
+      const schoolYear = document.getElementById('school-year').value.trim() || '';
+
+      state.settings.schoolName = schoolName;
+      state.settings.schoolYear = schoolYear;
+      saveState();
+
+      const cls = state.classes.find(c => c.id === classId);
+      const students = state.students.filter(s => s.classId === classId);
+      const subjects = state.subjects.filter(s => s.classId === classId);
+      const ranking = getClassRanking(classId);
+      const rankMap = {};
+      ranking.forEach(r => { rankMap[r.id] = r; });
+      const totalStudents = students.length;
+
+      if (!students.length) return alert('دانش‌آموزی وجود ندارد.');
+      if (!subjects.length) return alert('درسی تعریف نشده است.');
+
+      const area = document.getElementById('print-area');
+      area.innerHTML = '';
+
+      const subAvg = {};
+      subjects.forEach(sub => {
+        const v = students.map(s => state.grades[s.id + '_' + sub.id]).filter(x => x !== undefined);
+        subAvg[sub.id] = v.length ? Math.round(v.reduce((a, b) => a + b, 0) / v.length * 100) / 100 : null;
+      });
+
+      students.forEach((student, cardIdx) => {
+        const rankInfo = rankMap[student.id];
+        const avg = rankInfo ? rankInfo.avg : '—';
+        const rank = rankInfo ? rankInfo.rank : '—';
+        let statusText = '—';
+        if (typeof avg === 'number') {
+          if (avg < 10) statusText = 'خیلی ضعیف';
+          else if (avg < 12) statusText = 'ضعیف';
+          else if (avg < 14) statusText = 'نسبتاً خوب';
+          else if (avg < 17) statusText = 'خوب';
+          else if (avg < 19) statusText = 'خیلی خوب';
+          else statusText = 'عالی';
+        }
+
+        let rows = subjects.map(sub => {
+          const key = student.id + '_' + sub.id;
+          const grade = state.grades[key] !== undefined ? state.grades[key] : '—';
+          const teacher = sub.teacher || '—';
+          const avgS = subAvg[sub.id];
+          let cmp = '—';
+          if (typeof grade === 'number' && avgS !== null) cmp = Math.abs(grade - avgS) < 0.005 ? '=' : (grade > avgS ? '▲' : '▼');
+          return `<tr>
+            <td class="subject">${sub.name}</td>
+            <td>${teacher}</td>
+            <td>${avgS === null ? '—' : avgS}</td>
+            <td><strong>${grade}</strong></td>
+            <td class="rc-cmp">${cmp}</td>
+          </tr>`;
+        }).join('');
+
+        const card = document.createElement('div');
+        card.className = 'report-card';
+        card.innerHTML = `
+          <img class="rc-logo" src="${SCHOOL_LOGO}" alt="لوگو مدرسه" />
+          <div class="rc-photo rc-num"><small>شماره</small>${cardIdx + 1}</div>
+          <div class="rc-rank">
+            <div>رتبه</div>
+            <div class="num">${(typeof rank === 'number' && rank <= 3) ? ['🥇','🥈','🥉'][rank - 1] + ' ' : ''}${rank}</div>
+            <div>از ${totalStudents}</div>
+          </div>
+          <div class="rc-header">
+            <div class="school-name">${schoolName}</div>
+            <div class="city">${schoolRegion()}</div>
+            <div class="doc-title">کارنامه تحصیلی</div>
+            <div class="year">سال تحصیلی ${schoolYear}</div>
+          </div>
+          <div class="rc-info">
+            <div class="item"><span class="label">نام و نام‌خانوادگی:</span> ${student.name}</div>
+            ${student.nationalId ? '<div class="item"><span class="label">کد ملی:</span> ' + student.nationalId + '</div>' : ''}
+            <div class="item"><span class="label">کلاس:</span> ${cls ? cls.name : '—'}</div>
+            <div class="item"><span class="label">تعداد دانش‌آموزان کلاس:</span> ${totalStudents}</div>
+          </div>
+          <table class="rc-table">
+            <thead>
+              <tr>
+                <th>نام درس</th>
+                <th>معلم</th>
+                <th>میانگین کلاس</th>
+                <th>نمره دانش‌آموز</th>
+                <th>مقایسه</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+          <div class="rc-summary">
+            <div class="box">
+              <div>معدل</div>
+              <div class="val">${avg}</div>
+            </div>
+            <div class="box">
+              <div>رتبه در کلاس</div>
+              <div class="val">${rank} از ${totalStudents}</div>
+            </div>
+            <div class="box">
+              <div>وضعیت</div>
+              <div class="val">${statusText}</div>
+            </div>
+          </div>
+          <div class="rc-legend">
+            خیلی ضعیف: زیر ۱۰ &nbsp;|&nbsp; ضعیف: ۱۰ تا ۱۱٫۹۹ &nbsp;|&nbsp; نسبتاً خوب: ۱۲ تا ۱۳٫۹۹ &nbsp;|&nbsp; خوب: ۱۴ تا ۱۶٫۹۹ &nbsp;|&nbsp; خیلی خوب: ۱۷ تا ۱۸٫۹۹ &nbsp;|&nbsp; عالی: ۱۹ تا ۲۰
+          </div>
+          <div class="rc-legend">▲ بالاتر از میانگین کلاس &nbsp;|&nbsp; ▼ پایین‌تر از میانگین کلاس &nbsp;|&nbsp; = برابر با میانگین کلاس</div>
+          <div class="rc-footer">
+            <div class="sign"><div class="line">نظر والدین</div></div>
+            <div class="sign">
+              <div style="font-size:9pt;margin-bottom:1mm;">${principalName()}</div>
+              <div class="line">مهر و امضای مدیر مدرسه</div>
+            </div>
+          </div>
+        `;
+        area.appendChild(card);
+      });
+
+      document.getElementById('preview-toolbar').style.display = 'flex';
+      area.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // ========== BACKUP ==========
+    function exportData() {
+      const dataStr = JSON.stringify(state, null, 2);
+      const blob = new Blob([dataStr], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'karnome-backup-' + new Date().toISOString().slice(0, 10) + '.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function exportGradesOnly() {
+      const tname = (prompt('نام و نام‌خانوادگی شما (برای شناسایی فایل توسط مدیر):') || '').trim();
+      if (!tname) { showToast('نام را وارد کنید تا فایل ساخته شود.', 'warn'); return; }
+      const data = { type: 'grades-only', exportedAt: new Date().toISOString(), teacher: tname, grades: state.grades };
+      const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'karnome-grades-' + tname.replace(/[\/\\:*?\"<>|\s]+/g, '_') + '-' + new Date().toISOString().slice(0, 10) + '.json';
+      a.click(); URL.revokeObjectURL(url);
+      showToast('✔ فایل نمرات ساخته شد. آن را برای مدیر بفرستید.', 'success');
+    }
+
+    function readFileText(f) {
+      return new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = rej; r.readAsText(f); });
+    }
+
+    async function mergeTeacherFiles(e) {
+      if (currentUser.role !== 'admin') return;
+      const files = Array.from(e.target.files || []);
+      e.target.value = '';
+      if (!files.length) return;
+      const valid = new Set();
+      state.students.forEach(st => state.subjects.forEach(su => { if (su.classId === st.classId) valid.add(st.id + '_' + su.id); }));
+      const finalSubj = () => null;
+      const incoming = {}; const perFile = [];
+      let bad = 0, badFiles = [];
+      for (const f of files) {
+        try {
+          const d = JSON.parse(await readFileText(f));
+          if (!d || typeof d.grades !== 'object') throw new Error('x');
+          let cnt = 0;
+          Object.entries(d.grades).forEach(([k, v]) => {
+            const n = parseFloat(v);
+            if (valid.has(k) && !isNaN(n) && n >= 0 && n <= 20) { incoming[k] = Math.round(n * 100) / 100; cnt++; } else bad++;
+          });
+          perFile.push('• ' + (d.teacher || f.name) + ': ' + cnt + ' نمره');
+        } catch (err) { badFiles.push(f.name); }
+      }
+      let added = 0, changed = 0, same = 0, skipped = 0;
+      const toApply = {};
+      Object.entries(incoming).forEach(([k, v]) => {
+        if (finalSubj(k)) { skipped++; return; }
+        const cur = state.grades[k];
+        if (cur === undefined) { added++; toApply[k] = v; }
+        else if (cur !== v) { changed++; toApply[k] = v; }
+        else same++;
+      });
+      if (!Object.keys(incoming).length && badFiles.length === files.length) { showToast('فایل معتبر نبود. فایل «خروجی نمرات» معلم را انتخاب کنید.', 'error'); return; }
+      const msg = 'فایل‌ها:\n' + perFile.join('\n') + '\n\nنتیجه‌ی بررسی:\n' +
+        '• نمره‌ی جدید: ' + added + '\n• نمره‌ی متفاوت با موجود (جایگزین می‌شود): ' + changed + '\n• نمره‌ی تکراری: ' + same +
+        (skipped ? '\n• مربوط به درس‌های نهایی‌شده (نادیده): ' + skipped : '') +
+        (bad ? '\n• ردیف نامعتبر یا ناشناخته (نادیده): ' + bad : '') +
+        (badFiles.length ? '\n• فایل نامعتبر: ' + badFiles.join('، ') : '') + '\n\nادغام انجام شود؟';
+      if (!confirm(msg)) return;
+      Object.assign(state.grades, toApply);
+      saveState();
+      showToast('✔ ادغام انجام شد: ' + added + ' نمره‌ی جدید و ' + changed + ' نمره‌ی اصلاح‌شده.', 'success');
+    }
+
+    function importData(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        try {
+          const data = JSON.parse(ev.target.result);
+          if (!data.classes || !data.students) throw new Error('فرمت نامعتبر');
+          if (!confirm('داده‌های فعلی با فایل پشتیبان جایگزین شود؟')) return;
+          state = {
+            classes: data.classes || [],
+            students: data.students || [],
+            subjects: data.subjects || [],
+            grades: data.grades || {},
+            finals: data.finals || {},
+            settings: data.settings || { adminPin: '', schoolName: '', schoolYear: '' }
+          };
+          saveState();
+          refreshAllSelects();
+          renderDashboard();
+          alert('با موفقیت بارگذاری شد.');
+        } catch (err) {
+          alert('خطا در خواندن فایل: ' + err.message);
+        }
+      };
+      reader.readAsText(file);
+      e.target.value = '';
+    }
+
+    function clearAllData() {
+      state = {
+        classes: [], students: [], subjects: [], grades: {}, finals: {},
+        settings: { adminPin: '', schoolName: '', schoolYear: '' }
+      };
+      saveState();
+      refreshAllSelects();
+      renderDashboard();
+      alert('همه داده‌ها پاک شد.');
+    }
+
+    function saveSettings() {
+      state.settings.adminPin = document.getElementById('admin-pin-set').value;
+      saveState();
+      alert('تنظیمات ذخیره شد.');
+    }
+
+    // ========== HELPERS ==========
+    function refreshAllSelects() {
+      const opts = state.classes.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+      const empty = '<option value="">انتخاب کلاس...</option>';
+
+      ['students-class-select', 'subjects-class-select', 'grades-class-select', 'reports-class-select']
+        .forEach(id => {
+          const el = document.getElementById(id);
+          if (el) {
+            const prev = el.value;
+            el.innerHTML = empty + opts;
+            if (prev && state.classes.find(c => c.id === prev)) el.value = prev;
+          }
+        });
+    }
+
+    function renderDashboard() {
+      document.getElementById('dashboard-stats').innerHTML = `
+        <div class="stat-card"><div class="num">${state.classes.length}</div><div class="label">کلاس</div></div>
+        <div class="stat-card"><div class="num">${state.students.length}</div><div class="label">دانش‌آموز</div></div>
+        <div class="stat-card"><div class="num">${state.subjects.length}</div><div class="label">درس</div></div>
+        <div class="stat-card"><div class="num">${Object.keys(state.grades).length}</div><div class="label">نمره ثبت‌شده</div></div>
+      `;
+
+      const guide = currentUser.role === 'admin'
+        ? `<ol style="padding-right:1.25rem;line-height:2;">
+            <li>از بخش <strong>کلاس‌ها</strong> کلاس‌ها را تعریف کنید.</li>
+            <li>در بخش <strong>دانش‌آموزان</strong> لیست را وارد کنید.</li>
+            <li>در بخش <strong>دروس</strong> درس‌های هر کلاس را مشخص کنید.</li>
+            <li>معلمان از بخش <strong>ورود نمرات</strong> نمره می‌دهند.</li>
+            <li>در بخش <strong>کارنامه و رتبه</strong> کارنامه را تولید و چاپ کنید.</li>
+            <li>حتماً از بخش <strong>پشتیبان‌گیری</strong> خروجی بگیرید و فایل را به معلمان بدهید.</li>
+          </ol>`
+        : `
+          <div style="line-height:1.9;">
+            <p style="margin-bottom:0.75rem;"><strong>شما با نقش معلم وارد شده‌اید.</strong> برای کار با برنامه این مراحل را انجام دهید:</p>
+
+            <p style="background:#ebf8ff;border:1px solid #bee3f8;border-radius:8px;padding:0.75rem 1rem;margin-bottom:0.75rem;">
+              <strong>۱) دریافت لیست از مدیر / دفتر</strong><br>
+              • از منو بروید به <strong>پشتیبان‌گیری</strong><br>
+              • دکمه <strong>بارگذاری پشتیبان</strong> را بزنید<br>
+              • فایل <code>.json</code> که مدیر به شما داده را انتخاب کنید<br>
+              • بدون این کار، هنگام انتخاب کلاس دانش‌آموزی نمی‌بینید
+            </p>
+
+            <p style="background:#f0fff4;border:1px solid #c6f6d5;border-radius:8px;padding:0.75rem 1rem;margin-bottom:0.75rem;">
+              <strong>۲) ورود نمرات</strong><br>
+              • از منو بروید به <strong>ورود نمرات</strong><br>
+              • <strong>کلاس</strong> را انتخاب کنید<br>
+              • روی نام <strong>درس</strong> کلیک کنید (دکمه‌های گرد)<br>
+              • نمره را بین ۰ تا ۲۰ وارد کنید — خودکار ذخیره می‌شود
+            </p>
+
+            <p style="background:#fffaf0;border:1px solid #feebc8;border-radius:8px;padding:0.75rem 1rem;margin-bottom:0.5rem;">
+              <strong>۳) تحویل نمرات به مدیر</strong><br>
+              • بعد از اتمام نمرات، دوباره بروید <strong>پشتیبان‌گیری</strong><br>
+              • دکمه <strong>خروجی گرفتن (JSON)</strong> را بزنید<br>
+              • فایل ذخیره‌شده را به مدیر / دفتر بدهید تا در سیستم خودش بارگذاری کند
+            </p>
+
+            <p style="font-size:0.9rem;color:#718096;margin-top:0.5rem;">
+              نکته: داده‌ها فقط روی همین سیستم و مرورگر ذخیره می‌شوند. اگر سیستم عوض شد، دوباره باید فایل پشتیبان را بارگذاری کنید.
+            </p>
+          </div>`;
+
+      document.getElementById('dashboard-guide').innerHTML = guide;
+    }
+
+    // START
+    loadState();
+    if (window.__SNAP__ && window.__SNAP__.state) {
+      const sid = String(window.__SNAP__.savedAt);
+      let applied = null; try { applied = localStorage.getItem('karnome_snap_applied'); } catch (e) {}
+      if (applied !== sid) {
+        if (!state.classes.length || confirm('این فایل یک «نسخه‌ی ذخیره‌شده» است (' + window.__SNAP__.savedAtFa + ').\nداده‌های فعلی این دستگاه با داده‌های این فایل جایگزین شود؟')) {
+          state = Object.assign({ classes: [], students: [], subjects: [], grades: {}, finals: {}, settings: { adminPin: '', schoolName: '', schoolYear: '' } }, window.__SNAP__.state);
+          saveState();
+        }
+        try { localStorage.setItem('karnome_snap_applied', sid); } catch (e) {}
+      }
+    }
+    // نسخه جدید حافظه: اگر خالی است، داده هنرستان را خودکار بارگذاری کن
+    if (!state.classes.length && typeof SEED_CLASSES !== 'undefined') {
+      state.classes = JSON.parse(JSON.stringify(SEED_CLASSES));
+      state.subjects = JSON.parse(JSON.stringify(SEED_SUBJECTS));
+      state.students = JSON.parse(JSON.stringify(SEED_STUDENTS));
+      state.grades = {};
+      saveState();
+    }
+    unlockApp();
+    document.getElementById('hdr-logo').src = SCHOOL_LOGO;
+  
+// ================= امکانات جدید =================
+document.querySelectorAll('.logo-img').forEach(i => i.src = SCHOOL_LOGO);
+document.documentElement.style.setProperty('--logo-url', 'url("' + SCHOOL_LOGO + '")');
+(function () { try { const u = JSON.parse(localStorage.getItem('karnome_ui') || '{}'); if (u.dark) document.body.classList.add('dark'); if (u.accent) document.body.dataset.accent = u.accent; } catch (e) {} })();
+function saveUI() { try { localStorage.setItem('karnome_ui', JSON.stringify({ dark: document.body.classList.contains('dark'), accent: document.body.dataset.accent || '' })); } catch (e) {} }
+function toggleDark() { document.body.classList.toggle('dark'); saveUI(); }
+const MARTYR_QUOTE = '';
+const MARTYR_PHOTO = '';   // عکس شهید: بعد از دریافت اینجا قرار می‌گیرد
+const ACCENTS = ['', 'green', 'purple', 'teal', 'red'];
+function cycleAccent() {
+  const n = ACCENTS[(ACCENTS.indexOf(document.body.dataset.accent || '') + 1) % ACCENTS.length];
+  if (n) document.body.dataset.accent = n; else delete document.body.dataset.accent;
+  saveUI();
+}
+function setPageStyle(orient, m) {
+  const st = document.getElementById('dyn-page');
+  if (st) st.textContent = '@media print{@page{size:A4 ' + orient + ';margin:' + (m || (orient === 'landscape' ? '8mm' : '6mm')) + '}}';
+}
+function gradeColor(v) { return v >= 17 ? '#38a169' : v >= 14 ? '#3182ce' : v >= 12 ? '#d69e2e' : v >= 10 ? '#dd6b20' : '#c53030'; }
+function gradeCell(g) {
+  if (typeof g !== 'number') return g;
+  const c = g >= 17 ? 'g1' : g >= 14 ? 'g2' : g >= 12 ? 'g3' : g >= 10 ? 'g4' : 'g5';
+  return '<span class="rc-gv ' + c + '">' + g + '</span><span class="rc-bar"><i style="width:' + (g * 5) + '%;background:' + gradeColor(g) + '"></i></span>';
+}
+const _origGenerateAll = generateAllReports;
+generateAllReports = function () {
+  setPageStyle('landscape', '3mm'); _origGenerateAll();
+  document.querySelectorAll('#print-area .report-card').forEach(c => {
+    const n = c.querySelectorAll('.rc-table tbody tr').length + 1;
+    c.style.setProperty('--rowh', Math.max(5.2, Math.min(9, 92 / n)).toFixed(1) + 'mm');
+  });
+};
+
+// ----- ناوبری -----
+NAV_ITEMS.admin.splice(NAV_ITEMS.admin.length - 2, 0, { id: 'ranking', label: 'رتبه‌بندی', icon: '🏅' });
+NAV_ITEMS.teacher.splice(NAV_ITEMS.teacher.length - 1, 0, { id: 'ranking', label: 'رتبه‌بندی', icon: '🏅' });
+const _origShowPage = showPage;
+showPage = function (id) {
+  _origShowPage(id);
+  if (id === 'ranking') rkInit();
+  if (id === 'settings') { const pn = document.getElementById('principal-name'); if (pn) pn.value = principalName(); }
+  if (id === 'subjchart') scInit();
+  const sa = document.getElementById('side-actions'); if (sa) sa.style.display = (id === 'grades') ? '' : 'none';
+  if (id === 'backup') {
+    const isA = currentUser.role === 'admin';
+    ['merge-card', 'backup-main-card'].forEach(i => { const e = document.getElementById(i); if (e) e.style.display = isA ? '' : 'none'; });
+  }
+};
+
+// ----- داشبورد تصویری -----
+function classStats() {
+  return state.classes.map(c => {
+    const studs = state.students.filter(s => s.classId === c.id);
+    const subs = state.subjects.filter(u => u.classId === c.id);
+    let filled = 0, incomplete = 0;
+    subs.forEach(u => {
+      let f = 0;
+      studs.forEach(s => { if (state.grades[s.id + '_' + u.id] !== undefined) f++; });
+      filled += f; if (f < studs.length) incomplete++;
+    });
+    const avgs = studs.map(s => calcStudentAverage(s.id, c.id)).filter(v => v !== null);
+    return { c, total: studs.length * subs.length, filled, incomplete, subjects: subs.length,
+             avg: avgs.length ? Math.round(avgs.reduce((a, b) => a + b, 0) / avgs.length * 100) / 100 : null };
+  });
+}
+function renderDashboardExtra() {
+  const el = document.getElementById('dashboard-extra');
+  if (!el) return;
+  const cs = classStats();
+  const people = state.students.map(s => ({ s, avg: calcStudentAverage(s.id, s.classId) }));
+  const withAvg = people.filter(p => p.avg !== null);
+  const pass = withAvg.filter(p => p.avg >= 10).length, fail = withAvg.length - pass, none = people.length - withAvg.length;
+  const sum = people.length || 1;
+  const a1 = pass / sum * 360, a2 = a1 + fail / sum * 360;
+  const top = withAvg.slice().sort((a, b) => b.avg - a.avg).slice(0, 5);
+  const clsName = id => (state.classes.find(c => c.id === id) || {}).name || '';
+  const medals = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
+  const prog = cs.map(x => {
+    const pct = x.total ? Math.round(x.filled / x.total * 100) : 0;
+    return '<div class="bar-row"><span class="nm" title="' + x.c.name + '">' + x.c.name + '</span><div class="bar-track"><div class="bar-fill" style="width:' + pct + '%;background:' + (pct === 100 ? '#38a169' : pct >= 50 ? '#dd6b20' : '#c53030') + '"></div></div><span class="vl">' + pct + '٪</span></div>' +
+      (x.incomplete ? '<div style="font-size:.72rem;color:var(--muted);margin:-.3rem 0 .3rem;padding-right:96px">' + x.incomplete + ' درس ناقص از ' + x.subjects + '</div>' : '');
+  }).join('') || '<p class="alert alert-info">کلاسی تعریف نشده است.</p>';
+  const avgBars = cs.filter(x => x.avg !== null).sort((a, b) => b.avg - a.avg).map(x =>
+    '<div class="bar-row"><span class="nm" title="' + x.c.name + '">' + x.c.name + '</span><div class="bar-track"><div class="bar-fill" style="width:' + (x.avg * 5) + '%;background:' + gradeColor(x.avg) + '"></div></div><span class="vl">' + x.avg + '</span></div>'
+  ).join('') || '<p class="alert alert-info">هنوز نمره‌ای ثبت نشده است.</p>';
+  el.innerHTML =
+    
+    '<div class="dash-grid">' +
+      '<div class="card"><h3>📈 پیشرفت ثبت نمرات</h3>' + prog + '</div>' +
+      '<div class="card"><h3>📊 میانگین کلاس‌ها</h3>' + avgBars + '</div>' +
+      '<div class="card"><h3>🎯 وضعیت قبولی (معدل ۱۰ به بالا)</h3>' +
+        '<div class="donut" style="background:conic-gradient(#38a169 0deg ' + a1 + 'deg,#c53030 ' + a1 + 'deg ' + a2 + 'deg,#cbd5e0 ' + a2 + 'deg 360deg)"><div class="donut-c">' + withAvg.length + '</div></div>' +
+        '<div class="legend"><span><i style="background:#38a169"></i>قبول ' + pass + '</span><span><i style="background:#c53030"></i>مردود ' + fail + '</span><span><i style="background:#cbd5e0"></i>بدون نمره ' + none + '</span></div></div>' +
+      '<div class="card"><h3>🏆 نفرات برتر مدرسه</h3>' +
+        (top.length ? top.map((p, i) => '<div class="top-row"><span class="medal">' + medals[i] + '</span><span>' + p.s.name + '<br><small style="color:var(--muted)">' + clsName(p.s.classId) + '</small></span><span class="av" style="color:' + gradeColor(p.avg) + '">' + p.avg + '</span></div>').join('') : '<p class="alert alert-info">هنوز نمره‌ای ثبت نشده است.</p>') + '</div>' +
+    '</div>';
+}
+const _origRenderDashboard = renderDashboard;
+renderDashboard = function () {
+  _origRenderDashboard();
+  renderDashboardExtra();
+  
+  const g = document.getElementById('dashboard-guide');
+  if (g) g.innerHTML = currentUser.role === 'admin'
+    ? '<ol style="padding-right:1.25rem;line-height:2.1"><li>نمره‌ی معلم‌ها را از <strong>پشتیبان‌گیری ← ادغام نمرات معلم‌ها</strong> اضافه کنید.</li><li>در <strong>رتبه‌بندی</strong> معدل و رتبه‌ی کلاس‌ها و هر درس را ببینید.</li><li>در <strong>کارنامه و رتبه</strong> کارنامه و تقدیرنامه را بسازید و چاپ کنید.</li><li>از <strong>پشتیبان‌گیری</strong> حتماً نسخه‌ی ذخیره بگیرید.</li></ol>'
+    : '<ol style="padding-right:1.25rem;line-height:2.1"><li>از منو <strong>ورود نمرات</strong> را باز کنید، کلاس و درس را انتخاب کنید و نمره‌ها را بنویسید. با <strong>Enter</strong> به ردیف بعد بروید.</li><li>دکمه <strong>ثبت نمرات</strong> را بزنید تا پیام تأیید ببینید.</li><li>در پایان، از <strong>پشتیبان‌گیری</strong> دکمه <strong>خروجی نمرات</strong> را بزنید و فایل را برای مدیر بفرستید.</li><li>در <strong>رتبه‌بندی</strong> می‌توانید معدل و رتبه‌ی دانش‌آموزان هر درس را ببینید.</li></ol>';
+
+};
+
+// ----- رتبه‌بندی و آمار -----
+function rkInit() {
+  const sel = document.getElementById('rk-class');
+  const keep = sel.value;
+  sel.innerHTML = '<option value="__all">همه‌ی کلاس‌ها (معدل کل)</option>' + state.classes.map(c => '<option value="' + c.id + '">' + c.name + '</option>').join('');
+  if (keep && Array.from(sel.options).some(o => o.value === keep)) sel.value = keep;
+  else if (state.classes.length) sel.value = state.classes[0].id;
+  rkClassChange();
+}
+function rkClassChange() {
+  const cid = document.getElementById('rk-class').value;
+  const sc = document.getElementById('rk-scope');
+  let html = '<option value="__avg">معدل کل</option>';
+  if (cid !== '__all') html += state.subjects.filter(u => u.classId === cid).map(u => '<option value="' + u.id + '">درس: ' + u.name + '</option>').join('');
+  sc.innerHTML = html;
+  renderRanking();
+}
+function rkData() {
+  const cid = document.getElementById('rk-class').value;
+  const scope = document.getElementById('rk-scope').value || '__avg';
+  const order = document.getElementById('rk-order').value;
+  const studs = cid === '__all' ? state.students : state.students.filter(s => s.classId === cid);
+  const rows = studs.map(s => ({
+    s, cls: (state.classes.find(c => c.id === s.classId) || {}).name || '',
+    v: scope === '__avg' ? calcStudentAverage(s.id, s.classId) : (state.grades[s.id + '_' + scope] !== undefined ? state.grades[s.id + '_' + scope] : null)
+  }));
+  const graded = rows.filter(r => r.v !== null).sort((a, b) => b.v - a.v);
+  graded.forEach((r, i) => { r.rank = (i > 0 && r.v === graded[i - 1].v) ? graded[i - 1].rank : i + 1; });
+  const shown = order === 'asc' ? graded.slice().reverse() : graded;
+  return { cid, scope, graded, shown, missing: rows.filter(r => r.v === null), all: cid === '__all' };
+}
+function renderRanking() {
+  const st = document.getElementById('rk-stats'), tb = document.getElementById('rk-table');
+  if (!st) return;
+  const d = rkData();
+  if (!d.graded.length) { st.innerHTML = ''; tb.innerHTML = '<p class="alert alert-warning">هنوز نمره‌ای برای این انتخاب ثبت نشده است.</p>'; return; }
+  const vals = d.graded.map(r => r.v);
+  const mean = Math.round(vals.reduce((a, b) => a + b, 0) / vals.length * 100) / 100;
+  const passN = vals.filter(v => v >= 10).length;
+  st.innerHTML = '<div class="rk-stats"><div><b>' + vals.length + '</b>دارای نمره</div><div><b style="color:#38a169">' + Math.max(...vals) + '</b>بالاترین</div><div><b style="color:#c53030">' + Math.min(...vals) + '</b>پایین‌ترین</div><div><b>' + mean + '</b>میانگین</div><div><b>' + passN + ' / ' + vals.length + '</b>قبول</div></div>';
+  const medal = r => r === 1 ? '🥇' : r === 2 ? '🥈' : r === 3 ? '🥉' : '';
+  tb.innerHTML = '<div class="btn-group no-print" style="margin-bottom:.75rem"><button class="btn btn-outline btn-sm" onclick="exportRankingCSV()">📊 خروجی اکسل</button></div>' +
+    '<div class="table-wrap"><table><thead><tr><th>رتبه</th><th>نام و نام‌خانوادگی</th>' + (d.all ? '<th>کلاس</th>' : '') + '<th>' + (d.scope === '__avg' ? 'معدل' : 'نمره') + '</th></tr></thead><tbody>' +
+    d.shown.map(r => '<tr><td>' + medal(r.rank) + ' <span class="badge badge-blue">' + r.rank + '</span></td><td>' + r.s.name + '</td>' + (d.all ? '<td>' + r.cls + '</td>' : '') +
+      '<td><strong style="color:' + gradeColor(r.v) + '">' + r.v + '</strong><span class="rk-bar"><i style="width:' + (r.v * 5) + '%;background:' + gradeColor(r.v) + '"></i></span></td></tr>').join('') +
+    '</tbody></table></div>' +
+    (d.missing.length ? '<p class="alert alert-info" style="margin-top:.75rem">' + d.missing.length + ' نفر هنوز نمره ندارند و در رتبه‌بندی نیامده‌اند.</p>' : '');
+}
+function downloadCSV(name, rows) {
+  const csv = '\ufeff' + rows.map(r => r.map(c => '"' + String(c === undefined || c === null ? '' : c).replace(/"/g, '""') + '"').join(',')).join('\r\n');
+  const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+  const a = document.createElement('a'); a.href = url; a.download = name; a.click(); URL.revokeObjectURL(url);
+}
+function exportRankingCSV() {
+  const d = rkData();
+  const rows = [['رتبه', 'نام و نام‌خانوادگی', 'کلاس', d.scope === '__avg' ? 'معدل' : 'نمره']];
+  d.shown.forEach(r => rows.push([r.rank, r.s.name, r.cls, r.v]));
+  downloadCSV('karnome-ranking-' + new Date().toISOString().slice(0, 10) + '.csv', rows);
+}
+function exportClassCSV() {
+  const classId = document.getElementById('reports-class-select').value;
+  if (!classId) return alert('کلاس را انتخاب کنید.');
+  const subs = state.subjects.filter(u => u.classId === classId);
+  const rk = {}; getClassRanking(classId).forEach(r => { rk[r.id] = r; });
+  const rows = [['ردیف', 'نام و نام‌خانوادگی', 'کد ملی'].concat(subs.map(u => u.name)).concat(['معدل', 'رتبه'])];
+  state.students.filter(s => s.classId === classId).forEach((s, i) => {
+    rows.push([i + 1, s.name, s.nationalId || ''].concat(subs.map(u => state.grades[s.id + '_' + u.id] !== undefined ? state.grades[s.id + '_' + u.id] : '')).concat([rk[s.id] ? rk[s.id].avg : '', rk[s.id] ? rk[s.id].rank : '']));
+  });
+  const cls = state.classes.find(c => c.id === classId);
+  downloadCSV('karnome-' + (cls ? cls.name.replace(/\s+/g, '_') : 'class') + '.csv', rows);
+}
+
+// ----- تقدیرنامه -----
+function generateCertificates() {
+  const classId = document.getElementById('reports-class-select').value;
+  if (!classId) return alert('کلاس را انتخاب کنید.');
+  const winners = getClassRanking(classId).filter(r => r.rank <= 3);
+  if (!winners.length) return alert('هنوز نمره‌ای برای تعیین نفرات برتر ثبت نشده است.');
+  const schoolName = document.getElementById('school-name').value.trim() || schoolDisplayName();
+  const year = document.getElementById('school-year').value.trim();
+  const cls = state.classes.find(c => c.id === classId);
+  const names = ['اول', 'دوم', 'سوم'], med = ['🥇', '🥈', '🥉'];
+  const area = document.getElementById('print-area');
+  area.innerHTML = '';
+  winners.forEach(w => {
+    const d = document.createElement('div');
+    d.className = 'cert';
+    d.innerHTML = '<div class="cert-in"><img class="cert-logo" src="' + SCHOOL_LOGO + '" alt="لوگو"><div class="cert-school">' + schoolName + '</div><div class="cert-city">' + schoolRegion() + '</div><div class="cert-title">تقدیرنامه</div>' +
+      '<div class="cert-text">بدین‌وسیله از تلاش و پشتکار دانش‌آموز <b>' + w.name + '</b> در کلاس <b>' + (cls ? cls.name : '') + '</b> که با کسب معدل <b>' + w.avg + '</b> به‌عنوان <b>نفر ' + names[w.rank - 1] + '</b> کلاس در سال تحصیلی ' + year + ' درخشید، تقدیر و تشکر می‌شود.</div>' +
+      '<div class="cert-medal">' + med[w.rank - 1] + '</div><div class="cert-sign">مدیر مدرسه</div></div>';
+    area.appendChild(d);
+  });
+  setPageStyle('landscape');
+  document.getElementById('preview-toolbar').style.display = 'flex';
+  area.scrollIntoView({ behavior: 'smooth' });
+}
+
+// ----- ورود مدیر با رمز مالک (فقط نسخه اصلی) -----
+const OWNER_HASH = "0000000000000000000000000000000000000000000000000000000000000000";
+async function doLogin() {
+  const name = document.getElementById('login-name').value.trim() || (selectedRole === 'admin' ? 'مدیر' : 'معلم');
+  if (selectedRole === 'admin' && state.settings && state.settings.adminPin) {
+    const ok = await askAdminPassword(async pin => pin === state.settings.adminPin);
+    if (!ok) return;
+  }
+  document.getElementById('login-pin').value = '';
+  currentUser = { role: selectedRole, name };
+  document.getElementById('login-screen').classList.add('hidden');
+  document.getElementById('app').classList.remove('hidden');
+  document.getElementById('current-role-label').textContent = (selectedRole === 'admin' ? 'مدیر' : 'معلم') + ((name === 'مدیر' || name === 'معلم') ? '' : ' · ' + name);
+  buildNav(); showPage('dashboard'); refreshAllSelects(); renderDashboard();
+}
+
+[NAV_ITEMS.admin, NAV_ITEMS.teacher].forEach(a => {
+  const i = a.findIndex(x => x.id === 'ranking');
+  a.splice(i + 1, 0, { id: 'subjchart', label: 'نمودار دروس', icon: '📊' });
+  a.push({ id: 'guide', label: 'راهنمای سریع', icon: '📖' });
+});
+function loginAs(role) {
+  selectedRole = role;
+  document.querySelectorAll('.role-option').forEach(o => o.classList.toggle('selected', o.dataset.role === role));
+  doLogin();
+}
+const DEFAULT_PRINCIPAL = '';
+function principalName() { const v = state.settings && state.settings.principalName; return v === undefined ? DEFAULT_PRINCIPAL : v; }
+function savePrincipal() {
+  if (!state.settings) state.settings = {};
+  state.settings.principalName = document.getElementById('principal-name').value.trim();
+  saveState();
+  showToast('✔ نام مدیر ذخیره شد.', 'success');
+}
+function askAdminPassword(validate, title, text, errMsg) {
+  return new Promise(resolve => {
+    const m = document.getElementById('pw-modal'), inp = document.getElementById('pw-input'), err = document.getElementById('pw-err');
+    const ok = document.getElementById('pw-ok'), cancel = document.getElementById('pw-cancel');
+    document.querySelector('#pw-modal h3').textContent = title || '🔒 رمز مدیر';
+    document.querySelector('#pw-modal p').textContent = text || 'برای ورود به بخش مدیر، رمز را وارد کنید.';
+    m.style.display = 'flex'; inp.value = ''; err.textContent = '';
+    setTimeout(() => inp.focus(), 60);
+    const close = v => { m.style.display = 'none'; ok.onclick = cancel.onclick = inp.onkeydown = null; resolve(v); };
+    const go = async () => {
+      if (!inp.value) { err.textContent = 'رمز را وارد کنید.'; return; }
+      if (await validate(inp.value)) close(true); else { err.textContent = errMsg || 'رمز اشتباه است.'; inp.value = ''; inp.focus(); }
+    };
+    ok.onclick = go; cancel.onclick = () => close(false);
+    inp.onkeydown = e => { if (e.key === 'Enter') go(); };
+  });
+}
+(function () { if (typeof MARTYR_PHOTO !== 'undefined' && MARTYR_PHOTO) { const q = document.querySelector('.login-qcard'); if (q) q.insertAdjacentHTML('afterbegin', '<img class="martyr-photo" src="' + MARTYR_PHOTO + '" alt="">'); } })();
+function scInit() {
+  const sel = document.getElementById('sc-class'); const keep = sel.value;
+  sel.innerHTML = state.classes.map(c => '<option value="' + c.id + '">' + c.name + '</option>').join('');
+  if (keep && Array.from(sel.options).some(o => o.value === keep)) sel.value = keep;
+  renderSubjChart();
+}
+function renderSubjChart() {
+  const cid = document.getElementById('sc-class').value, type = document.getElementById('sc-type').value, el = document.getElementById('sc-chart');
+  if (!cid) { el.innerHTML = '<p class="alert alert-info">کلاسی تعریف نشده است.</p>'; return; }
+  const studs = state.students.filter(s => s.classId === cid);
+  const data = state.subjects.filter(u => u.classId === cid).map(u => {
+    const v = studs.map(s => state.grades[s.id + '_' + u.id]).filter(x => x !== undefined);
+    return { name: u.name, n: v.length, avg: v.length ? Math.round(v.reduce((a, b) => a + b, 0) / v.length * 100) / 100 : null };
+  });
+  if (!data.some(d => d.avg !== null)) { el.innerHTML = '<p class="alert alert-warning">هنوز نمره‌ای برای این کلاس ثبت نشده است.</p>'; return; }
+  if (type === 'row') {
+    el.innerHTML = data.map(d => '<div class="bar-row"><span class="nm" title="' + d.name + '" style="width:130px">' + d.name + '</span><div class="bar-track"><div class="bar-fill" style="width:' + ((d.avg || 0) * 5) + '%;background:' + gradeColor(d.avg || 0) + '"></div></div><span class="vl">' + (d.avg === null ? '—' : d.avg) + '</span></div>').join('');
+  } else {
+    el.innerHTML = '<div class="colchart">' + data.map(d => '<div class="col" title="' + d.name + ' — ' + d.n + ' از ' + studs.length + ' نمره"><div class="vv" style="color:' + (d.avg === null ? '#a0aec0' : gradeColor(d.avg)) + '">' + (d.avg === null ? '—' : d.avg) + '</div><div class="area"><div class="bar" style="height:' + ((d.avg || 0) * 11) + 'px;background:' + (d.avg === null ? '#cbd5e0' : gradeColor(d.avg)) + '"></div></div><div class="lbl">' + d.name + '</div></div>').join('') + '</div><p style="font-size:.8rem;color:var(--muted);margin-top:.6rem">ارتفاع هر ستون = میانگین نمره‌ی همان درس (از ۲۰).</p>';
+  }
+}
+function sideRegister() {
+  if (!selectedSubjectId || !document.querySelector('#grades-table-area .grade-input')) { showToast('ابتدا کلاس و درس را انتخاب کنید.', 'warn'); return; }
+  registerGrades();
+}
+function sideSame() {
+  if (!selectedSubjectId || !document.querySelector('#grades-table-area .grade-input')) { showToast('ابتدا کلاس و درس را انتخاب کنید.', 'warn'); return; }
+  registerSameForAll();
+}
+
+// ----- سطح دسترسی: مدیر (با رمز) و سازنده (با کلید 🔑) -----
+const ADMIN_HASH = OWNER_HASH;              // فعلاً رمز مدیر همان رمز سازنده است
+const OWNER_BUILD = true;                  // true فقط در نسخه شخصی سازنده
+function setOwner(on, persist) {
+  document.body.classList.toggle('owner', on);
+  try { if (persist) { if (on) localStorage.setItem('karnome_owner', OWNER_HASH); else localStorage.removeItem('karnome_owner'); } } catch (e) {}
+  const k = document.getElementById('owner-link'); if (k) k.textContent = on ? '🔑 سازنده ✓ (خروج)' : '🔑 ورود سازنده';
+}
+(function () {
+  let saved = false; try { saved = localStorage.getItem('karnome_owner') === OWNER_HASH; } catch (e) {}
+  const k = document.createElement('div'); k.id = 'owner-link';
+  k.onclick = async () => {
+    if (document.body.classList.contains('owner')) { setOwner(false, true); return; }
+    const p = prompt('رمز سازنده:'); if (!p) return;
+    if (await sha256(p) === OWNER_HASH) setOwner(true, true); else alert('رمز اشتباه است.');
+  };
+  document.body.appendChild(k);
+  setOwner(saved || OWNER_BUILD, false);
+  ['addClass', 'deleteClass', 'importStudents', 'importCSV', 'deleteStudent', 'importSubjects', 'addSubject', 'deleteSubject', 'importData', 'loadSeedCurriculum', 'saveSettings', 'clearAllData'].forEach(n => {
+    const o = window[n]; if (typeof o !== 'function') return;
+    window[n] = function () {
+      if (!document.body.classList.contains('owner')) { alert('این بخش فقط برای سازنده فعال است (کلید 🔑 پایین صفحه).'); return; }
+      return o.apply(this, arguments);
+    };
+  });
+})();
+
+// ----- ذخیره نسخه کامل (Save As): فایل رمزدار همراه با همه‌ی داده‌ها -----
+const WRAPPER_TPL = "<!DOCTYPE html>\n<html lang=\"fa\" dir=\"rtl\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>__TITLE__<\/title>\n<style>body{margin:0;font-family:Tahoma,sans-serif;background:#1e3a5f;min-height:100vh;display:flex;align-items:center;justify-content:center}\n.box{background:#fff;border-radius:14px;padding:2rem 1.5rem;width:90%;max-width:340px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.3)}\nh2{color:#1e3a5f;margin:.2rem 0 1rem;font-size:1.1rem}input{width:100%;box-sizing:border-box;padding:.75rem;font-size:1rem;border:1px solid #cbd5e0;border-radius:8px;text-align:center;direction:ltr}\nbutton{margin-top:.8rem;width:100%;padding:.75rem;font-size:1rem;font-weight:700;background:#1e3a5f;color:#fff;border:0;border-radius:8px;cursor:pointer}\n#err{color:#c53030;font-size:.85rem;margin-top:.6rem;min-height:1.2em}small{display:block;margin-top:1rem;color:#718096}<\/style><\/head>\n<body><div class=\"box\"><div style=\"font-size:2.2rem\">🔒<\/div><h2>سامانه کارنامه — ورود با رمز<\/h2>\n<input type=\"password\" id=\"pw\" placeholder=\"رمز را وارد کنید\" autofocus><button id=\"go\">ورود<\/button><div id=\"err\"><\/div>\n<small>سازنده: الف. شفائی مقدم<\/small><\/div>\n<script>\nconst P=\"__PAYLOAD__\";\nfunction b64(s){const b=atob(s),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u}\nasync function openApp(){\n  const err=document.getElementById('err');err.textContent='';\n  if(!window.crypto||!crypto.subtle){err.textContent='این مرورگر از رمزگشایی پشتیبانی نمی‌کند. فایل را با Chrome باز کنید.';return}\n  try{\n    const raw=b64(P),salt=raw.slice(0,16),iv=raw.slice(16,28),ct=raw.slice(28);\n    const km=await crypto.subtle.importKey('raw',new TextEncoder().encode(document.getElementById('pw').value),'PBKDF2',false,['deriveKey']);\n    const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:200000,hash:'SHA-256'},km,{name:'AES-GCM',length:256},false,['decrypt']);\n    const pt=await crypto.subtle.decrypt({name:'AES-GCM',iv},key,ct);\n    const html=new TextDecoder().decode(pt);\n    document.open();document.write(html);document.close();\n  }catch(e){err.textContent='رمز اشتباه است.'}\n}\ndocument.getElementById('go').onclick=openApp;\ndocument.getElementById('pw').addEventListener('keydown',e=>{if(e.key==='Enter')openApp()});\n<\/script><\/body><\/html>";
+async function encryptHtml(html, password) {
+  const enc = new TextEncoder();
+  const salt = crypto.getRandomValues(new Uint8Array(16)), iv = crypto.getRandomValues(new Uint8Array(12));
+  const km = await crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveKey']);
+  const key = await crypto.subtle.deriveKey({ name: 'PBKDF2', salt, iterations: 200000, hash: 'SHA-256' }, km, { name: 'AES-GCM', length: 256 }, false, ['encrypt']);
+  const ct = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, enc.encode(html)));
+  const all = new Uint8Array(28 + ct.length);
+  all.set(salt, 0); all.set(iv, 16); all.set(ct, 28);
+  let bin = '';
+  for (let i = 0; i < all.length; i += 0x8000) bin += String.fromCharCode.apply(null, all.subarray(i, i + 0x8000));
+  return btoa(bin);
+}
+async function saveAsFull() {
+  if (!document.body.classList.contains('owner')) { alert('این بخش فقط برای سازنده فعال است.'); return; }
+  let pw = '';
+  const ok = await askAdminPassword(async p => { if (p.length < 4) return false; pw = p; return true; },
+    '💾 رمز فایل ذخیره', 'برای قفل کردن فایل یک رمز انتخاب کنید (حداقل ۴ کاراکتر). برای باز کردن فایل همین رمز لازم است.', 'رمز باید حداقل ۴ کاراکتر باشد.');
+  if (!ok) return;
+  showToast('در حال ساخت فایل…', 'warn');
+  try {
+    const now = new Date();
+    const OPEN = '<' + 'script id="snap">', CLOSE = '<' + '/script>';
+    let html = __SRC;
+    const a0 = html.indexOf(OPEN);
+    if (a0 >= 0) { const a1 = html.indexOf(CLOSE, a0); if (a1 > a0) html = html.slice(0, a0) + html.slice(a1 + CLOSE.length); }
+    const snap = { savedAt: now.getTime(), savedAtFa: now.toLocaleString('fa-IR'), state: state };
+    const tag = OPEN + 'window.__SNAP__=' + JSON.stringify(snap).replace(/</g, '\\u003c') + ';' + CLOSE;
+    html = html.replace(/<body[^>]*>/, m => m + tag);
+    const payload = await encryptHtml(html, pw);
+    const out = WRAPPER_TPL.replace('__TITLE__', 'سامانه کارنامه').replace('__PAYLOAD__', payload);
+    const url = URL.createObjectURL(new Blob([out], { type: 'text/html' }));
+    const a = document.createElement('a');
+    a.href = url; a.download = 'karnome-full-' + now.toISOString().slice(0, 10) + '.html';
+    a.click(); setTimeout(() => URL.revokeObjectURL(url), 4000);
+    showToast('✔ نسخه‌ی کامل ذخیره شد. رمز آن را فراموش نکنید.', 'success');
+  } catch (e) { showToast('ساخت فایل ناموفق بود.', 'error'); }
+}
+
+
+// ===== نسخه عمومی: مشخصات مدرسه، محدودیت‌ها و دوره‌ی آزمایشی =====
+const MAX_STUDENTS = 30, MAX_SUBJECTS = 20, MAX_CLASSES = 3, TRIAL_DAYS = 30;
+const HARD_EXPIRY = 1805419934143;
+const CONTACT = 'الف. شفائی مقدم ۰۹۱۳۲۶۰۳۹۳۰';
+const LIMIT_MSG = 'نسخه عمومی (آزمایشی) حداکثر ' + MAX_STUDENTS + ' دانش‌آموز، ' + MAX_SUBJECTS + ' درس و ' + MAX_CLASSES + ' کلاس را پشتیبانی می‌کند.\nبرای نسخه کامل با سازنده تماس بگیرید: ' + CONTACT;
+let pendingLogo;
+function schoolDisplayName() { return (state.settings && state.settings.schoolName) || 'نام مدرسه'; }
+function schoolRegion() { return (state.settings && state.settings.region) || ''; }
+function applyBranding() {
+  const nm = schoolDisplayName(), rg = schoolRegion();
+  const set = (id, v) => { const e = document.getElementById(id); if (e) e.textContent = v; };
+  set('brand-name', nm); set('brand-region', rg); set('login-brand', nm); set('login-region', rg || 'سامانه کارنامه تحصیلی');
+  SCHOOL_LOGO = (state.settings && state.settings.logo) ? state.settings.logo : DEFAULT_LOGO;
+  document.querySelectorAll('.logo-img').forEach(i => i.src = SCHOOL_LOGO);
+  const h = document.getElementById('hdr-logo'); if (h) h.src = SCHOOL_LOGO;
+  document.documentElement.style.setProperty('--logo-url', 'url("' + SCHOOL_LOGO + '")');
+  document.title = nm + ' | سامانه کارنامه';
+  const pv = document.getElementById('idn-logo-prev'); if (pv) pv.src = SCHOOL_LOGO;
+}
+function pickLogo(e) {
+  const f = e.target.files[0]; e.target.value = '';
+  if (!f) return;
+  const r = new FileReader();
+  r.onload = () => {
+    const img = new Image();
+    img.onload = () => {
+      const k = Math.min(1, 256 / Math.max(img.width, img.height));
+      const c = document.createElement('canvas'); c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+      pendingLogo = f.type === 'image/png' ? c.toDataURL('image/png') : c.toDataURL('image/jpeg', 0.88);
+      document.getElementById('idn-logo-prev').src = pendingLogo;
+      showToast('لوگو انتخاب شد. برای اعمال، «ذخیره مشخصات» را بزنید.', 'warn');
+    };
+    img.onerror = () => showToast('این فایل تصویر معتبر نیست.', 'error');
+    img.src = r.result;
+  };
+  r.readAsDataURL(f);
+}
+function clearLogo() { pendingLogo = ''; document.getElementById('idn-logo-prev').src = DEFAULT_LOGO; showToast('لوگو حذف می‌شود. «ذخیره مشخصات» را بزنید.', 'warn'); }
+function saveIdentity() {
+  if (!state.settings) state.settings = {};
+  state.settings.schoolName = document.getElementById('idn-name').value.trim();
+  state.settings.region = document.getElementById('idn-region').value.trim();
+  if (pendingLogo !== undefined) { if (pendingLogo) state.settings.logo = pendingLogo; else delete state.settings.logo; pendingLogo = undefined; }
+  saveState(); applyBranding();
+  showToast('✔ مشخصات مدرسه ذخیره شد.', 'success');
+}
+
+// ----- دوره‌ی آزمایشی -----
+function trialStart() {
+  let a = NaN; try { a = parseInt(localStorage.getItem('karnome_trial_start') || '', 10); } catch (e) {}
+  const b = state.settings && state.settings.trialStart;
+  const vals = [a, b].filter(v => v && !isNaN(v));
+  const st = vals.length ? Math.min.apply(null, vals) : Date.now();
+  try { localStorage.setItem('karnome_trial_start', String(st)); } catch (e) {}
+  if (!state.settings) state.settings = {};
+  if (state.settings.trialStart !== st) { state.settings.trialStart = st; try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {} }
+  return st;
+}
+function trialDaysLeft() { return Math.ceil((trialStart() + TRIAL_DAYS * 86400000 - Date.now()) / 86400000); }
+function blockApp(msg) {
+  document.getElementById('trial-msg').textContent = msg;
+  document.getElementById('trial-block').style.display = 'flex';
+}
+function checkTrial() {
+  let last = 0; try { last = parseInt(localStorage.getItem('karnome_last_seen') || '0', 10) || 0; } catch (e) {}
+  const now = Date.now();
+  if (now + 86400000 < last) { blockApp('تاریخ دستگاه تغییر کرده است. برای ادامه با سازنده تماس بگیرید.'); return false; }
+  try { localStorage.setItem('karnome_last_seen', String(Math.max(last, now))); } catch (e) {}
+  if (now > HARD_EXPIRY || trialDaysLeft() <= 0) { blockApp('مدت استفاده‌ی آزمایشی (' + TRIAL_DAYS + ' روز) این نسخه به پایان رسیده است. برای دریافت نسخه کامل با سازنده تماس بگیرید.'); return false; }
+  const cb = document.getElementById('credit-bar');
+  if (cb) cb.innerHTML = 'نسخه عمومی (آزمایشی) · ' + trialDaysLeft() + ' روز باقی‌مانده &nbsp;|&nbsp; سازنده: الف. شفائی مقدم <span dir="ltr">۰۹۱۳۲۶۰۳۹۳۰</span>';
+  return true;
+}
+
+// ----- محدودیت تعداد -----
+function enforceLimits() {
+  let trimmed = false;
+  if (state.classes.length > MAX_CLASSES) { state.classes.length = MAX_CLASSES; trimmed = true; }
+  const cids = new Set(state.classes.map(c => c.id));
+  if (state.students.length > MAX_STUDENTS) { state.students.length = MAX_STUDENTS; trimmed = true; }
+  if (state.subjects.length > MAX_SUBJECTS) { state.subjects.length = MAX_SUBJECTS; trimmed = true; }
+  if (trimmed) {
+    state.students = state.students.filter(s => cids.has(s.classId));
+    state.subjects = state.subjects.filter(s => cids.has(s.classId));
+    const sids = new Set(state.students.map(s => s.id)), uids = new Set(state.subjects.map(s => s.id));
+    Object.keys(state.grades).forEach(k => { const i = k.lastIndexOf('_sub_'); const si = i > 0 ? k.slice(0, i) : '', ui = i > 0 ? k.slice(i + 1) : ''; if (!sids.has(si) || !uids.has(ui)) delete state.grades[k]; });
+  }
+  return trimmed;
+}
+const _saveStatePublic = saveState;
+saveState = function () {
+  const t = enforceLimits();
+  _saveStatePublic();
+  if (t) {
+    alert(LIMIT_MSG);
+    setTimeout(() => { refreshAllSelects(); const a = document.querySelector('.page.active'); if (a) showPage(a.id.replace('page-', '')); }, 50);
+  }
+};
+function limitGuard(name, check) {
+  const o = window[name]; if (typeof o !== 'function') return;
+  window[name] = function () { const m = check(); if (m) { alert(m); return; } return o.apply(this, arguments); };
+}
+limitGuard('addClass', () => state.classes.length >= MAX_CLASSES ? LIMIT_MSG : '');
+['importStudents', 'importCSV'].forEach(n => limitGuard(n, () => state.students.length >= MAX_STUDENTS ? LIMIT_MSG : ''));
+['addSubject', 'importSubjects'].forEach(n => limitGuard(n, () => state.subjects.length >= MAX_SUBJECTS ? LIMIT_MSG : ''));
+
+// ----- داشبورد، منوها -----
+const PUBLIC_GUIDE = '<ol style="padding-right:1.25rem;line-height:2.1"><li>از <strong>تنظیمات</strong> نام، منطقه و لوگوی مدرسه را وارد کنید.</li><li>در <strong>کلاس‌ها</strong> کلاس بسازید.</li><li>در <strong>دانش‌آموزان</strong> لیست اسامی را از اکسل کپی و جای‌گذاری کنید.</li><li>در <strong>دروس</strong> درس‌ها و نام معلم‌ها را وارد کنید.</li><li>در <strong>ورود نمرات</strong> نمره‌ها را بنویسید و «ثبت نمرات» را بزنید.</li><li>در <strong>کارنامه و رتبه</strong> کارنامه‌ها را بسازید و چاپ بگیرید (دو کارنامه در هر A4).</li></ol>';
+const _rdPublic = renderDashboard;
+renderDashboard = function () {
+  _rdPublic();
+  const g = document.getElementById('dashboard-guide'); if (g) g.innerHTML = PUBLIC_GUIDE;
+  const ex = document.getElementById('dashboard-extra');
+  if (ex) ex.insertAdjacentHTML('afterbegin', '<div class="alert alert-warning" style="margin-bottom:1rem">🧪 نسخه عمومی (آزمایشی): حداکثر ' + MAX_STUDENTS + ' دانش‌آموز، ' + MAX_SUBJECTS + ' درس و ' + MAX_CLASSES + ' کلاس — ' + trialDaysLeft() + ' روز باقی‌مانده. برای نسخه کامل با سازنده تماس بگیرید: ' + CONTACT + '</div>');
+};
+const _spPublic = showPage;
+showPage = function (id) {
+  if (!checkTrial()) return;
+  _spPublic(id);
+  if (id === 'settings') {
+    const n = document.getElementById('idn-name'), r = document.getElementById('idn-region');
+    if (n) n.value = (state.settings && state.settings.schoolName) || '';
+    if (r) r.value = schoolRegion();
+    pendingLogo = undefined; const pv = document.getElementById('idn-logo-prev'); if (pv) pv.src = SCHOOL_LOGO;
+  }
+};
+if (enforceLimits()) { _saveStatePublic(); }
+applyBranding();
+checkTrial();
+setInterval(checkTrial, 60000);
+
+</script>
+</body>
+</html>

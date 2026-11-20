@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>راهنمای آران‌وبیدگل و کاشان</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef4f5;--card:#fff;--ink:#14263a;--mut:#5d6f80;--pri:#0f7f86;--lap:#1b3a6b;--red:#c62f3a;--ok:#1d8a4e;--line:#d6e2e5;--chip:#dcecee;--gold:#e0a21b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1a22;--card:#16262f;--ink:#e6eef2;--mut:#9fb2bf;--pri:#2bb3ba;--lap:#12263f;--red:#ef6670;--ok:#4fd08a;--line:#26404b;--chip:#1d3640;--gold:#f0bd48}}
+:root[data-theme="dark"]{--bg:#0e1a22;--card:#16262f;--ink:#e6eef2;--mut:#9fb2bf;--pri:#2bb3ba;--lap:#12263f;--red:#ef6670;--ok:#4fd08a;--line:#26404b;--chip:#1d3640;--gold:#f0bd48}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Vazirmatn,Tahoma,"DejaVu Sans",sans-serif;-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit;cursor:pointer}
+.app{max-width:520px;margin:0 auto;min-height:100vh;padding-bottom:90px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--lap);color:#fff;padding:12px 14px 10px;border-radius:0 0 20px 20px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}
+.top h1{margin:0;font-size:17px;font-weight:800}
+.top button{border:0;background:rgba(255,255,255,.15);color:#fff;border-radius:99px;width:34px;height:34px}
+.search{display:flex;align-items:center;gap:8px;background:var(--card);color:var(--ink);border-radius:14px;padding:0 12px}
+.search input{flex:1;border:0;background:none;color:inherit;font:inherit;font-size:15px;padding:12px 0;outline:none;min-width:0}
+.search button{border:0;background:none;font-size:16px;color:var(--mut)}
+.wrap{padding:12px 14px 0}
+.row-s{display:flex;gap:7px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:none}
+.chip{border:1.5px solid transparent;background:var(--chip);border-radius:99px;font-size:12.5px;padding:6px 13px;white-space:nowrap}
+.chip.on{background:var(--pri);color:#fff}
+.cats .cat{flex:none;width:68px;border:0;background:none;font-size:11.5px;text-align:center;padding:0}
+.cat i{display:grid;place-items:center;width:52px;height:52px;margin:0 auto 4px;border-radius:17px;background:var(--card);font-style:normal;font-size:25px;border:2px solid transparent}
+.cat.on i{border-color:var(--pri);background:var(--chip)}
+.pop{font-size:12px;color:var(--mut);margin:2px 0 8px}
+.pop button{border:0;background:var(--card);border-radius:99px;padding:4px 11px;margin:3px 0 0 6px;font-size:12px}
+.bar{display:flex;justify-content:space-between;align-items:center;margin:4px 0 8px;font-size:13px;color:var(--mut)}
+.bar select{border:0;background:var(--card);color:var(--ink);border-radius:10px;padding:6px 8px;font:inherit;font-size:12.5px}
+.item{background:var(--card);border-radius:16px;padding:11px;margin-bottom:9px;cursor:pointer;display:flex;gap:11px;align-items:center}
+.item.pro{border:1.5px solid var(--gold)}
+.ico{width:48px;height:48px;border-radius:14px;background:var(--chip);display:grid;place-items:center;font-size:24px;flex:none}
+.inf{flex:1;min-width:0}
+.inf b{font-size:14.5px;display:flex;gap:5px;align-items:center;flex-wrap:wrap}
+.inf small{color:var(--mut);font-size:12px;display:block;margin-top:1px}
+.ver{color:var(--pri);font-size:12px}
+.badge{background:var(--gold);color:#3a2a00;border-radius:6px;font-size:10.5px;padding:1px 6px;font-weight:600}
+.st{font-size:11.5px;font-weight:600}.st.o{color:var(--ok)}.st.c{color:var(--red)}
+.star{color:var(--gold);font-size:12.5px;font-weight:600}
+.call{width:42px;height:42px;border-radius:50%;background:var(--pri);color:#fff;display:grid;place-items:center;text-decoration:none;font-size:18px;flex:none}
+.empty{text-align:center;color:var(--mut);padding:30px 10px;font-size:14px;line-height:1.9}
+.cta{display:flex;gap:10px;align-items:center;background:var(--chip);border-radius:16px;padding:12px;margin:6px 0 10px;text-align:right;width:100%;border:0}
+.cta b{display:block;font-size:14px}.cta span{font-size:12px;color:var(--mut)}
+.note{font-size:11.5px;color:var(--mut);text-align:center;margin:14px 6px 0}
+nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav div{display:flex;max-width:520px;margin:0 auto}
+nav button{flex:1;border:0;background:none;color:var(--mut);font-size:11.5px;padding:9px 0 8px}
+nav button i{display:block;font-style:normal;font-size:21px}
+nav button.on{color:var(--pri);font-weight:700}
+.fab{position:fixed;left:14px;bottom:calc(78px + env(safe-area-inset-bottom,0px));z-index:15;border:0;background:var(--red);color:#fff;font-weight:800;font-size:14px;border-radius:99px;padding:12px 16px;box-shadow:0 4px 14px rgba(198,47,58,.45)}
+.bg{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;z-index:30}.bg.show{display:block}
+.sheet{position:absolute;bottom:0;left:0;right:0;max-width:520px;margin:0 auto;background:var(--card);border-radius:22px 22px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px));max-height:90vh;overflow:auto}
+.sheet h2{margin:0 0 4px;font-size:18px}
+.r{display:flex;gap:9px;font-size:13.5px;margin:9px 0}.r i{font-style:normal;width:22px;text-align:center}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}.tag{background:var(--chip);border-radius:99px;font-size:11.5px;padding:3px 10px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.btn{border:0;border-radius:13px;padding:12px 6px;font-size:14px;font-weight:600;text-align:center;text-decoration:none;color:#fff;background:var(--lap)}
+.btn.p{background:var(--pri)}.btn.w{background:#25a244}.btn.l{background:var(--chip);color:var(--ink)}
+.lbl{font-size:12.5px;color:var(--mut);margin:12px 0 0}
+.stars button{border:0;background:none;font-size:26px;color:var(--line);padding:0 2px}.stars button.on{color:var(--gold)}
+.nums{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.num{display:block;text-decoration:none;color:var(--ink);background:var(--chip);border-radius:13px;padding:10px 12px;font-size:12.5px}
+.num b{display:block;font-size:20px;color:var(--red);text-align:right}
+.num.big{background:var(--red);color:#fff}.num.big b{color:#fff}
+.form label{display:block;font-size:13px;margin:10px 0 4px}
+.form input,.form select{width:100%;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:11px;padding:10px;font:inherit;font-size:14px}
+.form .two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.form .btn{width:100%;margin-top:12px;display:block}
+.mapbox{background:var(--card);border-radius:16px;padding:6px}.mapbox svg{width:100%;height:auto;display:block}.pin{cursor:pointer}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(140px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:99px;font-size:13px;z-index:40;display:none}
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.stat{background:var(--card);border-radius:14px;padding:12px;font-size:12.5px;color:var(--mut)}
+.stat b{display:block;font-size:22px;color:var(--ink)}
+.stat small{font-size:11.5px}
+.up{color:var(--ok)}.dn{color:var(--red)}
+.bars{display:flex;align-items:flex-end;gap:3px;height:110px;background:var(--card);border-radius:14px;padding:10px}
+.bars i{flex:1;background:var(--pri);border-radius:3px 3px 0 0;min-height:3px}
+.axis{display:flex;justify-content:space-between;font-size:11px;color:var(--mut);margin:4px 2px 0}
+.up-box{background:var(--chip);border-radius:16px;padding:13px;margin-top:12px;font-size:13px;line-height:1.9}
+:focus-visible{outline:2px solid var(--pri);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+<div class="top"><h1>راهنمای آران‌وبیدگل و کاشان</h1><span style="display:flex;gap:6px"><button data-a="dash" aria-label="آمار کسب‌وکار">📊</button><button data-a="theme" aria-label="تغییر پوسته">🌓</button></span></div>
+<label class="search"><span>🔍</span><input id="q" type="search" placeholder="مثلاً باتری‌ساز، پنچری، داروخانه…" autocomplete="off"><button data-a="clr" aria-label="پاک کردن">✕</button></label>
+</header>
+<div class="wrap" id="main"></div>
+</div>
+<nav><div>
+<button data-a="tab" data-v="home" class="on"><i>🏠</i>خانه</button>
+<button data-a="tab" data-v="map"><i>🗺️</i>نقشه</button>
+<button data-a="tab" data-v="add"><i>➕</i>ثبت کسب‌وکار</button>
+<button data-a="tab" data-v="fav"><i>♥</i>ذخیره‌ها</button>
+</div></nav>
+<button class="fab" data-a="sos">🚨 اضطراری</button>
+<div class="bg" id="bg"><div class="sheet" id="sheet"></div></div>
+<div class="toast" id="toast"></div>
+<script>
+var CATS=[["all","📋","همه"],["car","🚗","خودرو"],["build","🛠️","ساختمان"],["fix","🔧","تعمیرات"],["food","🍽️","غذا"],["health","💊","سلامت"],["move","🚚","حمل‌ونقل"],["local","🏺","صنایع محلی"]];
+var POP=["پنچرگیر","باتری‌ساز","مکانیک","لوله‌کش","داروخانه","یخچال","گلاب"];
+// داده‌های نمونه (آزمایشی)؛ شماره‌ها و آدرس‌ها واقعی نیستند
+var D=[
+{id:1,n:"پنچرگیری سیار امین",c:"car",s:"پنچرگیر",city:"کاشان",a:"بلوار امیرکبیر، نزدیک میدان شهید بهشتی",p:"09120000001",lat:33.9895,lng:51.4352,h:[7,22],t:["سیار","اورژانسی"],r:4.7,rc:41,v:1,pro:1,k:"پنچر لاستیک تایر"},
+{id:2,n:"باتری‌سازی رضایی",c:"car",s:"باتری‌ساز",city:"کاشان",a:"خیابان شهید بهشتی، پلاک ۱۲",p:"09120000002",lat:33.9811,lng:51.4081,h:[8,20],t:["خدمات در محل"],r:4.5,rc:28,v:1,k:"باطری استارت"},
+{id:3,n:"مکانیکی استاد حسن",c:"car",s:"مکانیک",city:"آران‌وبیدگل",a:"بلوار امام خمینی، روبروی پمپ بنزین",p:"09120000003",lat:34.0589,lng:51.4852,h:[8,19],t:[],r:4.3,rc:19,v:0,k:"موتور گیربکس"},
+{id:4,n:"امداد خودرو شبانه‌روزی",c:"car",s:"امداد و جرثقیل",city:"کاشان",a:"جاده قم، ابتدای ورودی شهر",p:"09120000004",lat:34.0102,lng:51.3921,h:24,t:["۲۴ ساعته","اورژانسی","سیار"],r:4.8,rc:63,v:1,pro:1,k:"جرثقیل یدک‌کش"},
+{id:5,n:"لوله‌کشی ایران",c:"build",s:"لوله‌کش",city:"آران‌وبیدگل",a:"خیابان طالقانی",p:"09120000005",lat:34.0561,lng:51.4799,h:[8,18],t:["اورژانسی","سیار"],r:4.4,rc:22,v:1,k:"آب نشتی"},
+{id:6,n:"برق‌کار ساختمان نوید",c:"build",s:"برق‌کار",city:"کاشان",a:"خیابان فاضل نراقی",p:"09120000006",lat:33.9867,lng:51.4130,h:[8,19],t:["سیار"],r:4.6,rc:31,v:0,k:"سیم‌کشی فیوز"},
+{id:7,n:"تعمیر یخچال و کولر فرهنگ",c:"fix",s:"لوازم خانگی",city:"کاشان",a:"میدان کمال‌الملک",p:"09120000007",lat:33.9831,lng:51.4012,h:[8,19],t:["خدمات در محل"],r:4.2,rc:17,v:1,k:"یخچال کولر لباسشویی"},
+{id:8,n:"تعمیرات موبایل بیدگل",c:"fix",s:"موبایل",city:"آران‌وبیدگل",a:"خیابان انقلاب، مجتمع نور",p:"09120000008",lat:34.0576,lng:51.4833,h:[9,21],t:[],r:4.1,rc:12,v:0,k:"گوشی صفحه"},
+{id:9,n:"رستوران سنتی خانه عباسیان",c:"food",s:"رستوران",city:"کاشان",a:"بازار کاشان، نزدیک تیمچهٔ امین‌الدوله",p:"09120000009",lat:33.9786,lng:51.4094,h:[11,23],t:["پارکینگ دارد"],r:4.6,rc:120,v:1,pro:1,k:"غذا ناهار شام"},
+{id:10,n:"داروخانه شبانه‌روزی دکتر کاظمی",c:"health",s:"داروخانه",city:"کاشان",a:"خیابان بابا افضل",p:"09120000010",lat:33.9852,lng:51.4079,h:24,t:["۲۴ ساعته","اورژانسی"],r:4.7,rc:54,v:1,k:"دارو"},
+{id:11,n:"داروخانه آران",c:"health",s:"داروخانه",city:"آران‌وبیدگل",a:"بلوار امام خمینی",p:"09120000011",lat:34.0603,lng:51.4871,h:[8,22],t:[],r:4.4,rc:26,v:1,k:"دارو"},
+{id:12,n:"باربری و وانت‌بار کویر",c:"move",s:"وانت‌بار",city:"آران‌وبیدگل",a:"میدان شهدا",p:"09120000012",lat:34.0545,lng:51.4760,h:[7,21],t:["سیار"],r:4.3,rc:15,v:0,k:"اسباب‌کشی باربری"},
+{id:13,n:"گلاب و عرقیات قمصر",c:"local",s:"گلاب‌گیری",city:"کاشان",a:"قمصر، ابتدای مسیر گلاب‌گیری",p:"09120000013",lat:33.7399,lng:51.3947,h:[8,18],t:["سوغات"],r:4.8,rc:77,v:1,k:"گلاب عرق سوغات"},
+{id:14,n:"فرش و گلیم دستباف کاشان",c:"local",s:"فرش",city:"کاشان",a:"بازار بزرگ، راستهٔ فرش‌فروشان",p:"09120000014",lat:33.9781,lng:51.4108,h:[9,19],t:["سوغات"],r:4.5,rc:35,v:0,k:"قالی گلیم سوغات"}];
+var IC={};CATS.forEach(function(c){IC[c[0]]=c[1]});
+var S={tab:"home",cat:"all",city:"همه",f:{},sort:"rec",q:"",pos:null,fav:[],rate:{}};
+try{S.fav=JSON.parse(localStorage.getItem("fav")||"[]");S.rate=JSON.parse(localStorage.getItem("rate")||"{}")}catch(e){}
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+var $=function(i){return document.getElementById(i)};
+function fa(n){return String(n).replace(/\d/g,function(d){return"۰۱۲۳۴۵۶۷۸۹".charAt(d)})}
+function toast(m){var t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toast.x);toast.x=setTimeout(function(){t.style.display="none"},2200)}
+function isOpen(b){if(b.h===24)return true;var d=new Date(),x=d.getHours()+d.getMinutes()/60;return d.getDay()!==5&&x>=b.h[0]&&x<b.h[1]}
+function hrs(b){return b.h===24?"شبانه‌روزی":"هر روز "+fa(b.h[0])+" تا "+fa(b.h[1])+" (جمعه‌ها تعطیل)"}
+function dist(b){if(!S.pos)return null;var r=Math.PI/180,x=(b.lat-S.pos.lat)*r,y=(b.lng-S.pos.lng)*r,a=Math.sin(x/2)*Math.sin(x/2)+Math.cos(S.pos.lat*r)*Math.cos(b.lat*r)*Math.sin(y/2)*Math.sin(y/2);return 12742*Math.asin(Math.sqrt(a))}
+function dTxt(b){var k=dist(b);return k===null?"":(k<1?fa(Math.round(k*1000))+" متر":fa(k.toFixed(1))+" کیلومتر")}
+function locate(cb){if(!navigator.geolocation){toast("موقعیت‌یابی پشتیبانی نمی‌شود");return}navigator.geolocation.getCurrentPosition(function(p){S.pos={lat:p.coords.latitude,lng:p.coords.longitude};cb()},function(){toast("اجازهٔ موقعیت داده نشد")},{timeout:9000,enableHighAccuracy:true})}
+function list(){
+var q=S.q.trim(),f=S.f;
+var r=D.filter(function(b){
+if(S.cat!=="all"&&b.c!==S.cat)return false;
+if(S.city!=="همه"&&b.city!==S.city)return false;
+if(f.open&&!isOpen(b))return false;
+if(f.h24&&b.h!==24)return false;
+if(f.mob&&!b.t.some(function(t){return t==="سیار"||t==="خدمات در محل"}))return false;
+if(f.ver&&!b.v)return false;
+if(q&&(b.n+b.s+b.t.join(" ")+b.a+b.k).indexOf(q)<0)return false;
+return true});
+r.sort(function(a,b){
+if(S.sort==="near"&&S.pos)return dist(a)-dist(b);
+if(S.sort==="rate")return b.r-a.r;
+return (b.pro||0)-(a.pro||0)||b.r-a.r});
+return r}
+function card(b){
+var o=isOpen(b),d=dTxt(b);
+return '<div class="item'+(b.pro?' pro':'')+'" data-a="open" data-v="'+b.id+'"><div class="ico">'+IC[b.c]+'</div><div class="inf"><b>'+b.n+(b.v?'<span class="ver" title="تأییدشده">✔</span>':'')+(b.pro?'<span class="badge">ویژه</span>':'')+'</b><small>'+b.s+' · '+b.city+(d?' · '+d:'')+'</small><span class="star">★ '+fa(b.r)+'</span> <small style="display:inline">('+fa(b.rc)+') </small><span class="st '+(o?'o':'c')+'">'+(o?'باز است':'بسته است')+'</span></div><a class="call" href="tel:'+b.p+'" aria-label="تماس">📞</a></div>'}
+function chip(a,v,t,on){return '<button class="chip'+(on?' on':'')+'" data-a="'+a+'" data-v="'+v+'">'+t+'</button>'}
+function render(){
+var h="";
+if(S.tab==="home"){
+h+='<div class="row-s cats">'+CATS.map(function(c){return '<button class="cat'+(S.cat===c[0]?' on':'')+'" data-a="cat" data-v="'+c[0]+'"><i>'+c[1]+'</i>'+c[2]+'</button>'}).join("")+'</div>';
+h+='<div class="row-s">'+chip("near","1","📍 نزدیک من",S.sort==="near")+chip("f","open","الان باز",S.f.open)+chip("f","h24","۲۴ ساعته",S.f.h24)+chip("f","mob","سیار / در محل",S.f.mob)+chip("f","ver","تأییدشده ✔",S.f.ver)+["همه","کاشان","آران‌وبیدگل"].map(function(c){return chip("city",c,c,S.city===c)}).join("")+'</div>';
+if(!S.q)h+='<div class="pop">پرجستجو:'+POP.map(function(p){return '<button data-a="pop" data-v="'+p+'">'+p+'</button>'}).join("")+'</div>';
+var r=list();
+h+='<div class="bar"><span>'+fa(r.length)+' نتیجه</span><select id="sort" aria-label="مرتب‌سازی"><option value="rec"'+(S.sort==="rec"?' selected':'')+'>پیشنهادی</option><option value="near"'+(S.sort==="near"?' selected':'')+'>نزدیک‌ترین</option><option value="rate"'+(S.sort==="rate"?' selected':'')+'>بیشترین امتیاز</option></select></div>';
+h+=r.length?r.map(card).join(""):'<div class="empty">🔎<br>چیزی پیدا نشد.<br>فیلترها را کم کنید یا عبارت دیگری بنویسید.</div>';
+h+='<button class="cta" data-a="tab" data-v="add"><span style="font-size:26px">🏪</span><div><b>کسب‌وکار دارید؟ رایگان ثبت کنید</b><span>مردم شهر شما را راحت‌تر پیدا می‌کنند</span></div></button>';
+}else if(S.tab==="map")h+=mapView();
+else if(S.tab==="add")h+=addView();
+else if(S.tab==="dash")h+=dashView();
+else{var f=D.filter(function(b){return S.fav.indexOf(b.id)>-1});
+h+=f.length?f.map(card).join(""):'<div class="empty">♥<br>هنوز چیزی ذخیره نکرده‌اید.<br>روی هر کسب‌وکار بزنید و «ذخیره» را انتخاب کنید.</div>'}
+h+='<div class="note">نسخهٔ آزمایشی · اطلاعات نمونه است و واقعی نیست</div>';
+$("main").innerHTML=h;
+document.querySelectorAll("nav button").forEach(function(b){b.classList.toggle("on",b.dataset.v===S.tab)});
+}
+function mapView(){
+var W=380,H=400,p=34,la=D.map(function(b){return b.lat}),ln=D.map(function(b){return b.lng});
+var a=Math.min.apply(null,la),z=Math.max.apply(null,la),c=Math.min.apply(null,ln),d=Math.max.apply(null,ln);
+var s='<div class="bar"><span>نقشهٔ ساده از کسب‌وکارها</span></div><div class="mapbox"><svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="نقشهٔ پین‌ها"><rect width="'+W+'" height="'+H+'" rx="12" fill="var(--chip)"/>';
+D.forEach(function(b){var x=p+(b.lng-c)/(d-c)*(W-2*p),y=p+(z-b.lat)/(z-a)*(H-2*p);s+='<g class="pin" data-a="open" data-v="'+b.id+'"><circle cx="'+x+'" cy="'+y+'" r="14" fill="var(--card)" stroke="var(--pri)" stroke-width="2.5"/><text x="'+x+'" y="'+(y+5)+'" text-anchor="middle" font-size="14">'+IC[b.c]+'</text></g>'});
+return s+'</svg></div><div class="note">روی هر پین بزنید. در نسخهٔ اصلی نقشهٔ واقعی نشان یا OpenStreetMap قرار می‌گیرد.</div>'}
+function opt(a){return a.map(function(x){return '<option>'+x+'</option>'}).join("")}
+function addView(){
+return '<div class="form"><b style="font-size:16px">ثبت کسب‌وکار جدید</b><div class="note" style="text-align:right;margin:4px 0 0">ثبت رایگان است. اطلاعات بعد از بررسی نمایش داده می‌شود. برای ثبت گروهی از فایل اکسل استفاده کنید.</div>'
++'<label>نام کسب‌وکار</label><input id="f_n">'
++'<div class="two"><div><label>دسته</label><select id="f_c">'+opt(CATS.slice(1).map(function(c){return c[2]}))+'</select></div><div><label>شهر</label><select id="f_city">'+opt(["کاشان","آران‌وبیدگل","بیدگل","نوش‌آباد","قمصر","نیاسر"])+'</select></div></div>'
++'<label>نوع شغل (مثلاً باتری‌ساز)</label><input id="f_s"><label>شمارهٔ تماس</label><input id="f_p" type="tel" inputmode="numeric" dir="ltr" placeholder="09121234567">'
++'<label>نشانی</label><input id="f_a"><label>ساعات کار (مثلاً ۸ تا ۲۰)</label><input id="f_h">'
++'<div class="two"><div><label>عرض جغرافیایی</label><input id="f_lat" dir="ltr"></div><div><label>طول جغرافیایی</label><input id="f_lng" dir="ltr"></div></div>'
++'<button class="btn l" data-a="gps" type="button">📍 ثبت موقعیت فعلی من (داخل مغازه)</button><button class="btn p" data-a="submit" type="button">ثبت و کپی اطلاعات</button><div class="note" id="outmsg"></div></div>'}
+function sheet(h){$("sheet").innerHTML=h;$("bg").classList.add("show")}
+function openB(id){
+var b=D.filter(function(x){return x.id===id})[0],o=isOpen(b),f=S.fav.indexOf(id)>-1,d=dTxt(b),m=S.rate[id]||0;
+if(!$("bg").classList.contains("show"))track(id,"view");S.cur=id;
+var ne="https://nshn.ir/?lat="+b.lat+"&lng="+b.lng,ba="https://balad.ir/location?latitude="+b.lat+"&longitude="+b.lng,gm="https://www.google.com/maps/dir/?api=1&destination="+b.lat+","+b.lng,wa="https://wa.me/98"+b.p.slice(1);
+var st="";for(var i=1;i<=5;i++)st+='<button class="'+(i<=m?'on':'')+'" data-a="rate" data-v="'+id+'-'+i+'" aria-label="'+i+' ستاره">★</button>';
+sheet('<h2>'+b.n+(b.v?' <span class="ver">✔</span>':'')+'</h2><span class="star">★ '+fa(b.r)+'</span> <small style="color:var(--mut)">('+fa(b.rc)+' نظر) · '+b.s+(d?' · '+d:'')+'</small> <span class="st '+(o?'o':'c')+'">'+(o?'الان باز است':'الان بسته است')+'</span>'
++'<div class="r"><i>📍</i><div>'+b.city+'، '+b.a+'</div></div><div class="r"><i>🕘</i><div>'+hrs(b)+'</div></div><div class="r"><i>📞</i><div dir="ltr">'+b.p.replace(/(\d{4})(\d{3})(\d{4})/,"$1 $2 $3")+'</div></div>'
++(b.t.length?'<div class="tags">'+b.t.map(function(t){return '<span class="tag">'+t+'</span>'}).join("")+'</div>':'')
++'<div class="g2"><a class="btn p" href="tel:'+b.p+'">📞 تماس</a><a class="btn w" href="'+wa+'" target="_blank" rel="noopener">واتساپ</a></div>'
++'<div class="lbl">🧭 مسیریابی با</div><div class="g3"><a class="btn" href="'+ne+'" target="_blank" rel="noopener">نشان</a><a class="btn" href="'+ba+'" target="_blank" rel="noopener">بلد</a><a class="btn" href="'+gm+'" target="_blank" rel="noopener">گوگل‌مپ</a></div>'
++'<div class="g3"><button class="btn l" data-a="fav" data-v="'+id+'">'+(f?'♥ ذخیره شد':'♡ ذخیره')+'</button><button class="btn l" data-a="share" data-v="'+id+'">اشتراک</button><button class="btn l" data-a="report" data-v="'+id+'">گزارش خطا</button></div>'
++'<div class="lbl">امتیاز شما</div><div class="stars">'+st+'</div>')}
+function sos(){
+var n=function(x,t,big){return '<a class="num'+(big?' big':'')+'" href="tel:'+x+'"><b dir="ltr">'+fa(x)+'</b>'+t+'</a>'};
+sheet('<h2>شماره‌های اضطراری</h2><small style="color:var(--mut)">با یک لمس تماس بگیرید</small><div class="nums">'+n("115","اورژانس",1)+n("110","پلیس",1)+n("125","آتش‌نشانی",1)+n("112","هلال‌احمر",1)+'</div><div class="nums">'+n("141","پلیس راه")+n("194","حوادث گاز")+n("121","حوادث برق")+n("122","حوادث آب و فاضلاب")+n("191","داروخانه‌های شبانه‌روزی")+n("096440","امداد خودرو ایران‌خودرو")+n("096550","امداد خودرو سایپا")+'</div><button class="btn p" style="width:100%" data-a="sosl">خدمات شبانه‌روزی و اورژانسی شهر</button>')}
+function submit(){
+var g=function(i){return $(i).value.trim()};
+if(!g("f_n")||!g("f_p")){toast("نام و شمارهٔ تماس را وارد کنید");return}
+var t="نام: "+g("f_n")+"\nدسته: "+g("f_c")+"\nنوع شغل: "+g("f_s")+"\nشهر: "+g("f_city")+"\nتلفن: "+g("f_p")+"\nنشانی: "+g("f_a")+"\nساعات: "+g("f_h")+"\nlat: "+g("f_lat")+"\nlng: "+g("f_lng");
+$("outmsg").textContent="ثبت شد. اگر کپی نشد، متن را دستی بنویسید.";
+try{navigator.clipboard.writeText(t).then(function(){toast("کپی شد؛ برای مدیر اپ بفرستید")})}catch(e){}}
+var E={};try{E=JSON.parse(localStorage.getItem("ev")||"{}")}catch(e){}
+function track(id,t){E[id]=E[id]||{};E[id][t]=(E[id][t]||0)+1;sv("ev",E)}
+function rnd(s){s=Math.sin(s)*10000;return s-Math.floor(s)}
+function pct(a,b){return b?fa(Math.round(a/b*100)):fa(0)}
+function dashView(){
+var id=S.dsel||1,b=D.filter(function(x){return x.id===id})[0],e=E[id]||{};
+var days=[],tot=0,i;for(i=0;i<30;i++){var v=4+Math.floor(rnd(id*31+i)*9)+(id%5)*2;days.push(v);tot+=v}
+var calls=Math.round(tot*(0.12+rnd(id)*0.1)),wa=Math.round(calls*0.4),rt=Math.round(tot*0.15),sa=Math.round(tot*0.05);
+var V=tot+(e.view||0),C=calls+(e.call||0),W=wa+(e.wa||0),R=rt+(e.route||0),A=sa+(e.save||0);
+var mx=Math.max.apply(null,days),chg=Math.round(rnd(id*7)*30-5);
+var sel='<div class="form"><label>کسب‌وکار</label><input id="dq" type="search" placeholder="نام یا نوع کسب‌وکار را بنویسید…" autocomplete="off"><div id="dres"></div><div class="note" style="text-align:right;margin:8px 0 0">در حال نمایش: <b>'+b.n+'</b></div></div>';
+return '<div class="bar" style="margin-top:0"><b style="font-size:16px;color:var(--ink)">آمار کسب‌وکار من</b><span>۳۰ روز اخیر</span></div>'+sel
++'<div class="sg"><div class="stat"><b>'+fa(V)+'</b>بازدید صفحه<br><small class="'+(chg>=0?'up':'dn')+'">'+(chg>=0?'▲ ':'▼ ')+fa(Math.abs(chg))+'٪ نسبت به ماه قبل</small></div>'
++'<div class="stat"><b>'+fa(C)+'</b>تماس تلفنی<br><small>'+pct(C,V)+'٪ بازدیدها</small></div>'
++'<div class="stat"><b>'+fa(W)+'</b>پیام واتساپ</div><div class="stat"><b>'+fa(R)+'</b>مسیریابی<br><small>کسانی که راه افتادند</small></div>'
++'<div class="stat"><b>'+fa(A)+'</b>ذخیره‌شده</div><div class="stat"><b>'+fa(b.r)+' ★</b>امتیاز ('+fa(b.rc)+' نظر)</div></div>'
++'<div class="lbl" style="margin:4px 0 6px">بازدید روزانه</div><div class="bars">'+days.map(function(x){return '<i style="height:'+Math.round(x/mx*100)+'%"></i>'}).join("")+'</div><div class="axis"><span>۳۰ روز پیش</span><span>امروز</span></div>'
++'<div class="up-box"><b>از هر '+fa(100)+' نفری که صفحهٔ شما را دیدند، '+pct(C+W,V)+' نفر تماس گرفتند.</b><br>'+(b.pro?'نشان «ویژه» فعال است و شما بالای لیست دیده می‌شوید.':'با نشان «ویژه» بالای لیست دیده می‌شوید و بازدید بیشتری می‌گیرید.')+'</div>'
++'<div class="note">آمار نمونه است. لمس‌هایی که خودتان در همین نسخه می‌زنید هم به عدد اضافه می‌شود. آمار واقعی نیاز به سرور دارد.</div>'}
+function dres(q){q=q.trim();var r=q?D.filter(function(b){return (b.n+b.s+b.k+b.city).indexOf(q)>-1}).slice(0,6):[];$("dres").innerHTML=q?(r.length?r.map(function(b){return '<div class="item" data-a="dpick" data-v="'+b.id+'" style="margin:6px 0 0;padding:8px"><div class="ico" style="width:38px;height:38px;font-size:19px">'+IC[b.c]+'</div><div class="inf"><b>'+b.n+'</b><small>'+b.s+' · '+b.city+'</small></div></div>'}).join(""):'<div class="note">چیزی پیدا نشد</div>'):""}
+function act(a,v,el){
+if(a==="tab"){S.tab=v;render();window.scrollTo(0,0)}
+else if(a==="cat"){S.cat=v;render()}
+else if(a==="city"){S.city=v;render()}
+else if(a==="f"){S.f[v]=!S.f[v];render()}
+else if(a==="near"){if(S.sort==="near"){S.sort="rec";render()}else locate(function(){S.sort="near";render()})}
+else if(a==="pop"){$("q").value=v;S.q=v;render()}
+else if(a==="clr"){$("q").value="";S.q="";render()}
+else if(a==="open"){openB(Number(v))}
+else if(a==="sos"){sos()}
+else if(a==="sosl"){$("bg").classList.remove("show");S.tab="home";S.cat="all";S.q="";$("q").value="";S.f={h24:true};render()}
+else if(a==="theme"){var r=document.documentElement,d=window.matchMedia("(prefers-color-scheme:dark)").matches;var cur=r.dataset.theme||(d?"dark":"light");r.dataset.theme=cur==="dark"?"light":"dark"}
+else if(a==="dash"){S.tab="dash";render();window.scrollTo(0,0)}
+else if(a==="dpick"){S.dsel=Number(v);render();window.scrollTo(0,0)}
+else if(a==="gps"){locate(function(){$("f_lat").value=S.pos.lat.toFixed(6);$("f_lng").value=S.pos.lng.toFixed(6)})}
+else if(a==="submit"){submit()}
+else if(a==="fav"){var id=Number(v),i=S.fav.indexOf(id);if(i>-1)S.fav.splice(i,1);else{S.fav.push(id);track(id,"save")}sv("fav",S.fav);openB(id);render()}
+else if(a==="rate"){var p=v.split("-");S.rate[p[0]]=Number(p[1]);sv("rate",S.rate);openB(Number(p[0]));toast("امتیاز شما ثبت شد")}
+else if(a==="share"){var b=D.filter(function(x){return x.id===Number(v)})[0],t=b.n+" — "+b.city+"، "+b.a+" — "+b.p;if(navigator.share){navigator.share({title:b.n,text:t}).catch(function(){})}else{try{navigator.clipboard.writeText(t);toast("کپی شد")}catch(e){toast(t)}}}
+else if(a==="report"){toast("گزارش شما ثبت شد؛ ممنون")}
+}
+document.addEventListener("click",function(e){
+if(e.target.id==="bg"){$("bg").classList.remove("show");return}
+var l=e.target.closest("a.call,a.btn");
+if(l){var hr=l.getAttribute("href")||"",it=l.closest(".item"),tid=it?Number(it.dataset.v):S.cur;if(tid&&hr)track(tid,hr.indexOf("tel:")===0?"call":hr.indexOf("wa.me")>-1?"wa":"route")}
+if(e.target.closest("a.call,a.btn,a.num"))return;
+var t=e.target.closest("[data-a]");if(t)act(t.dataset.a,t.dataset.v,t)});
+document.addEventListener("input",function(e){if(e.target.id==="dq")dres(e.target.value)});
+document.addEventListener("change",function(e){if(e.target.id==="sort"){var v=e.target.value;if(v==="near"&&!S.pos){locate(function(){S.sort="near";render()});e.target.value=S.sort}else{S.sort=v;render()}}});
+$("q").addEventListener("input",function(e){S.q=e.target.value;if(S.tab!=="home")S.tab="home";render()});
+render();
+</script>
+</body>
+</html>

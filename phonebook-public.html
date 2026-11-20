@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#14284b"><link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20120%20120%22%3E%3Ccircle%20cx%3D%2260%22%20cy%3D%2260%22%20r%3D%2258%22%20fill%3D%22%2314284b%22%20stroke%3D%22%23c9a24a%22%20stroke-width%3D%224%22/%3E%3Cpath%20d%3D%22M60%2040c-8-6-20-8-32-6v42c12-2%2024%200%2032%206%208-6%2020-8%2032-6V34c-12-2-24%200-32%206z%22%20fill%3D%22%23fff%22/%3E%3Cpath%20d%3D%22M60%2040v42%22%20stroke%3D%22%23c9a24a%22%20stroke-width%3D%223%22/%3E%3C/svg%3E"><link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20120%20120%22%3E%3Ccircle%20cx%3D%2260%22%20cy%3D%2260%22%20r%3D%2258%22%20fill%3D%22%2314284b%22%20stroke%3D%22%23c9a24a%22%20stroke-width%3D%224%22/%3E%3Cpath%20d%3D%22M60%2040c-8-6-20-8-32-6v42c12-2%2024%200%2032%206%208-6%2020-8%2032-6V34c-12-2-24%200-32%206z%22%20fill%3D%22%23fff%22/%3E%3Cpath%20d%3D%22M60%2040v42%22%20stroke%3D%22%23c9a24a%22%20stroke-width%3D%223%22/%3E%3C/svg%3E">
+<title>دفترچه تلفن مدرسه</title><style>
+:root{--bg:#f5f2ea;--card:#fff;--tx:#1b2438;--mu:#7a8296;--nv:#14284b;--nv2:#1f3a6b;--gd:#c9a24a;--ln:#e6e0d2;--ok:#2e8f5b;--rd:#c94545;--alt:#e4ebf7;--sh:0 2px 10px #14284b14;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1524;--card:#17213a;--tx:#eef1f8;--mu:#97a1b8;--nv:#0b1a38;--nv2:#2a4a85;--ln:#27324d;--alt:#223356;--sh:0 2px 10px #0006}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:Vazirmatn,Tahoma,"Segoe UI",sans-serif;font-size:16px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--nv);z-index:30}
+button{font-family:inherit;font-size:15px;cursor:pointer}
+.top{background:linear-gradient(160deg,var(--nv),var(--nv2));color:#fff;padding:16px 16px 62px;border-bottom:3px solid var(--gd);border-radius:0 0 26px 26px;position:relative}
+.brand{display:flex;align-items:center;gap:12px;max-width:640px;margin:auto}
+.brand img{width:62px;height:62px;border-radius:50%;border:2px solid var(--gd);background:#fff;flex:none}
+.brand h1{margin:0;font-size:18px;line-height:1.5}
+.brand p{margin:0;font-size:13px;color:#e9d9a8}
+.menu{margin-right:auto;background:#ffffff22;border:0;color:#fff;width:38px;height:38px;border-radius:50%;font-size:20px}
+main{padding:0 14px 100px;max-width:640px;margin:-44px auto 0;position:relative}
+.sbox{background:var(--card);border-radius:16px;box-shadow:var(--sh);padding:10px}
+input,select{width:100%;padding:12px;border:1px solid var(--ln);border-radius:12px;background:var(--bg);color:var(--tx);font-family:inherit;font-size:16px}
+.chips{display:flex;gap:7px;margin-top:9px;overflow-x:auto;padding-bottom:2px}
+.chips label{padding:6px 13px;border-radius:20px;background:var(--bg);font-size:14px;white-space:nowrap;color:var(--mu);border:1px solid var(--ln)}
+.chips input{display:none}
+.chips label:has(input:checked){background:var(--nv);color:#fff;border-color:var(--gd)}
+.cnt{color:var(--mu);font-size:13px;margin:14px 4px 6px}
+.row{background:var(--card);border-radius:16px;box-shadow:var(--sh);padding:11px 12px;display:flex;gap:12px;align-items:center;margin-bottom:9px;cursor:pointer}
+.row:active{transform:scale(.99)}
+.av{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:700;font-size:18px;flex:none}
+.row .t{flex:1;min-width:0}
+.row b{display:block;font-weight:600}
+.row small{color:var(--mu)}
+.row i{color:var(--gd);font-style:normal;font-size:22px}
+.fab{position:fixed;left:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));height:56px;padding:0 20px;border-radius:28px;border:0;background:var(--gd);color:#14284b;font-weight:700;font-size:16px;box-shadow:0 4px 14px #0004;z-index:8}
+.sheet{position:fixed;inset:0;background:#0a1226aa;display:none;align-items:flex-end;z-index:40}
+.sheet.on{display:flex}
+.box{background:var(--card);width:100%;max-width:640px;margin:auto;border-radius:24px 24px 0 0;padding:8px 16px calc(18px + env(safe-area-inset-bottom,0px));max-height:92%;overflow:auto}
+.box::before{content:"";display:block;width:44px;height:5px;border-radius:3px;background:var(--ln);margin:6px auto 12px}
+.box h2{margin:0 0 8px;font-size:19px;color:var(--nv)}
+@media (prefers-color-scheme:dark){.box h2{color:#fff}}
+.kv{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dashed var(--ln);font-size:15px}
+.kv span:first-child{color:var(--mu)}
+.btn{display:block;width:100%;padding:13px;border:0;border-radius:14px;background:var(--nv);color:#fff;margin-top:10px;font-size:16px}
+.btn.g{background:var(--ok);font-size:18px}.btn.s{background:var(--bg);color:var(--tx);border:1px solid var(--ln)}.btn.r{background:var(--rd)}
+.call{display:flex;justify-content:space-between;align-items:center;padding:14px;border:1px solid var(--ln);border-radius:14px;margin-top:9px;text-decoration:none;color:var(--tx);background:var(--bg)}
+.call span::before{content:"📞 "}
+.call b{direction:ltr;color:var(--ok);font-size:17px}
+.f{margin-top:9px}.f label{font-size:13px;color:var(--mu)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.num{direction:ltr;text-align:right}
+.empty{text-align:center;color:var(--mu);padding:46px 10px;line-height:2}
+[hidden]{display:none!important}
+.brandbtn{display:flex;align-items:center;gap:12px;background:none;border:0;color:#fff;padding:0;text-align:right;font-family:inherit}
+.bg{position:fixed;top:50%;left:50%;width:92vw;max-width:520px;transform:translate(-50%,-45%);opacity:0;pointer-events:none;z-index:0;border-radius:50%;transition:opacity .3s;-webkit-mask-image:radial-gradient(circle,#000 58%,transparent 72%);mask-image:radial-gradient(circle,#000 58%,transparent 72%)}
+.bg.on{opacity:.16}
+main{z-index:1}
+.home{background:var(--card);border-radius:20px;box-shadow:var(--sh);padding:20px 16px 22px;margin-top:6px}
+.home h3{margin:0 0 4px;font-size:15px;color:var(--mu);font-weight:500}
+.home select{margin:6px 0 16px;padding:14px;font-size:16px}
+.hb{display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:9px}
+.hb button{padding:15px 4px;border:0;border-radius:14px;font-size:16px;font-weight:600;color:#fff;background:var(--nv);box-shadow:var(--sh)}
+.hb .all{background:var(--gd);color:#14284b}.hb .ex{background:#8a93a8}
+.call{padding:10px 14px}
+.call small{display:block;color:var(--mu);font-size:13px}
+.call i{font-style:normal;width:44px;height:44px;border-radius:50%;background:var(--ok);display:grid;place-items:center;font-size:20px}
+.call b{display:block;margin-top:2px}
+.ph{margin:14px 0 0;font-size:15px;color:var(--mu);font-weight:500}
+.call .pi{font-size:30px;width:52px;height:52px;border-radius:50%;background:var(--bg);display:grid;place-items:center;flex:none;margin-left:12px}.call div{flex:1}.call span::before{content:none}
+.row small{display:block}.row:nth-child(even){background:var(--alt)}
+/* menu & add enabled */
+
+/* Phase 1 enhancements */
+/* Phase 2 + Birthday + Attendance */
+.home-extra{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.home-extra button{padding:16px 8px;border:0;border-radius:14px;font-size:15px;font-weight:600;color:#fff;background:var(--nv);box-shadow:var(--sh);display:flex;flex-direction:column;align-items:center;gap:6px}
+.home-extra button span{font-size:22px}
+.home-extra .bday{background:linear-gradient(135deg,#c2185b,#e91e63)}
+.home-extra .att{background:linear-gradient(135deg,#1565c0,#1976d2)}
+.bday-card,.att-row{background:var(--card);border-radius:14px;padding:12px;margin-bottom:8px;border:1px solid var(--ln);display:flex;align-items:center;gap:10px}
+.bday-card .info{flex:1}
+.bday-card .sms{background:#3a63b8;color:#fff;border:0;border-radius:10px;padding:8px 12px;font-size:13px;font-family:inherit;cursor:pointer}
+.att-row label{flex:1;display:flex;align-items:center;gap:10px;cursor:pointer}
+.att-row input[type=checkbox]{width:22px;height:22px;accent-color:var(--rd)}
+.note-box{width:100%;min-height:70px;padding:10px;border:1px solid var(--ln);border-radius:12px;background:var(--bg);color:var(--tx);font-family:inherit;font-size:14px;resize:vertical}
+.date-row{display:flex;gap:8px;margin:10px 0;align-items:center}
+.date-row select,.date-row input{flex:1}
+.month-report{margin-top:12px}
+.report-item{display:flex;justify-content:space-between;padding:10px;border-bottom:1px solid var(--ln);font-size:14px}
+.report-item b{color:var(--rd)}
+
+.actions{display:flex;gap:8px;margin-top:10px}
+.actions a,.actions button{flex:1;display:flex;align-items:center;justify-content:center;gap:4px;padding:10px 6px;border-radius:12px;border:0;font-size:13px;font-weight:600;text-decoration:none;color:#fff;cursor:pointer;font-family:inherit}
+.actions .call-btn{background:var(--ok)}
+.actions .sms-btn{background:#3a63b8}
+.actions .copy-btn{background:#6b7280}
+.phone-card{padding:12px 14px;border:1px solid var(--ln);border-radius:14px;margin-top:10px;background:var(--bg)}
+.phone-card .head{display:flex;align-items:center;gap:10px}
+.phone-card .pi{font-size:26px;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;flex:none}
+.phone-card .info{flex:1}
+.phone-card small{display:block;color:var(--mu);font-size:12px}
+.phone-card b.num{display:block;direction:ltr;text-align:right;font-size:17px;margin-top:2px}
+.phone-card.mob .pi{background:#e8f5e9}.phone-card.mob b{color:#2e8f5b}
+.phone-card.dad .pi{background:#e3f2fd}.phone-card.dad b{color:#1565c0}
+.phone-card.mom .pi{background:#fce4ec}.phone-card.mom b{color:#c2185b}
+.phone-card.home .pi{background:#f5f5f5}.phone-card.home b{color:#616161}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#1b2438;color:#fff;padding:12px 22px;border-radius:30px;font-size:14px;z-index:100;opacity:0;transition:opacity .3s;pointer-events:none;box-shadow:0 4px 20px #0004}
+.toast.show{opacity:1}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.stat-card{background:var(--bg);border-radius:14px;padding:14px;text-align:center;border:1px solid var(--ln)}
+.stat-card b{display:block;font-size:22px;color:var(--nv);margin-bottom:4px}
+.stat-card span{font-size:12px;color:var(--mu)}
+.miss-list{margin-top:12px}
+.miss-item{background:var(--bg);border-radius:12px;padding:10px 12px;margin-bottom:8px;border:1px solid var(--ln);display:flex;justify-content:space-between;align-items:center;gap:8px}
+.miss-item .tags{display:flex;gap:4px;flex-wrap:wrap}
+.tag{font-size:11px;padding:3px 8px;border-radius:20px;background:#fdecea;color:#c94545}
+.tag.ok{background:#e8f5e9;color:#2e8f5b}
+
+
+.brand h1{font-size:22px!important;line-height:1.5}.brand p{font-size:16px!important;color:#f1d98a!important;margin-top:2px}
+.tabs{display:flex;gap:8px;margin:0 0 10px;position:relative;z-index:2}
+.tabs button{flex:1;border:0;border-radius:14px;padding:12px 4px;font-size:14px;font-weight:700;color:#fff;opacity:.6;box-shadow:var(--sh)}
+.tabs button.on{opacity:1;transform:translateY(-2px);box-shadow:0 5px 12px #0004}
+.tb1,.g1{background:linear-gradient(135deg,var(--t1,#5e35b1),var(--t2,#8e63d6))}.tb2,.g2{background:linear-gradient(135deg,#c2185b,#ec407a)}.tb3,.g3{background:linear-gradient(135deg,#1565c0,#2196f3)}.g4{background:linear-gradient(135deg,#00796b,#26a69a)}
+.big{position:relative;display:flex;align-items:center;gap:14px;width:100%;border:0;border-radius:22px;padding:20px 18px;margin-bottom:13px;color:#fff;text-align:right;box-shadow:0 6px 16px #0003;font-family:inherit}
+.big:active{transform:scale(.985)}
+.big .e{font-size:38px;flex:none;width:58px;text-align:center}
+.big b{display:block;font-size:20px}.big small{display:block;opacity:.88;font-size:12.5px;margin-top:5px;line-height:1.8;font-weight:400}
+.big .bdg{position:absolute;top:10px;left:12px;background:#fff;color:#c2185b;border-radius:12px;padding:2px 10px;font-size:13px;font-weight:700}
+.g5{background:linear-gradient(135deg,#e65100,#ffa726)}
+.g4,.g5{padding:14px 18px}.g5 .e{font-size:28px}.g5 b{font-size:17px}.g4 .e{font-size:28px}.g4 b{font-size:17px}
+
+.pgx{padding-top:2px}
+body.inner main{margin-top:12px!important}
+body.inner .top{padding-bottom:16px!important}
+
+#tabBack{flex:none!important;width:46px;background:var(--card)!important;color:var(--nv)!important;opacity:1!important;font-size:20px;border:1px solid var(--ln)!important}
+:root[data-theme="dark"] #tabBack{color:#fff!important}
+.swatches{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:10px 0}.sw{border:0;border-radius:14px;height:64px;color:#fff;font-weight:700;font-family:inherit;font-size:14px}
+.promo{margin-top:14px;border:2px dashed var(--gd);border-radius:18px;padding:14px;text-align:center;background:var(--bg);line-height:1.9}
+.promo b{display:block;font-size:16px;color:var(--nv)}.promo span{display:block;font-size:12.5px;color:var(--mu)}
+.promo a{display:inline-block;margin-top:6px;background:var(--gd);color:#14284b;padding:8px 16px;border-radius:12px;font-weight:700;text-decoration:none;direction:ltr}
+:root[data-theme="dark"] .promo b{color:#fff}
+
+.pc .pa a,.pc .pa button{color:var(--mu)}
+.pc .pa svg{width:21px;height:21px}
+.pc .pa .b1{background:#dff3e7;color:#2a8a55}.pc .pa .b2{background:#e0ecff;color:#2f6fd0}.pc .pa .b3{background:var(--card);color:#6b7280}
+.pc.mob{--c:#86d1a4}
+:root[data-theme="dark"] .pc .pa .b1{background:#1d3d2d;color:#7fd4a2}:root[data-theme="dark"] .pc .pa .b2{background:#1b2d50;color:#8fb5f5}
+.bday-card .sms{display:inline-flex;align-items:center;gap:5px;background:#e0ecff;color:#2f6fd0;border-radius:12px;padding:8px 12px;text-decoration:none;font-weight:700;font-size:14px}
+.bday-card .sms svg{width:19px;height:19px}
+.dlbl{margin-top:6px;color:var(--nv2);font-weight:700;text-align:center;direction:rtl}
+:root[data-theme="dark"] .dlbl{color:#9fc0ff}
+.fu-btn{background:linear-gradient(135deg,#e65100,#ffa726)}
+.ta{width:100%;padding:10px;border:1px solid var(--ln);border-radius:12px;background:var(--bg);color:var(--tx);font-family:inherit;font-size:16px}
+.fu{border:1px solid var(--ln);border-radius:12px;padding:9px 12px;margin-top:8px;position:relative;line-height:1.8}
+.fu .x{position:absolute;left:8px;top:6px;border:0;background:none;color:var(--rd);font-size:12px}
+#printArea{display:none}
+@media print{@page{size:A4 landscape;margin:9mm}body>*:not(#printArea){display:none!important}#printArea{display:block!important;direction:rtl;color:#000;background:#fff;font-size:10pt}
+#printArea h2{margin:0 0 2mm;font-size:15pt;text-align:center}#printArea p{margin:0 0 4mm;text-align:center}
+.pt{width:100%;border-collapse:collapse}.pt th,.pt td{border:1px solid #444;padding:1.6mm 2mm;text-align:center}.pt thead{display:table-header-group}.pt tr{page-break-inside:avoid}.pt th{background:#e4e4e4}.pt td.n{direction:ltr}}
+
+
+:root[data-theme="dark"]{--bg:#0e1524;--card:#17213a;--tx:#eef1f8;--mu:#97a1b8;--nv:#0b1a38;--nv2:#2a4a85;--ln:#27324d;--alt:#223356;--sh:0 2px 10px #0006}
+.hbtns{margin-right:auto;display:flex;gap:8px}.hbtns .menu{margin:0}
+.dateline{text-align:center;color:var(--tx);font-size:18px;font-weight:800;margin:0 0 10px}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.tile{position:relative;border:0;border-radius:16px;padding:14px 6px 12px;background:var(--bg);color:var(--tx);box-shadow:var(--sh);font-size:13.5px;font-weight:600;border:1px solid var(--ln)}
+.tile span.e{display:block;font-size:30px;margin-bottom:4px}
+.tile .bdg{position:absolute;top:6px;left:8px;background:#e0457b;color:#fff;border-radius:12px;min-width:22px;height:22px;line-height:22px;font-size:12px}
+.pc{display:flex;align-items:center;gap:10px;border:1px solid var(--ln);border-right:5px solid var(--c);border-radius:14px;padding:9px 10px;margin-top:9px;background:var(--bg)}
+.pc.mob{--c:#2e8f5b}.pc.dad{--c:#3a63b8}.pc.mom{--c:#d0457f}.pc.home{--c:#c27a1d}
+.pc .pi{font-size:28px;width:48px;height:48px;border-radius:50%;background:var(--card);display:grid;place-items:center;flex:none}
+.pc .pn{flex:1;min-width:0}.pc .pn small{display:block;color:var(--mu);font-size:12.5px}.pc .pn b{font-size:16px}
+.pc .pa{display:flex;gap:6px}.pc .pa a,.pc .pa button{width:38px;height:38px;border-radius:50%;border:0;display:grid;place-items:center;text-decoration:none;font-size:18px;background:var(--card);box-shadow:var(--sh)}
+#lock,#expired{position:fixed;inset:0;z-index:100;background:linear-gradient(160deg,var(--nv),var(--nv2));display:grid;place-items:center;padding:20px}
+.lk{background:var(--card);border-radius:22px;padding:24px 20px;width:100%;max-width:360px;text-align:center;box-shadow:0 8px 30px #0006;border-top:4px solid var(--gd)}
+.lk img{width:92px;height:92px;border-radius:50%;border:2px solid var(--gd)}
+.lk h2{margin:10px 0 14px;font-size:17px}.lk input{margin-top:8px;text-align:center}
+.lk button{width:100%;margin-top:12px;padding:14px;border:0;border-radius:14px;background:var(--nv);color:#fff;font-size:17px}
+.lk .fg{background:none;color:var(--mu);font-size:13px;padding:6px}
+#lkMsg{margin-top:8px;color:var(--rd);font-size:14px;min-height:18px}
+</style></head><body>
+<img id="bg" class="bg on" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20120%20120%22%3E%3Ccircle%20cx%3D%2260%22%20cy%3D%2260%22%20r%3D%2258%22%20fill%3D%22%2314284b%22%20stroke%3D%22%23c9a24a%22%20stroke-width%3D%224%22/%3E%3Cpath%20d%3D%22M60%2040c-8-6-20-8-32-6v42c12-2%2024%200%2032%206%208-6%2020-8%2032-6V34c-12-2-24%200-32%206z%22%20fill%3D%22%23fff%22/%3E%3Cpath%20d%3D%22M60%2040v42%22%20stroke%3D%22%23c9a24a%22%20stroke-width%3D%223%22/%3E%3C/svg%3E" alt="">
+<div class="top"><div class="brand">
+<button class="brandbtn" id="homeBtn"><img id="logoImg" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20120%20120%22%3E%3Ccircle%20cx%3D%2260%22%20cy%3D%2260%22%20r%3D%2258%22%20fill%3D%22%2314284b%22%20stroke%3D%22%23c9a24a%22%20stroke-width%3D%224%22/%3E%3Cpath%20d%3D%22M60%2040c-8-6-20-8-32-6v42c12-2%2024%200%2032%206%208-6%2020-8%2032-6V34c-12-2-24%200-32%206z%22%20fill%3D%22%23fff%22/%3E%3Cpath%20d%3D%22M60%2040v42%22%20stroke%3D%22%23c9a24a%22%20stroke-width%3D%223%22/%3E%3C/svg%3E" alt="لوگو"><div><h1 id="schoolT">نام مدرسه</h1><p id="subT"><span id="cityT"></span></p></div></button>
+<div class="hbtns"><button class="menu" id="colorBtn">🎨</button><button class="menu" id="themeBtn">🌙</button><button class="menu" id="menuBtn">⋮</button></div></div></div>
+<main>
+<div class="tabs" id="tabs" hidden><button id="tabBack" onclick="backBtn()">↩</button><button class="tb1" id="tab_book">📞 دفترچه</button><button class="tb2" id="tab_bday">🎂 تولد</button><button class="tb3" id="tab_att">📋 حضور و غیاب</button></div>
+<section id="home" class="home">
+<div class="dateline" id="dateLine"></div>
+<button class="big g1" id="goBtn"><span class="e">📞</span><span><b>دفترچه تلفن دانش‌آموزان</b><small>نام و نام خانوادگی · کد ملی · رشته و پایه<br>شماره هنرجو، پدر، مادر و تلفن ثابت</small></span></button>
+<button class="big g2" id="bdayBtn"><span class="e">🎂</span><span><b>متولدین روز</b><small>تولد امروز با پایه و کلاس · پیامک تبریک</small></span><span class="bdg" id="bdBadge" hidden></span></button>
+<button class="big g3" id="attBtn"><span class="e">📋</span><span><b>حضور و غیاب</b><small>ثبت غیبت روزانه · گزارش ماهانه و خروجی اکسل</small></span></button>
+<button class="big g5" id="fuBtn"><span class="e">🗒️</span><span><b>پیگیری وضعیت</b><small>ثبت نتیجه تماس‌ها · گزارش و خروجی اکسل</small></span></button>
+<button class="big g4" id="statBtn"><span class="e">📊</span><span><b>آمار و نواقص</b><small>تعداد هنرجو به تفکیک رشته · شماره‌های ناقص</small></span></button>
+
+<div style="text-align:center;margin-top:16px;color:var(--mu);font-size:13px">سازنده: الف. شفائی مقدم<br><a href="tel:09132603930" style="color:var(--nv2);text-decoration:none;font-weight:600;direction:ltr;display:inline-block;margin-top:4px">📞 09132603930</a></div>
+<div class="empty" id="bye" hidden></div>
+</section>
+<section id="lv" hidden>
+<div class="sbox"><input id="q" type="search" placeholder="🔍 جستجو…">
+<select id="lvMajor" style="margin-top:8px"></select>
+<div class="chips" id="chips">
+<label><input type="radio" name="by" value="ln" checked>نام خانوادگی</label><label><input type="radio" name="by" value="nid">کد ملی</label><label><input type="radio" name="by" value="phone">شماره تلفن</label><label><input type="radio" name="by" value="major">رشته</label><label><input type="radio" name="by" value="grade">پایه</label>
+</div></div>
+<button class="btn s" id="printBtn" style="margin:8px 0 0">🖨️ چاپ دفترچه / ذخیره PDF (A4)</button>
+<div class="cnt" id="cnt"></div><div id="list"></div>
+<button class="btn s" style="margin-top:12px" onclick="backBtn()">↩ برگشت به صفحه قبل</button>
+</section>
+<section id="pgx" class="pgx" hidden></section>
+</main>
+<button class="fab" id="add" style="display:none">＋ هنرجوی جدید</button>
+<div class="sheet" id="sh"><div class="box" id="box"></div></div>
+<div id="printArea"></div>
+<div id="lock"><div class="lk"><img id="lkImg" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20120%20120%22%3E%3Ccircle%20cx%3D%2260%22%20cy%3D%2260%22%20r%3D%2258%22%20fill%3D%22%2314284b%22%20stroke%3D%22%23c9a24a%22%20stroke-width%3D%224%22/%3E%3Cpath%20d%3D%22M60%2040c-8-6-20-8-32-6v42c12-2%2024%200%2032%206%208-6%2020-8%2032-6V34c-12-2-24%200-32%206z%22%20fill%3D%22%23fff%22/%3E%3Cpath%20d%3D%22M60%2040v42%22%20stroke%3D%22%23c9a24a%22%20stroke-width%3D%223%22/%3E%3C/svg%3E" alt=""><h2 id="lkTitle"></h2><input id="lk1" type="password" placeholder="رمز"><input id="lk2" type="password" placeholder="تکرار رمز" hidden><button id="lkBtn">ورود</button><div id="lkMsg"></div><button class="fg" id="lkForget" hidden>رمز را فراموش کرده‌ام</button></div></div>
+<script>
+// رشته‌ها و پایه‌های هر رشته — برای تغییر سال بعد فقط همین بخش را ویرایش کنید
+const MAJORS={};
+const COL={"حسابداری":"#2e7d6b","شبکه":"#3a63b8","برق صنعتی":"#c27a1d","الکتروتکنیک برق صنعتی":"#b0493f","نقشه‌کشی":"#7a56a8","وب":"#1f8aa8","امور اداری":"#5d7a3a"};
+const KEY="school_phonebook_main_gen";
+const ATTKEY="school_phonebook_main_gen_att";
+const YBYG={"10":"1405-1406","11":"1404-1405","12":"1403-1404"};
+let SEED=[];
+let S=[];
+function load(){
+try{S=JSON.parse(localStorage.getItem(KEY)||"null")||SEED}catch(e){S=SEED}
+S.forEach(s=>{
+  if(s.major==="الکتروتکنیک")s.major="الکتروتکنیک برق صنعتی";
+  if(!s.ey){s.year=YBYG[s.grade]||"";s.ey=1}
+  if(s.bd===undefined)s.bd="";
+  if(s.note===undefined)s.note="";
+  if(s.lc===undefined)s.lc="";
+});
+S.forEach(s=>{if(s.bd==="TODAY")s.bd=todayStr()});
+rebuildMajors();
+}
+let ATT={};
+function loadAtt(){try{ATT=JSON.parse(localStorage.getItem(ATTKEY)||"{}")||{}}catch(e){ATT={}}}
+function saveAtt(){try{localStorage.setItem(ATTKEY,JSON.stringify(ATT))}catch(e){}}
+
+// ----- Jalali (شمسی) helpers -----
+const JMONTHS=["فروردین","اردیبهشت","خرداد","تیر","مرداد","شهریور","مهر","آبان","آذر","دی","بهمن","اسفند"];
+function gregorianToJalali(gy,gm,gd){
+  const g_d_m=[0,31,59,90,120,151,181,212,243,273,304,334];
+  let jy=(gy<=1600)?0:979; gy-=(gy<=1600)?621:1600;
+  let gy2=(gm>2)?(gy+1):gy;
+  let days=(365*gy)+(parseInt((gy2+3)/4))-parseInt((gy2+99)/100)+parseInt((gy2+399)/400)-80+gd+g_d_m[gm-1];
+  jy+=33*parseInt(days/12053); days%=12053;
+  jy+=4*parseInt(days/1461); days%=1461;
+  if(days>365){jy+=parseInt((days-1)/365); days=(days-1)%365;}
+  let jm=(days<186)?1+parseInt(days/31):7+parseInt((days-186)/30);
+  let jd=1+((days<186)?(days%31):((days-186)%30));
+  return [jy,jm,jd];
+}
+function jalaliToGregorian(jy,jm,jd){
+  let gy=(jy<=979)?621:1600; jy-=(jy<=979)?0:979;
+  let days=(365*jy)+parseInt(jy/33)*8+parseInt(((jy%33)+3)/4)+78+jd+((jm<7)?(jm-1)*31:(jm-7)*30+186);
+  gy+=400*parseInt(days/146097); days%=146097;
+  if(days>36524){gy+=100*parseInt(--days/36524); days%=36524; if(days>=365)days++;}
+  gy+=4*parseInt(days/1461); days%=1461;
+  if(days>365){gy+=parseInt((days-1)/365); days=(days-1)%365;}
+  let gd=days+1;
+  const sal_a=[0,31,(gy%4===0&&gy%100!==0)||gy%400===0?29:28,31,30,31,30,31,31,30,31,30,31];
+  let gm=0; for(gm=0;gm<13&&gd>sal_a[gm];gm++) gd-=sal_a[gm];
+  return [gy,gm,gd];
+}
+function todayJalali(){
+  const n=new Date();
+  return gregorianToJalali(n.getFullYear(),n.getMonth()+1,n.getDate());
+}
+function todayStr(){ // MM-DD jalali for birthday match
+  const [jy,jm,jd]=todayJalali();
+  return String(jm).padStart(2,"0")+"-"+String(jd).padStart(2,"0");
+}
+function todayISO(){ // YYYY/MM/DD jalali for attendance & last contact
+  const [jy,jm,jd]=todayJalali();
+  return jy+"/"+String(jm).padStart(2,"0")+"/"+String(jd).padStart(2,"0");
+}
+function jDateParts(str){ // parse "YYYY/MM/DD" or "MM-DD"
+  if(!str) return null;
+  if(str.includes("/")){const p=str.split("/");return {y:+p[0],m:+p[1],d:+p[2]};}
+  if(str.includes("-")){const p=str.split("-");return {y:0,m:+p[0],d:+p[1]};}
+  return null;
+}
+
+
+let filt={major:"",year:""};
+const years=()=>[...new Set(S.filter(s=>!s.out&&s.year).map(s=>s.year))].sort().reverse();
+const CURY=()=>years()[0]||"1405-1406";
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const norm=s=>String(s||"").replace(/[۰-۹]/g,d=>d.charCodeAt(0)-1776).replace(/[٠-٩]/g,d=>d.charCodeAt(0)-1632).replace(/ي/g,"ی").replace(/ك/g,"ک").trim();
+const IC={home:"☎️",mob:"👦",dad:"👨",mom:"👩"};
+const PH=[["home","تلفن ثابت"],["mob","موبایل هنرجو"],["dad","موبایل پدر"],["mom","موبایل مادر"]];
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+
+function render(){
+  const by=document.querySelector("input[name=by]:checked").value, q=norm($("q").value);
+  const qDigits = q.replace(/\D/g,"");
+  const r=S.filter(s=>{
+    if(s.out) return false;
+    if(filt.major && s.major!==filt.major) return false;
+    if(filt.year && s.year!==filt.year) return false;
+    if(!q) return true;
+    if(by==="phone"){
+      const phones = [s.mob,s.dad,s.mom,s.home].map(p=>norm(p).replace(/\D/g,"")).join(" ");
+      return qDigits && phones.includes(qDigits);
+    }
+    if(by==="ln") return norm(s.ln).includes(q) || norm(s.fn).includes(q);
+    if(by==="grade") return norm(s.grade).includes(q);
+    return norm(s[by]||"").includes(q);
+  }).sort((a,b)=>(a.ln||"").localeCompare(b.ln||"","fa"));
+  $("cnt").textContent=r.length+" هنرجو"+(filt.major?" · "+filt.major:"")+(filt.year?" · "+filt.year:"");
+  $("list").innerHTML=r.length?r.map(s=>`<div class="row" data-id="${s.id}"><div class="av" style="background:${colFor(s.major)}">${esc((s.ln||"?")[0])}</div><div class="t"><b>${esc(s.fn)} ${esc(s.ln)}</b><small>${s.major?esc(s.major):"رشته نامشخص"}${s.grade?" · پایه "+esc(s.grade):""}</small><small>کد ملی: ${esc(s.nid)||"—"}</small></div><i>‹</i></div>`).join(""):`<div class="empty">${S.length?"موردی یافت نشد":"هنوز هنرجویی ثبت نشده.<br>دکمه «هنرجوی جدید» را بزنید."}</div>`;
+}
+const openSheet=h=>{$("box").innerHTML=h;$("sh").classList.add("on")};
+const closeSheet=()=>$("sh").classList.remove("on");
+$("sh").onclick=e=>{if(e.target.id==="sh")closeSheet()};
+$("q").oninput=render;
+$("chips").onchange=()=>{
+  $("q").value="";
+  const by=document.querySelector("input[name=by]:checked").value;
+  $("q").placeholder = by==="phone" ? "🔍 چند رقم آخر شماره…" : by==="nid" ? "🔍 کد ملی…" : "🔍 جستجو…";
+  render();
+};
+$("list").onclick=e=>{const r=e.target.closest(".row");if(r)detail(r.dataset.id)};
+
+function detail(id){
+  const s=S.find(x=>x.id===id);if(!s)return;
+  const phoneCard = (key,label,icon)=>{
+    const num = s[key];
+    if(!num) return "";
+    const clean = norm(num).replace(/[^\d+]/g,"");
+    const smsBtn = key==="home" ? "" : `<a class="sms-btn" href="sms:${clean}">💬 پیامک</a>`;
+    return `<div class="phone-card ${key}">
+      <div class="head">
+        <span class="pi">${icon}</span>
+        <div class="info"><small>${label}</small><b class="num">${esc(num)}</b></div>
+      </div>
+      <div class="actions">
+        <a class="call-btn" href="tel:${clean}">📞 تماس</a>
+        ${smsBtn}
+        <button class="copy-btn" onclick="copyNum('${clean}')">📋 کپی</button>
+      </div>
+    </div>`;
+  };
+  openSheet(`<h2>${esc(s.fn)} ${esc(s.ln)}</h2>
+  <div class="kv"><span>کد ملی</span><span class="num">${esc(s.nid)||"—"}</span></div>
+  <div class="kv"><span>رشته / پایه</span><span>${esc(s.major)||"—"} / ${esc(s.grade)||"—"}</span></div>
+  <div class="kv"><span>سال ورود</span><span>${esc(s.year)||"—"}</span></div>
+  <div class="kv"><span>تاریخ تولد</span><span>${esc(s.bd)||"—"}</span></div>
+  <div class="ph">شماره‌ها با رنگ مشخص شده‌اند</div>
+  ${phoneCard("mob","موبایل هنرجو",IC.mob)}
+  ${phoneCard("dad","موبایل پدر",IC.dad)}
+  ${phoneCard("mom","موبایل مادر",IC.mom)}
+  ${phoneCard("home","تلفن ثابت",IC.home)}
+  <div class="ph" style="margin-top:16px">یادداشت و آخرین تماس</div>
+  <textarea class="note-box" id="noteVal" placeholder="یادداشت...">${esc(s.note||"")}</textarea>
+  <div class="kv" style="margin-top:8px"><span>آخرین تماس</span><span id="lcVal">${esc(s.lc)||"—"}</span></div>
+  <button class="btn" onclick="saveNote('${s.id}')">💾 ذخیره یادداشت</button>
+  <button class="btn g" onclick="setLastContact('${s.id}')">📞 ثبت تماس امروز</button>
+  <button class="btn s" onclick="exportVCard('${s.id}')">📇 ذخیره در مخاطبین (vCard)</button>
+  <button class="btn s" onclick="closeSheet()">بستن</button>`);
+}
+function saveNote(id){
+  const s=S.find(x=>x.id===id);if(!s)return;
+  s.note = $("noteVal").value.trim();
+  save();showToast("یادداشت ذخیره شد");
+}
+function setLastContact(id){
+  const s=S.find(x=>x.id===id);if(!s)return;
+  s.lc = todayISO();
+  const el=$("lcVal");if(el)el.textContent=s.lc;
+  save();showToast("آخرین تماس ثبت شد");
+}
+function exportVCard(id){
+  const s=S.find(x=>x.id===id);if(!s)return;
+  const lines=["BEGIN:VCARD","VERSION:3.0",`N:${s.ln||""};${s.fn||""};;;`,`FN:${s.fn||""} ${s.ln||""}`];
+  if(s.mob) lines.push(`TEL;TYPE=CELL:${norm(s.mob).replace(/[^\d+]/g,"")}`);
+  if(s.dad) lines.push(`TEL;TYPE=VOICE:${norm(s.dad).replace(/[^\d+]/g,"")}`);
+  if(s.mom) lines.push(`TEL;TYPE=VOICE:${norm(s.mom).replace(/[^\d+]/g,"")}`);
+  if(s.home) lines.push(`TEL;TYPE=HOME:${norm(s.home).replace(/[^\d+]/g,"")}`);
+  if(s.nid) lines.push(`NOTE:کد ملی: ${s.nid}`);
+  lines.push("END:VCARD");
+  const blob=new Blob([lines.join("\r\n")],{type:"text/vcard"});
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`${s.fn||""}_${s.ln||""}.vcf`;a.click();
+  showToast("فایل vCard آماده شد");
+}
+function copyNum(num){
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(num).then(()=>showToast("شماره کپی شد")).catch(()=>fallbackCopy(num));
+  }else fallbackCopy(num);
+}
+function fallbackCopy(num){
+  const t=document.createElement("textarea");t.value=num;document.body.appendChild(t);t.select();
+  try{document.execCommand("copy");showToast("شماره کپی شد")}catch(e){showToast("کپی نشد")}
+  document.body.removeChild(t);
+}
+function showToast(msg){
+  let t=document.getElementById("toast");
+  if(!t){t=document.createElement("div");t.id="toast";t.className="toast";document.body.appendChild(t)}
+  t.textContent=msg;t.classList.add("show");
+  clearTimeout(t._tm);t._tm=setTimeout(()=>t.classList.remove("show"),1800);
+}
+function editForm(id){return;
+  const s=S.find(x=>x.id===id)||{major:"",year:CURY()};
+  openSheet(`<h2>${id?"ویرایش هنرجو":"هنرجوی جدید"}</h2>
+  <div class="two"><div class="f"><label>نام</label><input id="fn" value="${esc(s.fn)}"></div><div class="f"><label>نام خانوادگی</label><input id="ln" value="${esc(s.ln)}"></div></div>
+  <div class="f"><label>کد ملی</label><input id="nid" inputmode="numeric" class="num" value="${esc(s.nid)}"></div>
+  <div class="two"><div class="f"><label>رشته</label><select id="major" onchange="gr()"><option value="">—</option>${Object.keys(MAJORS).map(m=>`<option ${m===s.major?"selected":""}>${m}</option>`).join("")}</select></div>
+  <div class="f"><label>پایه</label><select id="grade" onchange="if(YBYG[this.value])$('year').value=YBYG[this.value]"></select></div></div>
+  <div class="f"><label>سال ورود</label><input id="year" inputmode="numeric" class="num" value="${esc(s.year)}" placeholder="مثلاً 1404"></div>
+  ${PH.map(p=>`<div class="f"><label>${p[1]}</label><input id="${p[0]}" type="tel" class="num" value="${esc(s[p[0]])}"></div>`).join("")}
+  <button class="btn" onclick="saveF('${id||""}')">ذخیره</button>
+  ${id?`<button class="btn r" onclick="del('${id}')">حذف هنرجو</button>`:""}
+  <button class="btn s" onclick="closeSheet()">انصراف</button>`);
+  gr(s.grade);
+}
+function gr(v){const g=$("grade");g.innerHTML='<option value="">—</option>'+(MAJORS[$("major").value]||[10,11,12]).map(x=>`<option ${String(x)===String(v)?"selected":""}>${x}</option>`).join("")}
+function saveF(id){return;
+  const o={};["fn","ln","nid","major","grade","year","home","mob","dad","mom"].forEach(k=>o[k]=norm($(k).value));o.ey=1;
+  if(!o.ln){alert("نام خانوادگی را وارد کنید");return}
+  if(id){Object.assign(S.find(x=>x.id===id),o)}else{o.id=uid();S.push(o)}
+  save();closeSheet();render();
+}
+function del(id){return;if(confirm("این هنرجو حذف شود؟")){S=S.filter(x=>x.id!==id);save();closeSheet();render()}}
+
+
+$("menuBtn").onclick=()=>openSheet(`<h2>تنظیمات</h2>
+  <button class="btn" onclick="showStats()">📊 آمار و اطلاعات ناقص</button>
+  <button class="btn" onclick="exportExcel()">📥 خروجی اکسل (نام + تولد)</button>
+  <button class="btn s" onclick="$('xlsimp').click()">📂 ورودی اکسل (نام + تولد)</button>
+  <input type="file" id="xlsimp" accept=".xlsx,.xls,.csv" hidden onchange="importExcel(this.files[0])">
+  <button class="btn" onclick="promote()">⬆️ ارتقای پایه‌ها (سال ورود جدید)</button>
+  <button class="btn s" onclick="exp()">💾 دریافت نسخه پشتیبان JSON</button>
+  <button class="btn s" onclick="$('imp').click()">📂 بازیابی از JSON</button>
+  <input type="file" id="imp" accept=".json" hidden onchange="imp(this.files[0])">
+  <button class="btn s" onclick="closeSheet()">بستن</button>`);
+function exportExcel(){
+  if(typeof XLSX==="undefined"){alert("کتابخانه اکسل بارگذاری نشده");return}
+  const rows=[["نام","نام خانوادگی","کد ملی","رشته","پایه","سال ورود","تاریخ تولد (ماه-روز)","موبایل","موبایل پدر","موبایل مادر","تلفن ثابت","یادداشت"]];
+  S.filter(s=>!s.out).forEach(s=>{
+    rows.push([s.fn||"",s.ln||"",s.nid||"",s.major||"",s.grade||"",s.year||"",s.bd||"",s.mob||"",s.dad||"",s.mom||"",s.home||"",s.note||""]);
+  });
+  const ws=XLSX.utils.aoa_to_sheet(rows);
+  const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,"هنرجویان");
+  XLSX.writeFile(wb,"phonebook-students.xlsx");
+  showToast("فایل اکسل دانلود شد");
+}
+function importExcel(f){
+  if(!f||typeof XLSX==="undefined")return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const data=new Uint8Array(e.target.result);
+      const wb=XLSX.read(data,{type:"array"});
+      const sheet=wb.Sheets[wb.SheetNames[0]];
+      const rows=XLSX.utils.sheet_to_json(sheet,{header:1});
+      if(rows.length<2){alert("فایل خالی است");return}
+      // Expect header row, then data. Map columns flexibly
+      const header=(rows[0]||[]).map(h=>String(h||"").trim());
+      const findCol=(names)=>{for(const n of names){const i=header.findIndex(h=>h.includes(n));if(i>=0)return i}return -1};
+      const cFn=findCol(["نام","name","first"]);
+      const cLn=findCol(["خانوادگی","last","family"]);
+      const cNid=findCol(["ملی","nid","کد"]);
+      const cMajor=findCol(["رشته","major"]);
+      const cGrade=findCol(["پایه","grade"]);
+      const cYear=findCol(["سال","year"]);
+      const cBd=findCol(["تولد","birth","bd"]);
+      const cMob=findCol(["موبایل هنرجو","موبایل","mobile","mob"]);
+      let updated=0, added=0;
+      for(let i=1;i<rows.length;i++){
+        const r=rows[i];if(!r||!r.length)continue;
+        const ln=cLn>=0?norm(r[cLn]):"";
+        const fn=cFn>=0?norm(r[cFn]):"";
+        if(!ln&&!fn)continue;
+        const nid=cNid>=0?norm(r[cNid]):"";
+        let existing=null;
+        if(nid) existing=S.find(x=>x.nid===nid&&!x.out);
+        if(!existing&&ln) existing=S.find(x=>norm(x.ln)===ln&&norm(x.fn)===fn&&!x.out);
+        if(existing){
+          if(cBd>=0&&r[cBd]) existing.bd=String(r[cBd]).trim();
+          if(cMob>=0&&r[cMob]) existing.mob=norm(r[cMob]);
+          if(cMajor>=0&&r[cMajor]) existing.major=norm(r[cMajor]);
+          if(cGrade>=0&&r[cGrade]) existing.grade=String(r[cGrade]).trim();
+          updated++;
+        }else{
+          const o={id:uid(),fn,ln,nid,major:cMajor>=0?norm(r[cMajor]):"",grade:cGrade>=0?String(r[cGrade]).trim():"",year:cYear>=0?norm(r[cYear]):CURY(),bd:cBd>=0?String(r[cBd]||"").trim():"",mob:cMob>=0?norm(r[cMob]):"",dad:"",mom:"",home:"",note:"",lc:"",ey:1};
+          S.push(o);added++;
+        }
+      }
+      save();closeSheet();render();
+      alert(`به‌روزرسانی: ${updated} | جدید: ${added}`);
+    }catch(err){alert("خطا در خواندن فایل: "+err.message)}
+  };
+  reader.readAsArrayBuffer(f);
+}
+
+function showStats(){
+  const active = S.filter(s=>!s.out);
+  const byMajor = {};
+  const byGrade = {};
+  let missMob=0, missDad=0, missMom=0, missHome=0;
+  const incomplete = [];
+  active.forEach(s=>{
+    byMajor[s.major] = (byMajor[s.major]||0)+1;
+    byGrade[s.grade] = (byGrade[s.grade]||0)+1;
+    const missing = [];
+    if(!s.mob){missMob++; missing.push("موبایل هنرجو")}
+    if(!s.dad){missDad++; missing.push("پدر")}
+    if(!s.mom){missMom++; missing.push("مادر")}
+    if(!s.home){missHome++; missing.push("ثابت")}
+    if(missing.length) incomplete.push({s, missing});
+  });
+  const majorHtml = Object.entries(byMajor).sort((a,b)=>b[1]-a[1]).map(([m,c])=>`<div class="stat-card"><b>${c}</b><span>${esc(m)}</span></div>`).join("") || "<div class='empty'>—</div>";
+  const gradeHtml = Object.entries(byGrade).sort((a,b)=>a[0].localeCompare(b[0])).map(([g,c])=>`<div class="stat-card"><b>${c}</b><span>پایه ${esc(g)}</span></div>`).join("") || "<div class='empty'>—</div>";
+  const missHtml = incomplete.length ? incomplete.map(({s,missing})=>`
+    <div class="miss-item" onclick="closeSheet();detail('${s.id}')">
+      <div><b>${esc(s.fn)} ${esc(s.ln)}</b><br><small style="color:var(--mu)">${esc(s.major||"")} · پایه ${esc(s.grade||"")}</small></div>
+      <div class="tags">${missing.map(t=>`<span class="tag">${t}</span>`).join("")}</div>
+    </div>`).join("") : '<div class="empty" style="padding:20px">همه شماره‌ها کامل هستند ✅</div>';
+
+  openPage("book",`<h2>📊 آمار و نواقص</h2>
+  <div class="kv"><span>کل هنرجویان فعال</span><span><b>${active.length}</b></span></div>
+  <h3 style="margin:16px 0 8px;font-size:15px;color:var(--mu)">به تفکیک رشته</h3>
+  <div class="stat-grid">${majorHtml}</div>
+  <h3 style="margin:16px 0 8px;font-size:15px;color:var(--mu)">به تفکیک پایه</h3>
+  <div class="stat-grid">${gradeHtml}</div>
+  <h3 style="margin:16px 0 8px;font-size:15px;color:var(--mu)">شماره‌های ناقص</h3>
+  <div class="stat-grid">
+    <div class="stat-card"><b style="color:${missMob?'#c94545':'#2e8f5b'}">${missMob}</b><span>بدون موبایل</span></div>
+    <div class="stat-card"><b style="color:${missDad?'#c94545':'#2e8f5b'}">${missDad}</b><span>بدون پدر</span></div>
+    <div class="stat-card"><b style="color:${missMom?'#c94545':'#2e8f5b'}">${missMom}</b><span>بدون مادر</span></div>
+    <div class="stat-card"><b style="color:${missHome?'#c94545':'#2e8f5b'}">${missHome}</b><span>بدون ثابت</span></div>
+  </div>
+  <div class="miss-list">${missHtml}</div>
+  `);
+}
+function promote(){
+  if(!confirm("پایه همه هنرجویان یکی بالا می‌رود و پایه دوازدهم‌ها فارغ‌التحصیل و از لیست خارج می‌شوند. ادامه می‌دهید؟ (قبلش نسخه پشتیبان بگیرید)"))return;
+  S.forEach(s=>{if(s.out||!s.grade)return;if(+s.grade>=12)s.out=1;else s.grade=String(+s.grade+1)});
+  save();closeSheet();render();
+}
+function exp(){
+  const b=new Blob([JSON.stringify(S)],{type:"application/json"}),a=document.createElement("a");
+  a.href=URL.createObjectURL(b);a.download="phonebook-backup.json";a.click();
+}
+function imp(f){
+  if(!f)return;const r=new FileReader();
+  r.onload=()=>{try{const d=JSON.parse(r.result);if(!Array.isArray(d))throw 0;if(confirm(d.length+" مورد بازیابی شود؟ اطلاعات فعلی جایگزین می‌شود.")){S=d;save();closeSheet();render()}}catch(e){alert("فایل معتبر نیست")}};
+  r.readAsText(f);
+}
+function fillHome(){
+  $("hm").innerHTML='<option value="">همه رشته‌ها</option>'+Object.keys(MAJORS).map(m=>`<option>${m}</option>`).join("");
+  $("hy").innerHTML='<option value="">همه سال‌ها</option>'+years().map(y=>`<option>${y}</option>`).join("");
+  $("hy").value=years()[0]||"";
+}
+function showHome(){$("home").hidden=false;$("lv").hidden=true;$("bye").hidden=true;$("add").style.display="none";$("bg").classList.add("on");fillHome();scrollTo(0,0)}
+function showList(){$("home").hidden=true;$("lv").hidden=false;$("add").style.display="";$("bg").classList.remove("on");$("q").value="";render();scrollTo(0,0)}
+$("homeBtn").onclick=()=>{closeSheet();showHome()};
+$("goBtn").onclick=()=>{filt={major:$("hm").value,year:$("hy").value};showList()};
+
+
+
+// ===== Birthday =====
+function showBirthdays(mmdd){
+  const day = mmdd || todayStr();
+  const list = S.filter(s=>!s.out && s.bd===day);
+  const [m,d] = day.split("-");
+  const title = (JMONTHS[+m-1]||m) + " " + (+d);
+  openSheet(`<h2>🎂 متولدین ${title}</h2>
+  <div class="date-row">
+    <select id="bdMonth">${JMONTHS.map((name,i)=>{const v=String(i+1).padStart(2,"0");return `<option value="${v}" ${v===m?"selected":""}>${name}</option>`}).join("")}</select>
+    <select id="bdDay">${[...Array(31)].map((_,i)=>`<option value="${String(i+1).padStart(2,"0")}" ${String(i+1).padStart(2,"0")===d?"selected":""}>${i+1}</option>`).join("")}</select>
+    <button class="btn" style="flex:none;width:auto;padding:10px 14px;margin:0" onclick="showBirthdays($('bdMonth').value+'-'+$('bdDay').value)">نمایش</button>
+  </div>
+  <div class="cnt">${list.length} نفر · ${day}</div>
+  ${list.length?list.map(s=>`
+    <div class="bday-card">
+      <div class="info"><b>${esc(s.fn)} ${esc(s.ln)}</b><br><small>${esc(s.major||"")} · پایه ${esc(s.grade||"")}</small>
+      ${s.mob?`<br><span class="num" style="direction:ltr;display:inline-block;margin-top:4px">${esc(s.mob)}</span>`:'<br><small style="color:var(--rd)">بدون موبایل</small>'}</div>
+      ${s.mob?`<a class="sms" href="sms:${norm(s.mob).replace(/[^\d+]/g,"")}?body=${encodeURIComponent("تولدت مبارک! 🎂")}">💬 تبریک</a>`:""}
+    </div>`).join(""):'<div class="empty">متولدی در این روز ثبت نشده</div>'}
+  <button class="btn s" onclick="closeSheet()">بستن</button>`);
+}
+
+// ===== Attendance =====
+function showAttendance(){
+  const majors = Object.keys(MAJORS);
+  const [jy,jm,jd] = todayJalali();
+  const today = todayISO();
+  openPage("att",`<h2>📋 حضور و غیاب</h2>
+  <div class="f"><label>رشته</label><select id="attMajor"><option value="">— انتخاب —</option>${majors.map(m=>`<option>${m}</option>`).join("")}</select></div>
+  <div class="f"><label>پایه</label><select id="attGrade"><option value="">—</option><option>10</option><option>11</option><option>12</option></select></div>
+  <div class="f"><label>تاریخ (شمسی)</label>
+    <div class="date-row" style="margin:0">
+      <select id="attY">${[jy,jy-1].map(y=>`<option value="${y}" ${y===jy?"selected":""}>${y}</option>`).join("")}</select>
+      <select id="attM">${JMONTHS.map((name,i)=>`<option value="${i+1}" ${i+1===jm?"selected":""}>${name}</option>`).join("")}</select>
+      <select id="attD">${[...Array(31)].map((_,i)=>`<option value="${i+1}" ${i+1===jd?"selected":""}>${i+1}</option>`).join("")}</select>
+    </div>
+  </div>
+  <button class="btn" onclick="loadAttList()">نمایش لیست</button>
+  <div id="attList"></div>
+  <button class="btn s" style="margin-top:16px" onclick="showMonthReport()">📊 گزارش ماهانه غیبت</button>
+  `);
+}
+function attDateStr(){
+  const y=$("attY").value, m=String($("attM").value).padStart(2,"0"), d=String($("attD").value).padStart(2,"0");
+  return y+"/"+m+"/"+d;
+}
+function loadAttList(){
+  const major=$("attMajor").value, grade=$("attGrade").value, date=attDateStr();
+  if(!major&&!grade){alert("رشته یا پایه را انتخاب کنید");return}
+  const students=S.filter(s=>!s.out&&(!major||s.major===major)&&(!grade||String(s.grade)===String(grade))).sort((a,b)=>(a.ln||"").localeCompare(b.ln||"","fa"));
+  if(!ATT[date]) ATT[date]={};
+  const abs=ATT[date];
+  $("attList").innerHTML=`<div class="cnt">${students.length} هنرجو · ${date}</div>
+  ${students.map(s=>`<div class="att-row"><label><input type="checkbox" data-id="${s.id}" ${abs[s.id]?"checked":""}> <b>${esc(s.fn)} ${esc(s.ln)}</b></label></div>`).join("")||'<div class="empty">هنرجویی یافت نشد</div>'}
+  <button class="btn g" onclick="saveAttList('${date}')">💾 ذخیره غیبت‌ها</button>`;
+}
+function saveAttList(date){
+  if(!ATT[date]) ATT[date]={};
+  $("attList").querySelectorAll("input[type=checkbox]").forEach(cb=>{
+    if(cb.checked) ATT[date][cb.dataset.id]=true;
+    else delete ATT[date][cb.dataset.id];
+  });
+  // clean empty dates
+  if(Object.keys(ATT[date]).length===0) delete ATT[date];
+  saveAtt();showToast("غیبت‌ها ذخیره شد");
+}
+function showMonthReport(){
+  const [jy,jm] = todayJalali();
+  openPage("att",`<h2>📊 گزارش غیبت ماهانه</h2>
+  <div class="date-row">
+    <select id="repMonth"><option value="0">کل سال</option>${JMONTHS.map((name,i)=>`<option value="${i+1}" ${i+1===jm?"selected":""}>${name}</option>`).join("")}</select>
+    <select id="repYear"><option value="${jy}" selected>${jy}</option><option value="${jy-1}">${jy-1}</option></select>
+    <button class="btn" style="flex:none;width:auto;padding:10px 14px;margin:0" onclick="runMonthReport()">نمایش</button>
+  </div>
+  <div id="repResult"></div>
+  `);
+}
+function runMonthReport(){
+  const month=+$("repMonth").value, year=+$("repYear").value;
+  const prefix=month?`${year}/${String(month).padStart(2,"0")}`:`${year}/`;
+  const counts={};
+  Object.keys(ATT).filter(d=>d.startsWith(prefix)).forEach(d=>{
+    Object.keys(ATT[d]).forEach(id=>{counts[id]=(counts[id]||0)+1});
+  });
+  const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  if(!sorted.length){$("repResult").innerHTML='<div class="empty">در این ماه غیبتی ثبت نشده</div>';return}
+  $("repResult").innerHTML=`<div class="cnt">${sorted.length} نفر دارای غیبت</div>
+  <div class="month-report">${sorted.map(([id,c])=>{
+    const s=S.find(x=>x.id===id)||{};
+    return `<div class="report-item"><span>${esc(s.fn||"")} ${esc(s.ln||"")} <small style="color:var(--mu)">${esc(s.major||"")} ${esc(s.grade||"")}</small></span><b>${c} روز</b></div>`;
+  }).join("")}</div>
+  <button class="btn s" onclick="exportAttReport(${year},${month})">📥 خروجی این گزارش</button>`;
+}
+function exportAttReport(year,month){
+  const prefix=month?`${year}/${String(month).padStart(2,"0")}`:`${year}/`;
+  const counts={};
+  Object.keys(ATT).filter(d=>d.startsWith(prefix)).forEach(d=>{
+    Object.keys(ATT[d]).forEach(id=>{counts[id]=(counts[id]||0)+1});
+  });
+  const rows=[["نام","نام خانوادگی","رشته","پایه","تعداد غیبت"]];
+  Object.entries(counts).sort((a,b)=>b[1]-a[1]).forEach(([id,c])=>{
+    const s=S.find(x=>x.id===id)||{};
+    rows.push([s.fn||"",s.ln||"",s.major||"",s.grade||"",c]);
+  });
+  if(typeof XLSX!=="undefined"){
+    const ws=XLSX.utils.aoa_to_sheet(rows);
+    const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,"غیبت");
+    XLSX.writeFile(wb,`absence-${year}-${month}.xlsx`);
+    showToast("گزارش اکسل دانلود شد");
+  }else{
+    // fallback csv
+    const csv=rows.map(r=>r.join(",")).join("\\n");
+    const blob=new Blob([csv],{type:"text/csv"});
+    const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`absence-${year}-${month}.csv`;a.click();
+  }
+}
+
+$("bdayBtn").onclick=()=>showBirthdays();
+$("attBtn").onclick=()=>showAttendance();
+
+
+
+const DEMO=false,LOCKED=true,ENC=null,HARD_EXP=Date.UTC(2027,0,17);
+const K2=s=>KEY+"_"+s;
+const LS=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
+const LSset=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
+const colFor=m=>{const P=["#2e7d6b","#3a63b8","#c27a1d","#b0493f","#7a56a8","#1f8aa8","#5d7a3a","#a0507a"];let h=0;for(const c of String(m||""))h=(h*31+c.charCodeAt(0))>>>0;return m?P[h%P.length]:"#14284b"};
+function rebuildMajors(){S.forEach(s=>{if(s.major&&!MAJORS[s.major])MAJORS[s.major]=[10,11,12]})}
+function normBd(v){
+  v=norm(String(v||"")).replace(/\s/g,"");if(!v)return "";
+  const p=v.split(/[\/\-.]/).filter(Boolean).map(x=>x.replace(/\D/g,""));
+  const pad=x=>String(+x).padStart(2,"0");
+  if(p.length>=3){let [y,m,d]=p;if(y.length<=2&&+y<=31&&p[2].length>=4)[y,m,d]=[p[2],p[1],p[0]];
+    if(y.length<=2)y="13"+pad(y);y=+y;m=+m;d=+d;
+    if(y>1700){[y,m,d]=gregorianToJalali(y,m,d)}
+    if(m<1||m>12||d<1||d>31)return "";return y+"/"+pad(m)+"/"+pad(d)}
+  if(p.length===2){const m=+p[0],d=+p[1];return(m>=1&&m<=12&&d>=1&&d<=31)?pad(m)+"-"+pad(d):""}
+  return "";
+}
+function bdMD(b){if(!b)return "";if(b.includes("/")){const p=b.split("/");return String(p[1]).padStart(2,"0")+"-"+String(p[2]).padStart(2,"0")}return b}
+// ---------- zip / xlsx / docx / csv ----------
+async function zipGet(buf){
+  const u=new Uint8Array(buf),dv=new DataView(buf);let e=u.length-22;
+  while(e>=0&&dv.getUint32(e,true)!==0x06054b50)e--;
+  if(e<0)throw new Error("zip");
+  const n=dv.getUint16(e+10,true);let p=dv.getUint32(e+16,true);const F={};
+  for(let i=0;i<n;i++){const nl=dv.getUint16(p+28,true),el=dv.getUint16(p+30,true),cl=dv.getUint16(p+32,true);
+    F[new TextDecoder().decode(u.subarray(p+46,p+46+nl))]={m:dv.getUint16(p+10,true),cs:dv.getUint32(p+20,true),lo:dv.getUint32(p+42,true)};p+=46+nl+el+cl}
+  const get=async k=>{const f=F[k];if(!f)return "";const s=f.lo+30+dv.getUint16(f.lo+26,true)+dv.getUint16(f.lo+28,true),d=u.subarray(s,s+f.cs);
+    if(f.m===0)return new TextDecoder().decode(d);
+    const ds=new DecompressionStream("deflate-raw"),w=ds.writable.getWriter();w.write(d);w.close();
+    return new TextDecoder().decode(await new Response(ds.readable).arrayBuffer())};
+  return {keys:Object.keys(F),get};
+}
+const xd=s=>s.replace(/&#(\d+);/g,(m,n)=>String.fromCodePoint(+n)).replace(/&#x([0-9a-f]+);/gi,(m,n)=>String.fromCodePoint(parseInt(n,16))).replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&quot;/g,'"').replace(/&apos;/g,"'").replace(/&amp;/g,"&");
+async function readXlsx(buf){
+  const z=await zipGet(buf);
+  const ss=[];(await z.get("xl/sharedStrings.xml")).replace(/<si>([\s\S]*?)<\/si>/g,(m,x)=>{let s="";x.replace(/<t(?:\s[^>]*)?>([\s\S]*?)<\/t>/g,(a,b)=>{s+=xd(b)});ss.push(s)});
+  const sk=z.keys.filter(k=>/^xl\/worksheets\/sheet\d+\.xml$/.test(k)).sort((a,b)=>parseInt(a.replace(/\D/g,""))-parseInt(b.replace(/\D/g,"")))[0];
+  const rows=[];(await z.get(sk)).replace(/<c\b([^>]*?)(?:\/>|>([\s\S]*?)<\/c>)/g,(m,at,inn)=>{
+    const r=/r="([A-Z]+)(\d+)"/.exec(at);if(!r||!inn)return;const t=/t="(\w+)"/.exec(at);let v="";
+    if(t&&t[1]==="s"){const x=/<v>([\s\S]*?)<\/v>/.exec(inn);v=x?ss[+x[1]]||"":""}
+    else if(t&&t[1]==="inlineStr"){inn.replace(/<t(?:\s[^>]*)?>([\s\S]*?)<\/t>/g,(a,b)=>{v+=xd(b)})}
+    else{const x=/<v>([\s\S]*?)<\/v>/.exec(inn);v=x?xd(x[1]):""}
+    let c=0;for(const ch of r[1])c=c*26+ch.charCodeAt(0)-64;c--;const ri=+r[2]-1;(rows[ri]=rows[ri]||[])[c]=v});
+  return rows.map(r=>r||[]);
+}
+async function readDocx(buf){
+  const z=await zipGet(buf),x=await z.get("word/document.xml"),rows=[];
+  x.replace(/<w:tr[ >][\s\S]*?<\/w:tr>/g,tr=>{const c=[];tr.replace(/<w:tc>([\s\S]*?)<\/w:tc>/g,(m,tc)=>{let s="";tc.replace(/<w:t(?:\s[^>]*)?>([\s\S]*?)<\/w:t>/g,(a,b)=>{s+=xd(b)});c.push(s.trim())});rows.push(c)});
+  return rows;
+}
+function readCsv(t){t=t.replace(/^\uFEFF/,"");const d=[",",";","\t"].sort((a,b)=>t.split(b).length-t.split(a).length)[0];
+  const rows=[];let r=[],c="",q=false;
+  for(let i=0;i<t.length;i++){const ch=t[i];
+    if(q){if(ch==='"'){if(t[i+1]==='"'){c+='"';i++}else q=false}else c+=ch}
+    else if(ch==='"')q=true;else if(ch===d){r.push(c);c=""}
+    else if(ch==="\n"||ch==="\r"){if(ch==="\r"&&t[i+1]==="\n")i++;r.push(c);c="";rows.push(r);r=[]}else c+=ch}
+  r.push(c);rows.push(r);return rows}
+function importRows(rows){
+  rows=rows.filter(r=>r&&r.some(x=>String(x||"").trim()));
+  let hi=rows.findIndex(r=>r.some(x=>/خانوادگی/.test(norm(String(x||"")))));if(hi<0)hi=0;
+  const H0=rows[hi].map(h=>norm(String(h||"")).replace(/\s+/g," "));
+  const hk=H0.join("|");rows=rows.slice(hi).filter((r,i)=>i===0||r.map(h=>norm(String(h||"")).replace(/\s+/g," ")).join("|")!==hk);
+  if(rows.length<2)return [];
+  const f={};H0.forEach((h,i)=>{let k=null;
+    if(/موبایل|همراه|تلفن|شماره/.test(h)&&!/خانوادگی|تاریخ|^نام/.test(h)){
+      k=/پدر/.test(h)?"dad":/مادر/.test(h)?"mom":(/ثابت/.test(h)||h==="تلفن")?"home":"mob"}
+    else if(/خانوادگی/.test(h)&&!/پدر|مادر/.test(h))k="ln";
+    else if(/کد ?ملی|یکتا/.test(h))k="nid";else if(/رشته/.test(h))k="major";
+    else if(/پایه/.test(h))k="grade";else if(/تولد/.test(h)&&!/پدر|مادر/.test(h))k="bd";
+    else if(/^نام/.test(h)&&!/خانوادگی|پدر|مادر/.test(h))k="fn";
+    if(k&&!(k in f))f[k]=i});
+  const cell=(r,k)=>k in f?norm(String(r[f[k]]??"")):"";
+  const ph=v=>{let d=v.replace(/\D/g,"");if(/^(\d)\1*$/.test(d))return "";if(d.length===10&&(d[0]==="9"||d[0]==="3"))d="0"+d;if(d.length===8)d="031"+d;return d};
+  const G={"دهم":"10","یازدهم":"11","دوازدهم":"12","10":"10","11":"11","12":"12"};
+  return rows.slice(1).map(r=>{const g=G[cell(r,"grade")]||"";let n=cell(r,"nid").replace(/\D/g,"");if(n.length===9)n="0"+n;
+    return {id:uid(),fn:cell(r,"fn"),ln:cell(r,"ln"),nid:n,major:cell(r,"major"),grade:g,year:YBYG[g]||"",ey:1,bd:normBd(cell(r,"bd")),home:ph(cell(r,"home")),mob:ph(cell(r,"mob")),dad:ph(cell(r,"dad")),mom:ph(cell(r,"mom"))}}).filter(s=>s.ln||s.fn);
+}
+async function impX(f){
+  if(!f)return;
+  try{
+    const nm=f.name.toLowerCase();
+    const rows=nm.endsWith(".xlsx")?await readXlsx(await f.arrayBuffer()):nm.endsWith(".docx")?await readDocx(await f.arrayBuffer()):readCsv(await f.text());
+    const L=importRows(rows);
+    if(!L.length){alert("هیچ هنرجویی در فایل پیدا نشد. ردیف اول باید عنوان ستون‌ها باشد.");return}
+    if(confirm(L.length+" هنرجو خوانده شد.\n\nتأیید = جایگزین اطلاعات فعلی\nانصراف = اضافه/تکمیل لیست فعلی (بر اساس کد ملی)"))S=L;
+    else{const by=new Map(S.filter(s=>s.nid).map(s=>[s.nid,s]));L.forEach(s=>{const e=s.nid&&by.get(s.nid);if(e){["fn","ln","major","grade","year","bd","home","mob","dad","mom"].forEach(k=>{if(!e[k]&&s[k])e[k]=s[k]})}else S.push(s)})}
+    rebuildMajors();save();closeSheet();showHome();showToast(L.length+" هنرجو وارد شد");
+  }catch(e){alert("خواندن فایل ممکن نشد. فایل اکسل (xlsx)، ورد (docx) یا CSV را امتحان کنید.")}
+}
+function dl(name,txt){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\uFEFF"+txt],{type:"text/csv;charset=utf-8"}));a.download=name;a.click()}
+const q2=v=>'"'+String(v??"").replace(/"/g,'""')+'"';
+function expX(){
+  const C=[["fn","نام"],["ln","نام خانوادگی"],["nid","کد ملی"],["major","رشته"],["grade","پایه"],["bd","تاریخ تولد"],["home","تلفن ثابت"],["mob","موبایل هنرجو"],["dad","موبایل پدر"],["mom","موبایل مادر"]];
+  dl("دفترچه-تلفن.csv",[C.map(c=>q2(c[1])).join(",")].concat(S.filter(s=>!s.out).map(s=>C.map(c=>q2(s[c[0]])).join(","))).join("\r\n"));
+}
+function exportAttReport(year,month){
+  const prefix=month?`${year}/${String(month).padStart(2,"0")}`:`${year}/`,counts={};
+  Object.keys(ATT).filter(d=>d.startsWith(prefix)).forEach(d=>Object.keys(ATT[d]).forEach(id=>{counts[id]=(counts[id]||0)+1}));
+  const rows=[["نام","نام خانوادگی","رشته","پایه","تعداد غیبت"]];
+  Object.entries(counts).sort((a,b)=>b[1]-a[1]).forEach(([id,c])=>{const s=S.find(x=>x.id===id)||{};rows.push([s.fn||"",s.ln||"",s.major||"",s.grade||"",c])});
+  dl(`غیبت-${year}-${month||"سال"}.csv`,rows.map(r=>r.map(q2).join(",")).join("\r\n"));
+}
+// ---------- birthdays ----------
+function showBirthdays(mmdd){
+  const day=mmdd||todayStr(),list=S.filter(s=>!s.out&&bdMD(s.bd)===day),[m,d]=day.split("-");
+  const school=$("schoolT").textContent;
+  const card=s=>{const k=["mob","dad","mom"].find(x=>s[x]);const lb={mob:"هنرجو",dad:"پدر",mom:"مادر"};
+    const c=k?norm(s[k]).replace(/[^\d+]/g,""):"";
+    const body=encodeURIComponent(`${s.fn} عزیز، تولدت مبارک 🎂🌹\n${school}`);
+    return `<div class="bday-card"><div class="info"><b>${esc(s.fn)} ${esc(s.ln)}</b><br><small>${esc(s.major||"")}${s.grade?" · پایه "+esc(s.grade):""}</small>${k?`<br><small class="num">${lb[k]}: ${esc(s[k])}</small>`:'<br><small style="color:var(--rd)">بدون شماره</small>'}</div>${k?`<a class="sms" href="sms:${c}?body=${body}">💬 تبریک</a>`:""}</div>`};
+  openPage("bday",`<h2>🎂 متولدین ${+d} ${JMONTHS[+m-1]||m}</h2>
+  <div class="date-row"><select id="bdMonth">${JMONTHS.map((n,i)=>{const v=String(i+1).padStart(2,"0");return `<option value="${v}" ${v===m?"selected":""}>${n}</option>`}).join("")}</select>
+  <select id="bdDay">${[...Array(31)].map((_,i)=>`<option value="${String(i+1).padStart(2,"0")}" ${String(i+1).padStart(2,"0")===d?"selected":""}>${i+1}</option>`).join("")}</select>
+  <button class="btn" style="flex:none;width:auto;padding:10px 14px;margin:0" onclick="showBirthdays($('bdMonth').value+'-'+$('bdDay').value)">نمایش</button></div>
+  <div class="cnt">${list.length} نفر</div>${list.length?list.map(card).join(""):'<div class="empty">متولدی در این روز ثبت نشده</div>'}`);
+}
+// ---------- detail / form ----------
+function detail(id){
+  const s=S.find(x=>x.id===id);if(!s)return;
+  const pc=(k,lb)=>{const n=s[k];if(!n)return "";const c=norm(n).replace(/[^\d+]/g,"");
+    return `<div class="pc ${k}"><span class="pi">${IC[k]}</span><div class="pn"><small>${lb}</small><b class="num">${esc(n)}</b></div><div class="pa"><a href="tel:${c}" class="b1">📞</a>${k==="home"?"":`<a href="sms:${c}" class="b2">💬</a>`}<button onclick="copyNum('${c}')" class="b3">📋</button></div></div>`};
+  const has=PH.some(p=>s[p[0]]);
+  openSheet(`<h2>${esc(s.fn)} ${esc(s.ln)}</h2>
+  <div class="kv"><span>کد ملی</span><span class="num">${esc(s.nid)||"—"}</span></div>
+  <div class="kv"><span>رشته / پایه</span><span>${esc(s.major)||"—"} / ${esc(s.grade)||"—"}</span></div>
+  <div class="kv"><span>تاریخ تولد</span><span>${esc(s.bd)||"—"}</span></div>
+  <div style="margin-top:10px">${pc("mob","موبایل هنرجو")}${pc("dad","موبایل پدر")}${pc("mom","موبایل مادر")}${pc("home","تلفن ثابت")}${has?"":'<div class="empty">شماره‌ای ثبت نشده</div>'}</div>
+  <button class="btn" onclick="editForm('${s.id}')">✏️ ویرایش</button>
+  <button class="btn s" onclick="exportVCard('${s.id}')">📇 ذخیره در مخاطبین</button>
+  <button class="btn s" onclick="closeSheet()">بستن</button>`);
+}
+function editForm(id){
+  const s=S.find(x=>x.id===id)||{major:"",grade:""};
+  openSheet(`<h2>${id?"ویرایش هنرجو":"هنرجوی جدید"}</h2>
+  <div class="two"><div class="f"><label>نام</label><input id="fn" value="${esc(s.fn)}"></div><div class="f"><label>نام خانوادگی</label><input id="ln" value="${esc(s.ln)}"></div></div>
+  <div class="f"><label>کد ملی</label><input id="nid" inputmode="numeric" class="num" value="${esc(s.nid)}"></div>
+  <div class="two"><div class="f"><label>رشته</label><input id="major" list="mj" onchange="gr()" value="${esc(s.major)}"><datalist id="mj">${Object.keys(MAJORS).map(m=>`<option value="${esc(m)}">`).join("")}</datalist></div>
+  <div class="f"><label>پایه</label><select id="grade"></select></div></div>
+  <div class="f"><label>تاریخ تولد (مثلاً 1388/05/12)</label><input id="bd" inputmode="numeric" class="num" value="${esc(s.bd)}"></div>
+  ${PH.map(p=>`<div class="f"><label>${p[1]}</label><input id="${p[0]}" type="tel" class="num" value="${esc(s[p[0]])}"></div>`).join("")}
+  <button class="btn" onclick="saveF('${id||""}')">ذخیره</button>
+  ${id?`<button class="btn r" onclick="del('${id}')">حذف هنرجو</button>`:""}
+  <button class="btn s" onclick="closeSheet()">انصراف</button>`);
+  gr(s.grade);
+}
+function saveF(id){
+  const o={};["fn","ln","nid","major","grade","home","mob","dad","mom"].forEach(k=>o[k]=norm($(k).value));o.bd=normBd($("bd").value);o.ey=1;
+  if(!o.ln){alert("نام خانوادگی را وارد کنید");return}
+  if(!id&&DEMO&&S.filter(x=>!x.out).length>=10){alert("در نسخه نمایشی حداکثر ۱۰ هنرجو قابل ثبت است. برای نسخه اصلی تماس بگیرید: 09132603930");return}
+  if($("bd").value.trim()&&!o.bd){alert("تاریخ تولد را مثل 1388/05/12 بنویسید");return}
+  if(o.major&&!MAJORS[o.major])MAJORS[o.major]=[10,11,12];
+  if(id){Object.assign(S.find(x=>x.id===id),o)}else{o.id=uid();o.year=YBYG[o.grade]||"";S.push(o)}
+  save();closeSheet();render();if(!$("home").hidden)showHome();
+}
+function del(id){if(confirm("این هنرجو حذف شود؟")){S=S.filter(x=>x.id!==id);save();closeSheet();render()}}
+// ---------- home & pages ----------
+function setTab(t){document.body.classList.add("inner");["book","bday","att"].forEach(k=>{const b=$("tab_"+k);if(b)b.classList.toggle("on",k===t)})}
+let VCUR={k:"home"},VSTACK=[],RESTORING=false,SKIP=0;
+function pushNav(next,key){
+  if(!RESTORING){
+    if(!(VCUR.k===next.k&&VCUR.key===key&&key)){VSTACK.push(VCUR);try{history.pushState(null,"")}catch(e){}}
+  }
+  next.key=key;VCUR=next;
+}
+function hideAll(){document.body.classList.remove("inner");$("home").hidden=true;$("lv").hidden=true;$("pgx").hidden=true;$("tabs").hidden=true;$("add").style.display="none";$("bye").hidden=true}
+function openPage(tab,html){
+  const key=((html.match(/<h2>(\S+)/)||[])[1])||tab;
+  pushNav({k:"page",tab,html},key);
+  hideAll();$("pgx").innerHTML=html+'<button class="btn s" style="margin-top:14px" onclick="backBtn()">↩ برگشت به صفحه قبل</button>';
+  $("pgx").hidden=false;$("tabs").hidden=false;setTab(tab);$("bg").classList.remove("on");closeSheet();scrollTo(0,0);
+}
+function fillHome(){
+  const n=S.filter(s=>!s.out&&bdMD(s.bd)===todayStr()).length;
+  $("bdBadge").textContent=n+" نفر";$("bdBadge").hidden=!n;
+  try{$("dateLine").textContent=new Date().toLocaleDateString("fa-IR",{weekday:"long",year:"numeric",month:"long",day:"numeric"})}catch(e){}
+}
+function showHome(){
+  if(!RESTORING&&VSTACK.length){const n=VSTACK.length;VSTACK=[];SKIP=1;try{history.go(-n)}catch(e){SKIP=0}}
+  VCUR={k:"home"};hideAll();$("home").hidden=false;$("bg").classList.add("on");fillHome();scrollTo(0,0)}
+function showList(){
+  pushNav({k:"list",filt:{...filt}},"list");
+  hideAll();$("lv").hidden=false;$("tabs").hidden=false;setTab("book");$("add").style.display="";$("bg").classList.remove("on");
+  $("lvMajor").innerHTML='<option value="">همه رشته‌ها</option>'+Object.keys(MAJORS).map(m=>`<option ${m===filt.major?"selected":""}>${esc(m)}</option>`).join("");
+  $("q").value="";render();scrollTo(0,0)}
+function restoreView(v){
+  RESTORING=true;
+  try{if(v.k==="home")showHome();else if(v.k==="list"){filt=v.filt;showList()}else openPage(v.tab,v.html)}finally{RESTORING=false}
+  VCUR=v;
+}
+function goBack(fromBtn){
+  if($("sh").classList.contains("on")){closeSheet();if(!fromBtn){try{history.pushState(null,"")}catch(e){}}return}
+  if(!VSTACK.length){if(VCUR.k!=="home")showHome();return}
+  const v=VSTACK.pop();
+  if(fromBtn){SKIP=1;try{history.back()}catch(e){SKIP=0}}
+  restoreView(v);
+}
+const backBtn=()=>goBack(true);
+window.addEventListener("popstate",()=>{if(SKIP){SKIP=0;return}goBack(false)});
+$("homeBtn").onclick=()=>{closeSheet();showHome()};
+$("goBtn").onclick=()=>{filt={major:"",year:""};showList()};
+$("lvMajor").onchange=()=>{filt.major=$("lvMajor").value;render()};
+$("tab_book").onclick=()=>{filt={major:"",year:""};showList()};
+$("tab_bday").onclick=()=>showBirthdays();
+$("tab_att").onclick=()=>showAttendance();
+$("add").onclick=()=>editForm();
+$("bdayBtn").onclick=()=>showBirthdays();
+$("attBtn").onclick=()=>showAttendance();
+$("statBtn").onclick=()=>showStats();
+// ---------- theme ----------
+function applyTheme(t){document.documentElement.dataset.theme=t;LSset(K2("theme"),t);$("themeBtn").textContent=t==="dark"?"☀️":"🌙"}
+applyTheme(LS(K2("theme"))||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"));
+$("themeBtn").onclick=()=>applyTheme(document.documentElement.dataset.theme==="dark"?"light":"dark");
+// ---------- school / logo ----------
+function applySchool(){
+  const n=LS(K2("school")),c=LS(K2("city")),l=LS(K2("logo"));
+  if(n)$("schoolT").textContent=n;if(c!==null)$("cityT").textContent=c;
+  if(l){["bg","logoImg","lkImg"].forEach(i=>{const e=$(i);if(e)e.src=l})}
+}
+function setSchool(){
+  const n=prompt("نام مدرسه:",$("schoolT").textContent);if(!n||!n.trim())return;
+  const c=prompt("شهر یا شهرستان (می‌توانید خالی بگذارید):",$("cityT").textContent);
+  LSset(K2("school"),n.trim());LSset(K2("city"),(c||"").trim());applySchool();closeSheet();
+}
+function pickLogo(f){if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const c=document.createElement("canvas");c.width=c.height=220;const x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,220,220);const s=Math.min(im.width,im.height);x.drawImage(im,(im.width-s)/2,(im.height-s)/2,s,s,0,0,220,220);LSset(K2("logo"),c.toDataURL("image/jpeg",.85));applySchool();closeSheet()};im.src=r.result};r.readAsDataURL(f)}
+// ---------- menu ----------
+function openMenu(){
+  if(DEMO){openSheet(`<h2>تنظیمات</h2><div class="empty" style="line-height:2.1">تنظیمات (ورود اطلاعات از اکسل و ورد، خروجی، رمز ورود، نام و لوگوی مدرسه، ارتقای پایه و پشتیبان‌گیری) در <b>نسخه اصلی</b> فعال است.<br>برای تهیه نسخه اصلی تماس بگیرید:<br><a href="tel:09132603930" style="font-weight:700;color:var(--nv2)">📞 09132603930</a><br>الف. شفائی مقدم</div><button class="btn s" onclick="closeSheet()">بستن</button>`);return}
+  openSheet(`<h2>تنظیمات</h2>
+  <button class="btn g" style="font-size:16px" onclick="$('impf').click()">📥 ورود اطلاعات از اکسل / ورد / CSV</button>
+  <input type="file" id="impf" accept=".xlsx,.docx,.csv,.txt" hidden onchange="impX(this.files[0])">
+  <button class="btn" onclick="expX()">📤 خروجی اکسل (CSV)</button>
+  <button class="btn" onclick="promote()">⬆️ ارتقای پایه‌ها (سال جدید)</button>
+  <button class="btn s" onclick="setSchool()">🏫 نام مدرسه و شهر</button>
+  <button class="btn s" onclick="$('lgf').click()">🖼️ تغییر لوگو</button>
+  <input type="file" id="lgf" accept="image/*" hidden onchange="pickLogo(this.files[0])">
+  ${ENC?`<button class="btn s" onclick="checkSeed(true)">📥 بازیابی اطلاعات اولیه مدرسه</button>`:""}
+  ${LOCKED?`<button class="btn s" onclick="changePw()">🔑 تغییر رمز ورود</button><button class="btn s" onclick="lockNow()">🔒 قفل کردن برنامه</button>`:""}
+  <button class="btn s" onclick="exp()">💾 نسخه پشتیبان (JSON)</button>
+  <button class="btn s" onclick="$('imp').click()">📂 بازیابی از پشتیبان</button>
+  <input type="file" id="imp" accept=".json" hidden onchange="imp(this.files[0])">
+  <button class="btn s" onclick="closeSheet()">بستن</button>`);
+}
+$("menuBtn").onclick=openMenu;
+// ---------- password lock ----------
+function hpw(s){let h1=0xdeadbeef,h2=0x41c6ce57;const t="pb|"+s+"|k";for(let i=0;i<t.length;i++){const c=t.charCodeAt(i);h1=Math.imul(h1^c,2654435761);h2=Math.imul(h2^c,1597334677)}h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);return(4294967296*(2097151&h2)+(h1>>>0)).toString(36)}
+function lockScreen(){
+  const has=!!LS(K2("pw"));$("lock").hidden=false;$("lk1").value="";$("lk2").value="";$("lkMsg").textContent="";
+  $("lkTitle").textContent=has?"رمز ورود را وارد کنید":(ENC?"رمز اولیه برنامه را وارد کنید":"یک رمز ورود برای برنامه بسازید");
+  $("lk2").hidden=has||!!ENC;$("lkForget").hidden=!has;$("lkBtn").textContent=has?"ورود":"ثبت رمز و ورود";
+}
+function unlockOk(){try{sessionStorage.setItem(K2("ok"),"1")}catch(e){}$("lock").hidden=true;showHome();checkSeed()}
+function lockNow(){try{sessionStorage.removeItem(K2("ok"))}catch(e){}closeSheet();lockScreen()}
+function changePw(){openSheet(`<h2>🔑 تغییر رمز ورود</h2><div class="f"><label>رمز جدید (حداقل ۴ حرف)</label><input id="np1" type="password" class="num"></div><div class="f"><label>تکرار رمز جدید</label><input id="np2" type="password" class="num"></div><button class="btn" onclick="savePw()">ذخیره رمز</button><button class="btn s" onclick="closeSheet()">انصراف</button>`)}
+function savePw(){const a=norm($("np1").value),b=norm($("np2").value);if(a.length<4){alert("رمز باید حداقل ۴ حرف باشد");return}if(a!==b){alert("تکرار رمز یکسان نیست");return}LSset(K2("pw"),hpw(a));closeSheet();showToast("رمز جدید ذخیره شد")}
+if(LOCKED){
+$("lkBtn").onclick=async()=>{
+  const a=norm($("lk1").value),has=!!LS(K2("pw"));
+  if(has){if(hpw(a)===LS(K2("pw")))unlockOk();else $("lkMsg").textContent="رمز اشتباه است";return}
+  if(ENC){$("lkMsg").textContent="در حال بررسی…";try{S=await decSeed(a);rebuildMajors();save();LSset(K2("pw"),hpw(a));unlockOk()}catch(e){$("lkMsg").textContent=e.message==="nosub"?"این مرورگر پشتیبانی نمی‌کند. فایل را با Chrome باز کنید.":"رمز اشتباه است"}return}
+  if(a.length<4){$("lkMsg").textContent="رمز باید حداقل ۴ حرف باشد";return}
+  if(a!==norm($("lk2").value)){$("lkMsg").textContent="تکرار رمز یکسان نیست";return}
+  LSset(K2("pw"),hpw(a));unlockOk();
+};
+$("lk1").onkeydown=$("lk2").onkeydown=e=>{if(e.key==="Enter")$("lkBtn").click()};
+$("lkForget").onclick=()=>{if(confirm("اگر رمز را فراموش کرده‌اید، برای ادامه همه اطلاعات برنامه (هنرجویان و غیبت‌ها) پاک می‌شود و باید رمز تازه بسازید. ادامه می‌دهید؟")){try{[KEY,ATTKEY,K2("pw")].forEach(k=>localStorage.removeItem(k))}catch(e){}S=[];ATT={};lockScreen()}};
+}
+// ===== v2 additions =====
+const fa=v=>String(v).replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[d]);
+const WD=["یکشنبه","دوشنبه","سه‌شنبه","چهارشنبه","پنجشنبه","جمعه","شنبه"];
+const fmtFull=(y,m,d)=>`${fa(+d)} ${JMONTHS[+m-1]} ${fa(y)}`;
+function fmtBdText(b){if(!b)return "—";if(b.includes("/")){const p=b.split("/");return fmtFull(p[0],p[1],p[2])}const p=b.split("-");return `${fa(+p[1])} ${JMONTHS[+p[0]-1]}`}
+const SV='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">';
+const IC_SMS=SV+'<path d="M4 5h16a1 1 0 011 1v10a1 1 0 01-1 1H10l-4.5 3.5V17H4a1 1 0 01-1-1V6a1 1 0 011-1z"/><path d="M7.5 9.5h9M7.5 12.8h6"/></svg>';
+const IC_CP=SV+'<rect x="9" y="9" width="11" height="11" rx="2.2"/><path d="M5 15.5V6.2A2.2 2.2 0 017.2 4H16"/></svg>';
+const IC_TEL=SV+'<path d="M5.5 4h3.2l1.8 4.6-2.2 1.4a11 11 0 005.7 5.7l1.4-2.2 4.6 1.8v3.2a1.5 1.5 0 01-1.6 1.5A15.5 15.5 0 014 5.6 1.5 1.5 0 015.5 4z"/></svg>';
+function fillHome(){
+  const n=S.filter(s=>!s.out&&bdMD(s.bd)===todayStr()).length;
+  $("bdBadge").textContent=fa(n)+" نفر";$("bdBadge").hidden=!n;
+  try{$("dateLine").textContent=WD[new Date().getDay()]+" "+fmtFull(...todayJalali())}catch(e){}
+}
+function showBirthdays(mmdd){
+  const day=mmdd||todayStr(),list=S.filter(s=>!s.out&&bdMD(s.bd)===day),[m,d]=day.split("-");
+  const school=$("schoolT").textContent;
+  const card=s=>{const k=["mob","dad","mom"].find(x=>s[x]);const lb={mob:"هنرجو",dad:"پدر",mom:"مادر"};
+    const c=k?norm(s[k]).replace(/[^\d+]/g,""):"";
+    const body=encodeURIComponent(`${s.fn} عزیز، تولدت مبارک 🎂🌹\n${school}`);
+    return `<div class="bday-card"><div class="info"><b>${esc(s.fn)} ${esc(s.ln)}</b><br><small>${esc(s.major||"")}${s.grade?" · پایه "+fa(s.grade):""}</small>${k?`<br><small class="num">${lb[k]}: ${esc(s[k])}</small>`:'<br><small style="color:var(--rd)">بدون شماره</small>'}</div>${k?`<a class="sms" href="sms:${c}?body=${body}">${IC_SMS}<span>تبریک</span></a>`:""}</div>`};
+  openPage("bday",`<h2>🎂 متولدین ${fa(+d)} ${JMONTHS[+m-1]}</h2>
+  <div class="date-row"><select id="bdDay">${[...Array(31)].map((_,i)=>`<option value="${String(i+1).padStart(2,"0")}" ${String(i+1).padStart(2,"0")===d?"selected":""}>${fa(i+1)}</option>`).join("")}</select>
+  <select id="bdMonth">${JMONTHS.map((n,i)=>{const v=String(i+1).padStart(2,"0");return `<option value="${v}" ${v===m?"selected":""}>${n}</option>`}).join("")}</select>
+  <button class="btn" style="flex:none;width:auto;padding:10px 14px;margin:0" onclick="showBirthdays($('bdMonth').value+'-'+$('bdDay').value)">نمایش</button></div>
+  <div class="cnt">${fa(list.length)} نفر</div>${list.length?list.map(card).join(""):'<div class="empty">متولدی در این روز ثبت نشده</div>'}`);
+}
+function detail(id){
+  const s=S.find(x=>x.id===id);if(!s)return;
+  const pc=(k,lb)=>{const n=s[k];if(!n)return "";const c=norm(n).replace(/[^\d+]/g,"");
+    return `<div class="pc ${k}"><span class="pi">${IC[k]}</span><div class="pn"><small>${lb}</small><b class="num">${esc(n)}</b></div><div class="pa"><a href="tel:${c}" class="b1" title="تماس">${IC_TEL}</a>${k==="home"?"":`<a href="sms:${c}" class="b2" title="پیامک">${IC_SMS}</a>`}<button onclick="copyNum('${c}')" class="b3" title="کپی">${IC_CP}</button></div></div>`};
+  const has=PH.some(p=>s[p[0]]),nf=(s.fu||[]).length;
+  openSheet(`<h2>${esc(s.fn)} ${esc(s.ln)}</h2>
+  <div class="kv"><span>کد ملی</span><span class="num">${esc(s.nid)||"—"}</span></div>
+  <div class="kv"><span>رشته / پایه</span><span>${esc(s.major)||"—"} / ${s.grade?fa(s.grade):"—"}</span></div>
+  <div class="kv"><span>تاریخ تولد</span><span>${fmtBdText(s.bd)}</span></div>
+  <div style="margin-top:10px">${pc("mob","موبایل هنرجو")}${pc("dad","موبایل پدر")}${pc("mom","موبایل مادر")}${pc("home","تلفن ثابت")}${has?"":'<div class="empty">شماره‌ای ثبت نشده</div>'}</div>
+  <button class="btn fu-btn" onclick="followForm('${s.id}')">🗒️ پیگیری وضعیت${nf?" ("+fa(nf)+")":""}</button>
+  <button class="btn" onclick="editForm('${s.id}')">✏️ ویرایش</button>
+  <button class="btn s" onclick="exportVCard('${s.id}')">📇 ذخیره در مخاطبین</button>
+  <button class="btn s" onclick="closeSheet()">بستن</button>`);
+}
+// ----- attendance: grade -> major (only majors of that grade) -> date -----
+function attMajorsFor(g){const set=new Set(S.filter(s=>!s.out&&s.major&&(!g||String(s.grade)===String(g))).map(s=>s.major));return Object.keys(MAJORS).filter(m=>set.has(m))}
+function fillAttMajors(){const g=$("attGrade").value,cur=$("attMajor").value;$("attMajor").innerHTML='<option value="">همه رشته‌های این پایه</option>'+attMajorsFor(g).map(m=>`<option ${m===cur?"selected":""}>${esc(m)}</option>`).join("")}
+function attLbl(){$("attLbl").textContent=fmtFull($("attY").value,$("attM").value,$("attD").value)}
+function showAttendance(){
+  const [jy,jm,jd]=todayJalali();
+  openPage("att",`<h2>📋 حضور و غیاب</h2>
+  <div class="f"><label>۱) پایه</label><select id="attGrade" onchange="fillAttMajors()"><option value="">همه پایه‌ها</option><option value="10">دهم</option><option value="11">یازدهم</option><option value="12">دوازدهم</option></select></div>
+  <div class="f"><label>۲) رشته</label><select id="attMajor"></select></div>
+  <div class="f"><label>۳) تاریخ</label><div class="date-row" style="margin:0">
+    <select id="attD" onchange="attLbl()">${[...Array(31)].map((_,i)=>`<option value="${i+1}" ${i+1===jd?"selected":""}>${fa(i+1)}</option>`).join("")}</select>
+    <select id="attM" onchange="attLbl()">${JMONTHS.map((n,i)=>`<option value="${i+1}" ${i+1===jm?"selected":""}>${n}</option>`).join("")}</select>
+    <select id="attY" onchange="attLbl()">${[jy,jy-1].map(y=>`<option value="${y}">${fa(y)}</option>`).join("")}</select></div>
+    <div id="attLbl" class="dlbl"></div></div>
+  <button class="btn" onclick="loadAttList()">نمایش لیست</button>
+  <div id="attList"></div>
+  <button class="btn s" style="margin-top:16px" onclick="showMonthReport()">📊 گزارش ماهانه غیبت</button>`);
+  fillAttMajors();attLbl();
+}
+function loadAttList(){
+  const major=$("attMajor").value,grade=$("attGrade").value,date=attDateStr();
+  if(!major&&!grade){alert("اول پایه را انتخاب کنید");return}
+  const students=S.filter(s=>!s.out&&(!major||s.major===major)&&(!grade||String(s.grade)===String(grade))).sort((a,b)=>(a.ln||"").localeCompare(b.ln||"","fa"));
+  if(!ATT[date])ATT[date]={};const abs=ATT[date],p=date.split("/");
+  $("attList").innerHTML=`<div class="cnt">${fa(students.length)} هنرجو · ${fmtFull(p[0],p[1],p[2])}</div>
+  ${students.map(s=>`<div class="att-row"><label><input type="checkbox" data-id="${s.id}" ${abs[s.id]?"checked":""}> <b>${esc(s.fn)} ${esc(s.ln)}</b> <small style="color:var(--mu)">${esc(s.major||"")}</small></label></div>`).join("")||'<div class="empty">هنرجویی یافت نشد</div>'}
+  <button class="btn g" onclick="saveAttList('${date}')">💾 ذخیره غیبت‌ها (تیک = غایب)</button>`;
+}
+// ----- print / PDF -----
+function printBook(){
+  const L=S.filter(s=>!s.out&&(!filt.major||s.major===filt.major)).sort((a,b)=>(+a.grade||99)-(+b.grade||99)||(a.major||"").localeCompare(b.major||"","fa")||(a.ln||"").localeCompare(b.ln||"","fa"));
+  const school=$("schoolT").textContent,city=$("cityT").textContent;
+  const rows=L.map((s,i)=>`<tr><td>${fa(i+1)}</td><td>${esc(s.fn)} ${esc(s.ln)}</td><td class="n">${esc(s.nid)}</td><td>${esc(s.major||"")}${s.grade?" - "+fa(s.grade):""}</td><td class="n">${esc(s.mob)}</td><td class="n">${esc(s.dad)}</td><td class="n">${esc(s.mom)}</td><td class="n">${esc(s.home)}</td></tr>`).join("");
+  $("printArea").innerHTML=`<h2>${esc(school)}${city?" - "+esc(city):""}</h2><p>دفترچه تلفن هنرجویان${filt.major?" · "+esc(filt.major):""} · ${fa(L.length)} نفر · ${fmtFull(...todayJalali())}</p><table class="pt"><thead><tr><th>ردیف</th><th>نام و نام خانوادگی</th><th>کد ملی</th><th>رشته - پایه</th><th>موبایل هنرجو</th><th>موبایل پدر</th><th>موبایل مادر</th><th>تلفن ثابت</th></tr></thead><tbody>${rows}</tbody></table>`;
+  setTimeout(()=>window.print(),250);
+}
+// ----- follow-up (پیگیری وضعیت) -----
+const FW={mom:"مادر",dad:"پدر",mob:"خود هنرجو",vis:"حضوری",oth:"سایر"};
+function voiceInput(id){
+  const R=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!R){alert("این مرورگر تایپ صوتی ندارد. روی میکروفون صفحه‌کلید گوشی بزنید و صحبت کنید.");return}
+  const r=new R();r.lang="fa-IR";r.onresult=e=>{const t=e.results[0][0].transcript;$(id).value=($(id).value+" "+t).trim()};
+  r.onerror=()=>alert("تایپ صوتی انجام نشد. از میکروفون صفحه‌کلید گوشی استفاده کنید.");r.start();
+}
+function followForm(id){
+  const s=S.find(x=>x.id===id);if(!s)return;const fu=(s.fu||[]).slice().reverse();
+  openSheet(`<h2>🗒️ پیگیری وضعیت</h2><div class="cnt">${esc(s.fn)} ${esc(s.ln)}</div>
+  <div class="two"><div class="f"><label>تماس با</label><select id="fuW">${Object.entries(FW).map(([k,v])=>`<option value="${k}">${v}</option>`).join("")}</select></div>
+  <div class="f"><label>تاریخ</label><input id="fuD" class="num" inputmode="numeric" value="${todayISO()}"></div></div>
+  <div class="f"><label>نتیجه / توضیح</label><textarea id="fuT" rows="3" class="ta" placeholder="مثلاً: با مادر تماس گرفته شد، قرار شد فردا مراجعه کند"></textarea></div>
+  <button class="btn s" onclick="voiceInput('fuT')">🎤 تایپ صوتی</button>
+  <button class="btn g" onclick="saveFollow('${id}')">ثبت پیگیری</button>
+  ${fu.length?'<div class="ph">پیگیری‌های قبلی</div>'+fu.map(f=>`<div class="fu"><div><b>${FW[f.w]||""}</b> · ${fmtBdText(f.d)}</div><div>${esc(f.t)}</div><button class="x" onclick="delFollow('${id}','${f.id}')">حذف</button></div>`).join(""):""}
+  <button class="btn s" onclick="detail('${id}')">بازگشت</button>`);
+}
+function saveFollow(id){
+  const s=S.find(x=>x.id===id),d=normBd($("fuD").value),t=$("fuT").value.trim();
+  if(!d||!d.includes("/")){alert("تاریخ را مثل 1405/08/27 بنویسید");return}
+  if(!t){alert("نتیجه یا توضیح را بنویسید");return}
+  (s.fu=s.fu||[]).push({id:uid(),w:$("fuW").value,d,t});save();showToast("پیگیری ثبت شد");followForm(id);
+}
+function delFollow(id,fid){const s=S.find(x=>x.id===id);if(s&&confirm("این پیگیری حذف شود؟")){s.fu=(s.fu||[]).filter(f=>f.id!==fid);save();followForm(id)}}
+function followRows(y,m){const pre=m?`${y}/${String(m).padStart(2,"0")}`:`${y}/`,R=[];S.forEach(s=>(s.fu||[]).forEach(f=>{if(f.d.startsWith(pre))R.push({s,f})}));return R.sort((a,b)=>b.f.d.localeCompare(a.f.d))}
+function showFollowups(){
+  const [jy,jm]=todayJalali();
+  openPage("book",`<h2>🗒️ گزارش پیگیری‌ها</h2>
+  <div class="date-row"><select id="fuM"><option value="0">کل سال</option>${JMONTHS.map((n,i)=>`<option value="${i+1}" ${i+1===jm?"selected":""}>${n}</option>`).join("")}</select>
+  <select id="fuY">${[jy,jy-1].map(y=>`<option value="${y}">${fa(y)}</option>`).join("")}</select>
+  <button class="btn" style="flex:none;width:auto;padding:10px 14px;margin:0" onclick="runFollowups()">نمایش</button></div><div id="fuRes"></div>`);
+  runFollowups();
+}
+function runFollowups(){
+  const y=+$("fuY").value,m=+$("fuM").value,R=followRows(y,m);
+  $("fuRes").innerHTML=`<div class="cnt">${fa(R.length)} مورد</div>`+(R.length?R.map(({s,f})=>`<div class="fu" onclick="followForm('${s.id}')"><div><b>${esc(s.fn)} ${esc(s.ln)}</b> <small style="color:var(--mu)">${esc(s.major||"")} ${s.grade?fa(s.grade):""}</small></div><div><small>${FW[f.w]||""} · ${fmtBdText(f.d)}</small></div><div>${esc(f.t)}</div></div>`).join("")+`<button class="btn s" onclick="exportFollow(${y},${m})">📥 خروجی اکسل (CSV)</button>`:'<div class="empty">پیگیری ثبت نشده</div>');
+}
+function exportFollow(y,m){
+  const rows=[["نام","نام خانوادگی","رشته","پایه","تاریخ","تماس با","شرح"]];
+  followRows(y,m).forEach(({s,f})=>rows.push([s.fn,s.ln,s.major||"",s.grade||"",f.d,FW[f.w]||"",f.t]));
+  dl(`پیگیری-${y}-${m||"سال"}.csv`,rows.map(r=>r.map(q2).join(",")).join("\r\n"));
+}
+$("printBtn").onclick=printBook;$("fuBtn").onclick=showFollowups;
+
+
+async function decSeed(pw){
+  if(!(window.crypto&&crypto.subtle))throw new Error("nosub");const b=x=>Uint8Array.from(atob(x),c=>c.charCodeAt(0));
+  const km=await crypto.subtle.importKey("raw",new TextEncoder().encode(pw),"PBKDF2",false,["deriveKey"]);
+  let last=new Error("bad");
+  for(const E of ENC){try{
+    const k=await crypto.subtle.deriveKey({name:"PBKDF2",salt:b(E.s),iterations:E.n,hash:"SHA-256"},km,{name:"AES-GCM",length:256},false,["decrypt"]);
+    return JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({name:"AES-GCM",iv:b(E.i)},k,b(E.c))));
+  }catch(e){last=e}}
+  throw last;
+}
+// ----- color themes -----
+const THEMES=[{n:"پیش‌فرض",nv:"#14284b",nv2:"#1f3a6b",t1:"#5e35b1",t2:"#8e63d6"},{n:"آبی",nv:"#0d3a8a",nv2:"#1e5fd0",t1:"#1565c0",t2:"#42a5f5"},{n:"سبز",nv:"#0f3d2e",nv2:"#1d6b4a",t1:"#2e8b57",t2:"#6bc995"},{n:"بنفش",nv:"#2d1a5c",nv2:"#4527a0",t1:"#6a3fd0",t2:"#a07bf0"},{n:"فیروزه‌ای",nv:"#0b4a52",nv2:"#13808c",t1:"#00acc1",t2:"#4dd0e1"},{n:"زرشکی",nv:"#5a1230",nv2:"#8e1f4d",t1:"#c2185b",t2:"#f06292"}];
+function mixC(h,k){const n=parseInt(h.slice(1),16),f=x=>Math.round(x*k).toString(16).padStart(2,"0");return "#"+f(n>>16)+f((n>>8)&255)+f(n&255)}
+function applyColor(i){
+  const T=THEMES[i]||THEMES[0];LSset(K2("color"),i);let st=document.getElementById("themeStyle");
+  if(!st){st=document.createElement("style");st.id="themeStyle";document.head.appendChild(st)}
+  st.textContent=`:root{--nv:${T.nv};--nv2:${T.nv2};--t1:${T.t1};--t2:${T.t2}}:root[data-theme="dark"]{--nv:${mixC(T.nv,.55)};--nv2:${mixC(T.nv2,.6)};--t1:${mixC(T.t1,.85)};--t2:${mixC(T.t2,.85)}}`;
+}
+function colorPicker(){openSheet(`<h2>🎨 رنگ برنامه</h2><div class="swatches">${THEMES.map((T,i)=>`<button class="sw" onclick="applyColor(${i});closeSheet()" style="background:linear-gradient(135deg,${T.nv},${T.t1})">${T.n}</button>`).join("")}</div><button class="btn s" onclick="closeSheet()">بستن</button>`)}
+$("colorBtn").onclick=colorPicker;applyColor(+(LS(K2("color"))||0));
+// ----- restore school data (encrypted seed) -----
+function checkSeed(force){
+  if(!ENC||(S.length&&!force))return;
+  openSheet(`<h2>📥 ورود اطلاعات مدرسه</h2><div class="empty" style="line-height:2">${force?"با رمز اولیه برنامه، اطلاعات هنرجویان دوباره وارد می‌شود (اطلاعات فعلی جایگزین می‌شود).":"هنوز اطلاعات هنرجویان وارد نشده است."}<br>رمز اولیه برنامه را وارد کنید:</div><div class="f"><input id="rsPw" type="password" class="num" style="text-align:center"></div><button class="btn g" onclick="restoreSeed()">بازیابی اطلاعات</button><button class="btn s" onclick="closeSheet()">بعداً</button>`);
+}
+async function restoreSeed(){
+  const a=norm($("rsPw").value);
+  try{S=await decSeed(a);rebuildMajors();save();closeSheet();showHome();showToast(S.length+" هنرجو وارد شد")}
+  catch(e){alert(e.message==="nosub"?"این مرورگر پشتیبانی نمی‌کند. فایل را با Chrome باز کنید.":"رمز اشتباه است")}
+}
+
+
+// ----- trial (demo only) -----
+function trialCheck(){
+  if(!DEMO)return;
+  const DAY=864e5,now=Date.now();
+  let first=+LS(K2("first"))||0,last=+LS(K2("last"))||0;
+  if(!first){first=now;LSset(K2("first"),first)}
+  const t=Math.max(now,last);LSset(K2("last"),t);
+  const left=Math.ceil((first+20*DAY-t)/DAY);
+  if(left<=0||now>HARD_EXP){$("expired").hidden=false;return}
+  const e=$("trial");if(e)e.textContent=" · "+fa(left)+" روز تا پایان آزمایش"
+}
+trialCheck();
+load();loadAtt();applySchool();showHome();
+if(LOCKED){let ok=false;try{ok=sessionStorage.getItem(K2("ok"))==="1"&&!!LS(K2("pw"))}catch(e){}if(!ok)lockScreen();else{$("lock").hidden=true;checkSeed()}}
+
+</script></body></html>
