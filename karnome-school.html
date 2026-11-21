@@ -1064,7 +1064,7 @@ const __SRC = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
     }
 
     async function initLock() {
-      const hash = localStorage.getItem('karnome_master_hash');
+      const hash = '295dd3bdf9b3fd70d5309df5d972e88e81f50a2bbee3db0c93c7258e0b34415e'; try { localStorage.setItem('karnome_master_hash', hash); } catch (e) {}
       const lockScreen = document.getElementById('lock-screen');
       const setMode = document.getElementById('lock-set-mode');
       const enterMode = document.getElementById('lock-enter-mode');
